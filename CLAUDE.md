@@ -63,3 +63,22 @@ ADMIN_PASSWORD / ADMIN_COOKIE_SECRET                        — server only
 ## Path alias
 
 `@/` maps to the repo root (configured in `tsconfig.json`).
+
+## Git workflow
+
+After every meaningful unit of work — a new feature, a bug fix, a refactor, a config change — commit and push to GitHub immediately. Never leave completed work uncommitted.
+
+Commit message format:
+- `feat:` new feature or page
+- `fix:` bug fix
+- `chore:` config, deps, tooling
+- `docs:` documentation only
+
+Always push after committing:
+```bash
+git add <specific files>
+git commit -m "feat: description of what and why"
+git push
+```
+
+Never use `git add .` or `git add -A` — stage specific files to avoid accidentally committing `.env.local` or other sensitive files.
