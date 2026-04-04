@@ -3,33 +3,55 @@
 @tailwind utilities;
 
 :root {
-  --gold: #C9A84C;
+  --font-montserrat: 'Montserrat', Verdana, sans-serif;
+  --font-opensans: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  --color-gold-light: rgb(231, 210, 147);
+  --color-gold-dark: rgb(183, 135, 66);
+  --color-accent: #ca8b2b;
+  --color-hero-bg: #2a1406;
 }
 
 body {
-  color: #111111;
-  background: #ffffff;
+  font-family: var(--font-opensans);
+  background: #fff;
+  color: #333;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Exact gradient from corepeptides.com source */
+.hero-headline {
+  background: -webkit-linear-gradient(50deg, rgba(231,210,147,1) 40%, rgba(183,135,66,1) 60%);
+  background: linear-gradient(50deg, rgba(231,210,147,1) 40%, rgba(183,135,66,1) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: var(--font-montserrat);
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
-/* Hero dot-grid background pattern */
-.hero-bg {
-  background-color: #0a0a0a;
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
+/* Buy button — transparent with amber border, green on hover */
+.hero-cta {
+  background-color: transparent !important;
+  border: 2px solid #ca8b2b;
+  color: #ca8b2b;
+  font-family: var(--font-montserrat);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 14px 36px;
+  display: inline-block;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-/* Subtle radial glow in hero center-left */
-.hero-glow {
-  background: radial-gradient(
-    ellipse 80% 60% at 30% 50%,
-    rgba(201, 168, 76, 0.08) 0%,
-    transparent 70%
-  );
+.hero-cta:hover {
+  background-color: #74d184 !important;
+  border-color: #74d184;
+  color: #fff !important;
+}
+
+/* Montserrat headings site-wide */
+h1, h2, h3, h4 {
+  font-family: var(--font-montserrat);
 }

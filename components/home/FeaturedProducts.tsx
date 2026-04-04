@@ -4,24 +4,47 @@ import { ProductGrid } from "@/components/shop/ProductGrid";
 
 export function FeaturedProducts({ products }: { products: Product[] }) {
   return (
-    <section className="bg-white py-20">
-      <div className="max-w-7xl mx-auto px-6">
+    <section style={{ backgroundColor: "#fff", padding: "64px 0 80px" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
 
         {/* Section header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "48px" }}>
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-2">
+            <p style={{
+              fontFamily: "var(--font-montserrat)",
+              fontSize: "11px",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.25em",
+              color: "#ca8b2b",
+              marginBottom: "10px",
+            }}>
               Our Range
             </p>
-            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-black">
+            <h2 style={{
+              fontFamily: "var(--font-montserrat)",
+              fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
+              fontWeight: 800,
+              textTransform: "uppercase",
+              letterSpacing: "0.04em",
+              color: "#111",
+              margin: 0,
+            }}>
               Products For Sale
             </h2>
           </div>
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-black border-b-2 border-[#C9A84C] pb-1 hover:text-[#C9A84C] transition-colors self-start sm:self-auto"
-          >
-            View All Products →
+          <Link href="/shop" style={{
+            fontFamily: "var(--font-montserrat)",
+            fontSize: "12px",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.12em",
+            color: "#ca8b2b",
+            textDecoration: "none",
+            borderBottom: "2px solid #ca8b2b",
+            paddingBottom: "2px",
+          }}>
+            View All →
           </Link>
         </div>
 

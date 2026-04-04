@@ -9,12 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-opensans)", "Helvetica Neue", "Arial", "sans-serif"],
+        heading: ["var(--font-montserrat)", "Verdana", "sans-serif"],
       },
       colors: {
-        gold: "#C9A84C",
-        "dark-bg": "#111111",
-        "dark-section": "#1a1a1a",
+        "accent":       "#ca8b2b",
+        "accent-dark":  "#9d6b2a",
+        "hero-bg":      "#2a1406",
+        "gold-light":   "rgb(231,210,147)",
+        "gold-dark":    "rgb(183,135,66)",
+        "trust-bg":     "#161616",
       },
     },
   },
