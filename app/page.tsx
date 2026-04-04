@@ -3,6 +3,8 @@ import { TrustBadges } from "@/components/home/TrustBadges";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { createServerClient } from "@/lib/supabase/server";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const supabase = createServerClient();
   const { data: products } = await supabase
