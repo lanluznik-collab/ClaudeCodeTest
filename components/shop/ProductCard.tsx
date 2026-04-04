@@ -8,28 +8,33 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/shop/${product.slug}`} className="group block">
-      <div className="aspect-square bg-gray-100 overflow-hidden mb-3 border border-transparent group-hover:border-gray-300 transition-colors duration-300">
+      {/* Image */}
+      <div className="relative aspect-square bg-[#f5f5f5] overflow-hidden mb-4">
         <Image
           src={image}
           alt={product.name}
           width={400}
           height={400}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
+        {product.stock === 0 && (
+          <div className="absolute top-3 left-3 bg-black text-white text-[10px] font-bold uppercase tracking-widest px-2 py-1">
+            Sold Out
+          </div>
+        )}
       </div>
-      <div className="space-y-1 px-0.5">
+
+      {/* Info */}
+      <div className="space-y-1.5">
         {product.category && (
-          <p className="text-xs text-gold uppercase tracking-widest font-semibold">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C9A84C]">
             {product.category}
           </p>
         )}
-        <h3 className="text-sm font-bold uppercase tracking-wide leading-snug text-[#111111]">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-black leading-snug group-hover:text-[#C9A84C] transition-colors">
           {product.name}
         </h3>
-        <p className="text-sm font-bold text-gold">{formatPrice(product.price)}</p>
-        {product.stock === 0 && (
-          <p className="text-xs text-red-400 uppercase tracking-wide">Out of stock</p>
-        )}
+        <p className="text-sm font-black text-black">{formatPrice(product.price)}</p>
       </div>
     </Link>
   );

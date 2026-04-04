@@ -12,44 +12,50 @@ export function Navbar() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#111111]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between relative">
+    <header className="sticky top-0 z-50 bg-black border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 h-[70px] flex items-center justify-between relative">
 
         {/* Logo — left */}
-        <Link href="/" className="text-white font-black tracking-widest uppercase text-sm">
-          Store
+        <Link href="/" className="text-white font-black tracking-[0.2em] uppercase text-lg flex-shrink-0">
+          STORE
         </Link>
 
-        {/* Nav links — center */}
-        <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          <Link href="/shop" className="text-xs uppercase tracking-widest text-gray-300 hover:text-white transition-colors font-medium">
-            Shop
-          </Link>
-          <Link href="/shop" className="text-xs uppercase tracking-widest text-gray-300 hover:text-white transition-colors font-medium">
-            Products
-          </Link>
-          <Link href="/shop" className="text-xs uppercase tracking-widest text-gray-300 hover:text-white transition-colors font-medium">
-            About
-          </Link>
+        {/* Nav links — center (absolute so they stay truly centered) */}
+        <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+          {[
+            { label: "Home", href: "/" },
+            { label: "Shop", href: "/shop" },
+            { label: "About Us", href: "/shop" },
+            { label: "Contact", href: "/shop" },
+          ].map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80 hover:text-white transition-colors duration-150"
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         {/* Icons — right */}
-        <div className="flex items-center gap-4">
-          <button className="text-gray-300 hover:text-white transition-colors">
-            <Search className="w-4 h-4" />
+        <div className="flex items-center gap-5">
+          <button aria-label="Search" className="text-white/70 hover:text-white transition-colors">
+            <Search className="w-[18px] h-[18px]" />
           </button>
-          <button className="text-gray-300 hover:text-white transition-colors">
-            <User className="w-4 h-4" />
+          <button aria-label="Account" className="text-white/70 hover:text-white transition-colors">
+            <User className="w-[18px] h-[18px]" />
           </button>
-          <Link href="/cart" className="relative text-gray-300 hover:text-white transition-colors">
-            <ShoppingCart className="w-4 h-4" />
+          <Link href="/cart" aria-label="Cart" className="relative text-white/70 hover:text-white transition-colors">
+            <ShoppingCart className="w-[18px] h-[18px]" />
             {mounted && totalItems() > 0 && (
-              <span className="absolute -top-2 -right-2 bg-gold text-black text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
+              <span className="absolute -top-2 -right-2 bg-[#C9A84C] text-black text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-black">
                 {totalItems()}
               </span>
             )}
           </Link>
         </div>
+
       </div>
     </header>
   );

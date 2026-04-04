@@ -1,21 +1,40 @@
 import { Truck, ShieldCheck, Headphones } from "lucide-react";
 
 const badges = [
-  { icon: Truck, label: "Free Delivery", sub: "On all orders over $50" },
-  { icon: ShieldCheck, label: "Highest Quality", sub: "Every batch lab tested" },
-  { icon: Headphones, label: "Online Support", sub: "24/7 customer service" },
+  {
+    icon: Truck,
+    label: "Free Delivery",
+    sub: "On all orders over $50",
+  },
+  {
+    icon: ShieldCheck,
+    label: "Highest Quality",
+    sub: "Every batch lab tested & verified",
+  },
+  {
+    icon: Headphones,
+    label: "Online Support",
+    sub: "24/7 dedicated customer service",
+  },
 ];
 
 export function TrustBadges() {
   return (
-    <section className="bg-[#1a1a1a] py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-3 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-        {badges.map(({ icon: Icon, label, sub }) => (
-          <div key={label} className="flex items-center gap-4 px-8 py-6 sm:py-4">
-            <Icon className="w-8 h-8 text-gold flex-shrink-0" />
+    <section className="bg-[#161616] border-y border-white/5">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-3">
+        {badges.map(({ icon: Icon, label, sub }, i) => (
+          <div
+            key={label}
+            className={`flex items-center gap-5 py-8 px-6 ${
+              i < badges.length - 1 ? "sm:border-r border-white/10 border-b sm:border-b-0" : ""
+            }`}
+          >
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#C9A84C]/10 flex items-center justify-center">
+              <Icon className="w-5 h-5 text-[#C9A84C]" />
+            </div>
             <div>
-              <p className="text-white text-xs font-bold uppercase tracking-widest">{label}</p>
-              <p className="text-gray-400 text-xs mt-0.5">{sub}</p>
+              <p className="text-white text-sm font-bold uppercase tracking-wider">{label}</p>
+              <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">{sub}</p>
             </div>
           </div>
         ))}

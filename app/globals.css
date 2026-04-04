@@ -3,13 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #111111;
+  --gold: #C9A84C;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: #111111;
+  background: #ffffff;
 }
 
 @layer utilities {
@@ -18,12 +17,19 @@ body {
   }
 }
 
-.hero-pattern {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 40px,
-    rgba(255, 255, 255, 0.03) 40px,
-    rgba(255, 255, 255, 0.03) 41px
+/* Hero dot-grid background pattern */
+.hero-bg {
+  background-color: #0a0a0a;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Subtle radial glow in hero center-left */
+.hero-glow {
+  background: radial-gradient(
+    ellipse 80% 60% at 30% 50%,
+    rgba(201, 168, 76, 0.08) 0%,
+    transparent 70%
   );
 }
