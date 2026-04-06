@@ -1,93 +1,128 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Search, User } from "lucide-react";
+import { ShoppingCart, Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useCartStore } from "@/lib/cart-store";
 
 const navLinks = [
-  { label: "Home",     href: "/" },
-  { label: "Shop",     href: "/shop" },
-  { label: "About Us", href: "/shop" },
-  { label: "Contact",  href: "/shop" },
+  { label: "DOMOV",    href: "/" },
+  { label: "TRGOVINA", href: "/shop" },
+  { label: "O NAS",    href: "/about" },
+  { label: "KONTAKT",  href: "/contact" },
 ];
 
 export function Navbar() {
   const [mounted, setMounted] = useState(false);
-  const totalItems = useCartStore((s) => s.totalItems);
+  const totalItems = useCartStore((s) => s.totalItems());
+  const pathname = usePathname();
   useEffect(() => setMounted(true), []);
 
   return (
-    <header style={{ backgroundColor: "#fff", borderBottom: "1px solid #eee", position: "sticky", top: 0, zIndex: 50 }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px", height: "72px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "relative" }}>
+    <header style={{
+      backgroundColor: "#0a0a0a",
+      borderBottom: "1px solid rgba(201,168,76,0.18)",
+      position: "sticky",
+      top: 0,
+      zIndex: 50,
+    }}>
+      <div style={{
+        maxWidth: "1200px",
+        margin: "0 auto",
+        padding: "0 24px",
+        height: "72px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        position: "relative",
+      }}>
 
-        {/* Logo — left */}
+        {/* Logo */}
         <Link href="/" style={{
           fontFamily: "var(--font-montserrat)",
           fontWeight: 900,
-          fontSize: "20px",
-          textTransform: "uppercase",
-          letterSpacing: "0.12em",
-          color: "#222",
+          fontSize: "22px",
+          letterSpacing: "0.15em",
+          color: "#c9a84c",
           textDecoration: "none",
         }}>
-          STORE
+          SLOPEPS
         </Link>
 
         {/* Nav links — center */}
-        <nav style={{ display: "flex", alignItems: "center", gap: "36px", position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-          {navLinks.map(({ label, href }) => (
-            <Link key={label} href={href} style={{
-              fontFamily: "var(--font-montserrat)",
-              fontSize: "12px",
-              fontWeight: 600,
-              textTransform: "uppercase",
-              letterSpacing: "0.14em",
-              color: "rgba(0,0,0,0.6)",
-              textDecoration: "none",
-              transition: "color 0.2s",
-            }}
-              onMouseOver={(e) => (e.currentTarget.style.color = "#000")}
-              onMouseOut={(e) => (e.currentTarget.style.color = "rgba(0,0,0,0.6)")}
-            >
-              {label}
-            </Link>
-          ))}
+        <nav style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "36px",
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}>
+          {navLinks.map(({ label, href }) => {
+            const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
+            return (
+              <Link key={label} href={href} style={{
+                fontFamily: "var(--font-montserrat)",
+                fontSize: "12px",
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                color: isActive ? "#c9a84c" : "rgba(255,255,255,0.7)",
+                textDecoration: "none",
+                paddingBottom: "4px",
+                borderBottom: isActive ? "2px solid #c9a84c" : "2px solid transparent",
+                transition: "color 0.2s, border-color 0.2s",
+              }}>
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Icons — right */}
+        {/* Right icons — cart + search only */}
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-          <button aria-label="Search" style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(0,0,0,0.6)", padding: 0 }}>
-            <Search style={{ width: "20px", height: "20px" }} />
-          </button>
-          <button aria-label="Account" style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(0,0,0,0.6)", padding: 0 }}>
-            <User style={{ width: "20px", height: "20px" }} />
-          </button>
-          <Link href="/cart" aria-label="Cart" style={{ position: "relative", color: "rgba(0,0,0,0.6)", textDecoration: "none" }}>
-            <ShoppingCart style={{ width: "20px", height: "20px" }} />
-            {mounted && totalItems() > 0 && (
+          <Link href="/cart" style={{
+            position: "relative",
+            color: "rgba(255,255,255,0.65)",
+            display: "flex",
+            alignItems: "center",
+          }}>
+            <ShoppingCart size={20} />
+            {mounted && totalItems > 0 && (
               <span style={{
                 position: "absolute",
                 top: "-8px",
                 right: "-8px",
-                backgroundColor: "#9d6b2a",
-                color: "#fff",
+                backgroundColor: "#c9a84c",
+                color: "#000",
                 fontSize: "10px",
                 fontWeight: 700,
+                fontFamily: "var(--font-montserrat)",
+                width: "18px",
+                height: "18px",
                 borderRadius: "50%",
-                width: "17px",
-                height: "17px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontFamily: "var(--font-montserrat)",
+                lineHeight: 1,
               }}>
-                {totalItems()}
+                {totalItems}
               </span>
             )}
           </Link>
-        </div>
 
+          <button style={{
+            background: "none",
+            border: "none",
+            color: "rgba(255,255,255,0.65)",
+            cursor: "pointer",
+            padding: "4px",
+            display: "flex",
+            alignItems: "center",
+          }}>
+            <Search size={20} />
+          </button>
+        </div>
       </div>
     </header>
   );
