@@ -6,6 +6,7 @@ export interface Product {
   price: number;
   category: string | null;
   images: string[];
+  coa_images: string[];
   stock: number;
   featured: boolean;
   created_at: string;

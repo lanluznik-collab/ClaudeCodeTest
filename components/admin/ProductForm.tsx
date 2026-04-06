@@ -20,6 +20,7 @@ export function ProductForm({ product }: Props) {
     price: product?.price ?? 0,
     category: product?.category ?? "",
     images: product?.images ?? [],
+    coa_images: product?.coa_images ?? [],
     stock: product?.stock ?? 0,
     featured: product?.featured ?? false,
   });
