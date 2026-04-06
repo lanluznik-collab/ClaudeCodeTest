@@ -11,56 +11,114 @@ export function CartLineItem({ item }: { item: CartItem }) {
   const { updateQuantity, removeItem } = useCartStore();
 
   return (
-    <div className="flex gap-4 py-5 border-b border-gray-100">
+    <div style={{
+      display: "flex",
+      gap: "16px",
+      padding: "20px 0",
+      borderBottom: "1px solid rgba(255,255,255,0.08)",
+    }}>
+      {/* Thumbnail */}
       <Link href={`/shop/${item.slug}`}>
-        <div className="w-20 h-20 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0">
+        <div style={{
+          width: "80px", height: "80px",
+          backgroundColor: "#1a1a1a",
+          borderRadius: "4px",
+          overflow: "hidden",
+          flexShrink: 0,
+        }}>
           {item.image && (
             <Image
               src={item.image}
               alt={item.name}
-              width={80}
-              height={80}
-              className="w-full h-full object-cover"
+              width={80} height={80}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           )}
         </div>
       </Link>
 
-      <div className="flex-1 min-w-0">
-        <Link href={`/shop/${item.slug}`}>
-          <p className="text-sm font-medium truncate hover:underline">{item.name}</p>
+      {/* Details */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <Link href={`/shop/${item.slug}`} style={{ textDecoration: "none" }}>
+          <p style={{
+            fontFamily: "var(--font-montserrat)",
+            fontSize: "14px", fontWeight: 700,
+            textTransform: "uppercase", letterSpacing: "0.04em",
+            color: "#fff", margin: "0 0 4px 0",
+            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+          }}>
+            {item.name}
+          </p>
         </Link>
-        <p className="text-sm text-gray-400 mt-0.5">{formatPrice(item.price)} each</p>
+        <p style={{
+          fontFamily: "var(--font-opensans)",
+          fontSize: "13px", color: "rgba(255,255,255,0.4)",
+          margin: "0 0 12px 0",
+        }}>
+          {formatPrice(item.price)} / kos
+        </p>
 
-        <div className="flex items-center gap-2 mt-2">
-          <div className="flex items-center border border-gray-200 rounded-lg">
-            <button
-              onClick={() => updateQuantity(item.productId, item.quantity - 1)}
-              className="px-2.5 py-1 text-gray-500 hover:text-black transition-colors text-sm"
-            >
-              −
-            </button>
-            <span className="px-2.5 py-1 text-sm font-medium min-w-[1.5rem] text-center">
-              {item.quantity}
-            </span>
-            <button
-              onClick={() => updateQuantity(item.productId, item.quantity + 1)}
-              className="px-2.5 py-1 text-gray-500 hover:text-black transition-colors text-sm"
-            >
-              +
-            </button>
-          </div>
+        {/* Qty controls */}
+        <div style={{
+          display: "inline-flex", alignItems: "center",
+          border: "1px solid rgba(255,255,255,0.15)",
+          borderRadius: "4px", overflow: "hidden",
+        }}>
+          <button
+            onClick={() => updateQuantity(item.productId, item.quantity - 1)}
+            style={{
+              width: "32px", height: "32px",
+              background: "none", border: "none",
+              color: "rgba(255,255,255,0.5)", fontSize: "16px",
+              cursor: "pointer", display: "flex",
+              alignItems: "center", justifyContent: "center",
+            }}
+          >
+            −
+          </button>
+          <span style={{
+            padding: "0 12px",
+            fontFamily: "var(--font-montserrat)",
+            fontSize: "13px", fontWeight: 700,
+            color: "#fff", minWidth: "28px",
+            textAlign: "center",
+          }}>
+            {item.quantity}
+          </span>
+          <button
+            onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+            style={{
+              width: "32px", height: "32px",
+              background: "none", border: "none",
+              color: "rgba(255,255,255,0.5)", fontSize: "16px",
+              cursor: "pointer", display: "flex",
+              alignItems: "center", justifyContent: "center",
+            }}
+          >
+            +
+          </button>
         </div>
       </div>
 
-      <div className="flex flex-col items-end gap-2">
+      {/* Price + remove */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "8px" }}>
         <button
           onClick={() => removeItem(item.productId)}
-          className="text-gray-300 hover:text-gray-600 transition-colors"
+          style={{
+            background: "none", border: "none",
+            color: "rgba(255,255,255,0.25)", cursor: "pointer",
+            padding: "2px", display: "flex",
+            transition: "color 0.2s",
+          }}
+          className="hover:text-white"
         >
-          <X className="w-4 h-4" />
+          <X size={16} />
         </button>
-        <p className="text-sm font-semibold">
+        <p style={{
+          fontFamily: "var(--font-montserrat)",
+          fontSize: "15px", fontWeight: 700,
+          color: "#c9a84c", margin: 0,
+        }}>
           {formatPrice(item.price * item.quantity)}
         </p>
       </div>

@@ -18,39 +18,97 @@ export function CartSummary() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items }),
       });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("Checkout error:", text);
+        return;
       }
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="bg-gray-50 rounded-xl p-6 space-y-4 sticky top-24">
-      <h2 className="text-base font-semibold">Order Summary</h2>
+    <div style={{
+      backgroundColor: "#161616",
+      border: "1px solid rgba(201,168,76,0.15)",
+      borderRadius: "6px",
+      padding: "28px",
+      position: "sticky",
+      top: "88px",
+    }}>
+      <h2 style={{
+        fontFamily: "var(--font-montserrat)",
+        fontSize: "14px", fontWeight: 700,
+        textTransform: "uppercase", letterSpacing: "0.1em",
+        color: "#fff", margin: "0 0 20px 0",
+      }}>
+        Povzetek naročila
+      </h2>
 
-      <div className="flex justify-between text-sm text-gray-500">
-        <span>Subtotal</span>
-        <span>{formatPrice(subtotal())}</span>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
+          Vmesni seštevek
+        </span>
+        <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700, color: "#fff" }}>
+          {formatPrice(subtotal())}
+        </span>
       </div>
-      <div className="flex justify-between text-sm text-gray-500">
-        <span>Shipping</span>
-        <span className="text-green-600">Free</span>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
+          Dostava
+        </span>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "#4ade80" }}>
+          Brezplačno
+        </span>
       </div>
 
-      <div className="border-t border-gray-200 pt-4 flex justify-between font-semibold">
-        <span>Total</span>
-        <span>{formatPrice(subtotal())}</span>
+      <div style={{
+        borderTop: "1px solid rgba(255,255,255,0.1)",
+        paddingTop: "16px",
+        display: "flex",
+        justifyContent: "space-between",
+        marginBottom: "24px",
+      }}>
+        <span style={{
+          fontFamily: "var(--font-montserrat)",
+          fontSize: "14px", fontWeight: 700,
+          textTransform: "uppercase", letterSpacing: "0.08em",
+          color: "#fff",
+        }}>
+          Skupaj
+        </span>
+        <span style={{
+          fontFamily: "var(--font-montserrat)",
+          fontSize: "18px", fontWeight: 800,
+          color: "#c9a84c",
+        }}>
+          {formatPrice(subtotal())}
+        </span>
       </div>
 
       <button
         onClick={handleCheckout}
         disabled={loading || items.length === 0}
-        className="w-full py-3.5 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{
+          width: "100%",
+          padding: "15px",
+          backgroundColor: "#c9a84c",
+          color: "#fff",
+          border: "none",
+          borderRadius: "2px",
+          fontFamily: "var(--font-montserrat)",
+          fontWeight: 700, fontSize: "13px",
+          textTransform: "uppercase", letterSpacing: "0.1em",
+          cursor: loading || items.length === 0 ? "not-allowed" : "pointer",
+          opacity: loading || items.length === 0 ? 0.55 : 1,
+          marginBottom: "10px",
+          transition: "opacity 0.2s",
+        }}
       >
-        {loading ? "Redirecting…" : "Checkout with Card"}
+        {loading ? "Preusmerjanje…" : "Plačaj s kartico"}
       </button>
 
       <WhatsAppOrderButton items={items} subtotal={subtotal()} />

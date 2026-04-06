@@ -24,43 +24,100 @@ export function AddToCartButton({ product }: { product: Product }) {
 
   if (product.stock === 0) {
     return (
-      <button
-        disabled
-        className="w-full py-3.5 rounded-full bg-gray-100 text-gray-400 text-sm font-medium cursor-not-allowed"
-      >
-        Out of Stock
+      <button disabled style={{
+        width: "100%",
+        padding: "15px",
+        backgroundColor: "#eee",
+        color: "#aaa",
+        border: "none",
+        borderRadius: "2px",
+        fontFamily: "var(--font-montserrat)",
+        fontWeight: 700, fontSize: "13px",
+        textTransform: "uppercase", letterSpacing: "0.1em",
+        cursor: "not-allowed",
+      }}>
+        Ni na zalogi
       </button>
     );
   }
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-gray-500">Qty</span>
-        <div className="flex items-center border border-gray-200 rounded-lg">
+    <div>
+      {/* Qty selector */}
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
+        <span style={{
+          fontFamily: "var(--font-montserrat)",
+          fontSize: "11px", fontWeight: 700,
+          textTransform: "uppercase", letterSpacing: "0.1em",
+          color: "#555",
+        }}>
+          Količina
+        </span>
+        <div style={{
+          display: "flex", alignItems: "center",
+          border: "1px solid #ddd", borderRadius: "4px",
+          overflow: "hidden",
+        }}>
           <button
             onClick={() => setQty(Math.max(1, qty - 1))}
-            className="px-3 py-2 text-gray-500 hover:text-black transition-colors"
+            style={{
+              width: "36px", height: "36px",
+              background: "none", border: "none",
+              color: "#555", fontSize: "18px",
+              cursor: "pointer", display: "flex",
+              alignItems: "center", justifyContent: "center",
+            }}
           >
             −
           </button>
-          <span className="px-3 py-2 text-sm font-medium min-w-[2rem] text-center">
+          <span style={{
+            padding: "0 14px",
+            fontFamily: "var(--font-montserrat)",
+            fontSize: "14px", fontWeight: 700,
+            color: "#111", minWidth: "32px",
+            textAlign: "center",
+          }}>
             {qty}
           </span>
           <button
             onClick={() => setQty(Math.min(product.stock, qty + 1))}
-            className="px-3 py-2 text-gray-500 hover:text-black transition-colors"
+            style={{
+              width: "36px", height: "36px",
+              background: "none", border: "none",
+              color: "#555", fontSize: "18px",
+              cursor: "pointer", display: "flex",
+              alignItems: "center", justifyContent: "center",
+            }}
           >
             +
           </button>
         </div>
-        <span className="text-xs text-gray-400">{product.stock} in stock</span>
+        <span style={{
+          fontFamily: "var(--font-opensans)",
+          fontSize: "12px", color: "#aaa",
+        }}>
+          {product.stock} v zalogi
+        </span>
       </div>
+
+      {/* Add to cart button */}
       <button
         onClick={handleAdd}
-        className="w-full py-3.5 rounded-full bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors"
+        style={{
+          width: "100%",
+          padding: "15px",
+          backgroundColor: added ? "#888" : "#c9a84c",
+          color: added ? "#fff" : "#000",
+          border: "none",
+          borderRadius: "2px",
+          fontFamily: "var(--font-montserrat)",
+          fontWeight: 700, fontSize: "13px",
+          textTransform: "uppercase", letterSpacing: "0.1em",
+          cursor: "pointer",
+          transition: "background-color 0.2s",
+        }}
       >
-        {added ? "Added to cart ✓" : "Add to Cart"}
+        {added ? "Dodano v košarico ✓" : "Dodaj v košarico"}
       </button>
     </div>
   );

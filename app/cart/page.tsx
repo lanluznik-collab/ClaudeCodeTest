@@ -10,23 +10,47 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-24 text-center">
-        <p className="text-gray-400 mb-6">Your cart is empty.</p>
-        <Link
-          href="/shop"
-          className="inline-block bg-black text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
-        >
-          Continue Shopping
+      <div style={{
+        maxWidth: "600px", margin: "0 auto",
+        padding: "96px 24px",
+        textAlign: "center",
+      }}>
+        <p style={{
+          fontFamily: "var(--font-opensans)",
+          fontSize: "16px", color: "rgba(255,255,255,0.45)",
+          marginBottom: "28px",
+        }}>
+          Vaša košarica je prazna.
+        </p>
+        <Link href="/shop" style={{
+          display: "inline-block",
+          padding: "14px 36px",
+          backgroundColor: "#c9a84c",
+          color: "#fff",
+          fontFamily: "var(--font-montserrat)",
+          fontWeight: 700, fontSize: "13px",
+          textTransform: "uppercase", letterSpacing: "0.1em",
+          textDecoration: "none",
+          borderRadius: "2px",
+        }}>
+          Nazaj v trgovino
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-      <h1 className="text-3xl font-semibold tracking-tight mb-8">Your Cart</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <div className="lg:col-span-2">
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px" }}>
+      <h1 style={{
+        fontFamily: "var(--font-montserrat)",
+        fontSize: "28px", fontWeight: 900,
+        textTransform: "uppercase", letterSpacing: "0.06em",
+        color: "#c9a84c", marginBottom: "40px",
+      }}>
+        Košarica
+      </h1>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: "48px", alignItems: "start" }}>
+        <div>
           {items.map((item) => (
             <CartLineItem key={item.productId} item={item} />
           ))}
