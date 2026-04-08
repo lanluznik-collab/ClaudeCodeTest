@@ -279,6 +279,23 @@ export default function AdminDashboard() {
     }
   }
 
+  async function handleHeroRemove() {
+    setHeroError("");
+    setHeroSuccess(false);
+    setHeroImageUrl("");
+    const res = await fetch("/api/admin/settings", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ value: "" }),
+    });
+    if (res.ok) {
+      router.refresh();
+    } else {
+      const err = await res.json().catch(() => ({}));
+      setHeroError(err.error ?? "Failed to remove image.");
+    }
+  }
+
   // ── product form helpers ───────────────────────────────────────────────────
 
   function openAdd() {
@@ -418,7 +435,7 @@ export default function AdminDashboard() {
               {heroImageUrl && (
                 <button
                   type="button"
-                  onClick={() => setHeroImageUrl("")}
+                  onClick={handleHeroRemove}
                   style={{ ...btnSecondary, fontSize: "12px", padding: "8px 12px" }}
                 >
                   Remove
