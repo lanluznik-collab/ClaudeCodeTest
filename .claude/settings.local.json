@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh auth:*)",
+      "Bash(git --version)",
+      "Bash(git config:*)",
+      "Bash(ssh-keygen -t ed25519 -C \"lanluznik@gmail.com\" -f ~/.ssh/id_ed25519 -N \"\")",
+      "Bash(ssh:*)",
+      "Bash(npx create-next-app@14 . --typescript --tailwind --app --no-src-dir --no-eslint --import-alias \"@/*\" --yes)",
+      "Bash(npx create-next-app@14:*)",
+      "Bash(cp:*)",
+      "Bash(cp -r /tmp/estore/app \"C:/Users/Gigabyte_PC/Desktop/ClaudeCodeTest/\")",
+      "Bash(cp /tmp/estore/package-lock.json \"C:/Users/Gigabyte_PC/Desktop/ClaudeCodeTest/\")",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(openssl rand:*)",
+      "Bash(npm run:*)",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(rm -rf .next)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(netstat -ano)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(rm:*)"
+    ]
+  }
+}

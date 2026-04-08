@@ -5,16 +5,17 @@
 :root {
   --font-montserrat: 'Montserrat', Verdana, sans-serif;
   --font-opensans: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  --color-gold: #c9a84c;
   --color-gold-light: rgb(231, 210, 147);
   --color-gold-dark: rgb(183, 135, 66);
-  --color-accent: #ca8b2b;
-  --color-hero-bg: #2a1406;
+  --color-accent: #c9a84c;
+  --color-hero-bg: #0a0a0a;
 }
 
 body {
   font-family: var(--font-opensans);
-  background: #fff;
-  color: #333;
+  background: #0a0a0a;
+  color: #fff;
 }
 
 /* Exact gradient from corepeptides.com source */
@@ -29,11 +30,11 @@ body {
   text-transform: uppercase;
 }
 
-/* Buy button — transparent with amber border, green on hover */
+/* Buy button — transparent with gold border, green on hover */
 .hero-cta {
   background-color: transparent !important;
-  border: 2px solid #ca8b2b;
-  color: #ca8b2b;
+  border: 2px solid #c9a84c;
+  color: #c9a84c;
   font-family: var(--font-montserrat);
   font-weight: 700;
   text-transform: uppercase;

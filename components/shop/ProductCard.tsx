@@ -8,13 +8,13 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/shop/${product.slug}`} style={{ display: "block", textDecoration: "none" }} className="group">
-      {/* Image container — matches woocommerce 265x265 square */}
+      {/* Image container */}
       <div style={{
         position: "relative",
         aspectRatio: "1 / 1",
         backgroundColor: "#f5f5f5",
         overflow: "hidden",
-        marginBottom: "12px",
+        marginBottom: "14px",
       }}>
         <Image
           src={image}
@@ -29,37 +29,38 @@ export function ProductCard({ product }: { product: Product }) {
             position: "absolute",
             top: "10px",
             left: "10px",
-            backgroundColor: "#958e09",
+            backgroundColor: "#e91e8c",
             color: "#fff",
-            fontSize: "11px",
+            fontSize: "10px",
             fontWeight: 700,
             fontFamily: "var(--font-montserrat)",
             textTransform: "uppercase",
+            letterSpacing: "0.06em",
             padding: "3px 8px",
+            borderRadius: "2px",
           }}>
-            Sold Out
+            Ni na zalogi
           </span>
         )}
       </div>
 
-      {/* Title — matches woocommerce-loop-product__title */}
+      {/* Product name */}
       <h2 style={{
         fontFamily: "var(--font-montserrat)",
-        fontSize: "14px",
-        fontWeight: 600,
-        color: "#222",
-        margin: "0 0 6px 0",
+        fontSize: "13px",
+        fontWeight: 700,
+        color: "#111",
+        margin: "0 0 4px 0",
         lineHeight: 1.4,
         textTransform: "uppercase",
         letterSpacing: "0.04em",
         transition: "color 0.2s",
       }}
-        className="group-hover:text-[#ca8b2b]"
+        className="group-hover:text-[#c9a84c]"
       >
         {product.name}
       </h2>
 
-      {/* Category */}
       {product.category && (
         <p style={{
           fontFamily: "var(--font-opensans)",
@@ -67,19 +68,18 @@ export function ProductCard({ product }: { product: Product }) {
           color: "#999",
           textTransform: "uppercase",
           letterSpacing: "0.08em",
-          margin: "0 0 4px 0",
+          margin: "0 0 6px 0",
         }}>
           {product.category}
         </p>
       )}
 
-      {/* Price — matches .price color from woocommerce */}
       <span style={{
         display: "block",
         fontFamily: "var(--font-montserrat)",
         fontSize: "15px",
         fontWeight: 700,
-        color: "#ca8b2b",
+        color: "#c9a84c",
       }}>
         {formatPrice(product.price)}
       </span>

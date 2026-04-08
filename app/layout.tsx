@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${montserrat.variable} ${openSans.variable} antialiased`}
-        style={{ fontFamily: "var(--font-opensans), Helvetica Neue, Arial, sans-serif", background: "#fff", color: "#111" }}>
+        style={{ fontFamily: "var(--font-opensans), Helvetica Neue, Arial, sans-serif", background: "#0a0a0a", color: "#fff" }}>
         <Providers>
           <Navbar />
           <main>{children}</main>

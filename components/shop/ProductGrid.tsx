@@ -4,7 +4,7 @@ import { ProductCard } from "./ProductCard";
 export function ProductGrid({ products }: { products: Product[] }) {
   if (products.length === 0) {
     return (
-      <p className="text-center text-gray-400 py-16">No products found.</p>
+      <p style={{ textAlign: "center", color: "#aaa", padding: "64px 0", fontFamily: "var(--font-opensans)", fontSize: "15px" }}>Ni najdenih izdelkov.</p>
     );
   }
 

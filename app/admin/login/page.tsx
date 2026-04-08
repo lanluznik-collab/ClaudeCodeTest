@@ -24,16 +24,32 @@ export default function AdminLoginPage() {
 
     if (res.ok) {
       router.push("/admin");
+      router.refresh();
     } else {
       setError("Incorrect password.");
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-semibold mb-8 text-center">Admin</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div style={{
+      minHeight: "60vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}>
+      <div style={{ width: "100%", maxWidth: "360px" }}>
+        <h1 style={{
+          fontFamily: "var(--font-montserrat)",
+          fontSize: "22px",
+          fontWeight: 800,
+          color: "#111",
+          textAlign: "center",
+          marginBottom: "32px",
+          letterSpacing: "0.04em",
+        }}>
+          Admin Sign In
+        </h1>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           <input
             type="password"
             placeholder="Password"
@@ -41,15 +57,37 @@ export default function AdminLoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             autoFocus
-            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-black"
+            style={{
+              width: "100%",
+              border: "1px solid #ddd",
+              borderRadius: "6px",
+              padding: "12px 14px",
+              fontSize: "14px",
+              color: "#111",
+              backgroundColor: "#fff",
+              outline: "none",
+              boxSizing: "border-box",
+            }}
           />
-          {error && <p className="text-sm text-red-400">{error}</p>}
+          {error && (
+            <p style={{ fontSize: "13px", color: "#e53935", margin: 0 }}>{error}</p>
+          )}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50"
+            style={{
+              padding: "12px",
+              backgroundColor: "#111",
+              color: "#fff",
+              border: "none",
+              borderRadius: "6px",
+              fontSize: "14px",
+              fontWeight: 600,
+              cursor: loading ? "not-allowed" : "pointer",
+              opacity: loading ? 0.6 : 1,
+            }}
           >
-            {loading ? "Verifying…" : "Sign In"}
+            {loading ? "Signing in…" : "Sign In"}
           </button>
         </form>
       </div>
