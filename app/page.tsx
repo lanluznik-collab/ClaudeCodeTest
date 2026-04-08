@@ -1,12 +1,13 @@
 import { Hero } from "@/components/home/Hero";
 import { TrustBadges } from "@/components/home/TrustBadges";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
-import { createServerClient } from "@/lib/supabase/server";
+import { createServerClient, createServiceClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const supabase = createServerClient();
+  const supabaseAdmin = createServiceClient();
   const [{ data: products }, { data: heroSetting }] = await Promise.all([
     supabase
       .from("products")
@@ -14,7 +15,7 @@ export default async function HomePage() {
       .eq("featured", true)
       .order("created_at", { ascending: false })
       .limit(6),
-    supabase
+    supabaseAdmin
       .from("settings")
       .select("value")
       .eq("key", "hero_image")
