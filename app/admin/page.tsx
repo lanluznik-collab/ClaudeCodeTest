@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Product, Order } from "@/types";
 import { formatPrice } from "@/lib/utils";
-import { Upload, X, Pencil, Trash2 } from "lucide-react";
+import { Upload, X, Pencil, Trash2 } from "lucide-react"; // Upload used in ImageUploader below
 
 // ─── styles ──────────────────────────────────────────────────────────────────
 
@@ -195,13 +195,6 @@ export default function AdminDashboard() {
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [loadingOrders, setLoadingOrders] = useState(true);
 
-  // Site settings
-  const [heroImageUrl, setHeroImageUrl] = useState("");
-  const [heroUploading, setHeroUploading] = useState(false);
-  const [heroSaving, setHeroSaving] = useState(false);
-  const [heroError, setHeroError] = useState("");
-  const [heroSuccess, setHeroSuccess] = useState(false);
-
   // Product form
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -225,76 +218,10 @@ export default function AdminDashboard() {
     setLoadingOrders(false);
   }, []);
 
-  const fetchHeroImage = useCallback(async () => {
-    const res = await fetch("/api/admin/settings");
-    if (res.ok) {
-      const { value } = await res.json();
-      setHeroImageUrl(value ?? "");
-    }
-  }, []);
-
   useEffect(() => {
     fetchProducts();
     fetchOrders();
-    fetchHeroImage();
-  }, [fetchProducts, fetchOrders, fetchHeroImage]);
-
-  // ── hero image handlers ────────────────────────────────────────────────────
-
-  async function handleHeroUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setHeroUploading(true);
-    setHeroError("");
-    const body = new FormData();
-    body.append("file", file);
-    const res = await fetch("/api/admin/upload", { method: "POST", body });
-    if (res.ok) {
-      const { url } = await res.json();
-      setHeroImageUrl(url);
-    } else {
-      const err = await res.json().catch(() => ({}));
-      setHeroError(`Upload failed: ${err.error ?? "Unknown error"}`);
-    }
-    setHeroUploading(false);
-    e.target.value = "";
-  }
-
-  async function handleHeroSave() {
-    setHeroSaving(true);
-    setHeroError("");
-    setHeroSuccess(false);
-    const res = await fetch("/api/admin/settings", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ value: heroImageUrl }),
-    });
-    setHeroSaving(false);
-    if (res.ok) {
-      setHeroSuccess(true);
-      router.refresh();
-    } else {
-      const err = await res.json().catch(() => ({}));
-      setHeroError(err.error ?? "Failed to save.");
-    }
-  }
-
-  async function handleHeroRemove() {
-    setHeroError("");
-    setHeroSuccess(false);
-    setHeroImageUrl("");
-    const res = await fetch("/api/admin/settings", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ value: "" }),
-    });
-    if (res.ok) {
-      router.refresh();
-    } else {
-      const err = await res.json().catch(() => ({}));
-      setHeroError(err.error ?? "Failed to remove image.");
-    }
-  }
+  }, [fetchProducts, fetchOrders]);
 
   // ── product form helpers ───────────────────────────────────────────────────
 
@@ -403,60 +330,6 @@ export default function AdminDashboard() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-
-      {/* ── SITE SETTINGS ── */}
-      <section>
-        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#111", margin: "0 0 16px 0" }}>Site Settings</h2>
-        <div style={card}>
-          <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#111", margin: "0 0 16px 0" }}>Hero Image</h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            {heroImageUrl && (
-              <div>
-                <img
-                  src={heroImageUrl}
-                  alt="Hero preview"
-                  style={{ maxWidth: "320px", maxHeight: "200px", objectFit: "contain", border: "1px solid #eee", borderRadius: "6px", display: "block" }}
-                />
-              </div>
-            )}
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <label style={{
-                display: "inline-flex", alignItems: "center", gap: "6px",
-                padding: "8px 16px", backgroundColor: "#f5f5f5",
-                border: "1px solid #ddd", borderRadius: "6px",
-                fontSize: "13px", fontWeight: 600, color: "#333",
-                cursor: heroUploading ? "not-allowed" : "pointer",
-                opacity: heroUploading ? 0.6 : 1,
-              }}>
-                <Upload size={14} />
-                {heroUploading ? "Uploading…" : "Upload Image"}
-                <input type="file" accept="image/*" onChange={handleHeroUpload} disabled={heroUploading} style={{ display: "none" }} />
-              </label>
-              {heroImageUrl && (
-                <button
-                  type="button"
-                  onClick={handleHeroRemove}
-                  style={{ ...btnSecondary, fontSize: "12px", padding: "8px 12px" }}
-                >
-                  Remove
-                </button>
-              )}
-            </div>
-            {heroError && <p style={{ fontSize: "12px", color: "#e53935", margin: 0 }}>{heroError}</p>}
-            {heroSuccess && <p style={{ fontSize: "12px", color: "#166534", margin: 0 }}>Saved successfully.</p>}
-            <div>
-              <button
-                type="button"
-                onClick={handleHeroSave}
-                disabled={heroSaving || heroUploading}
-                style={{ ...btnPrimary, opacity: heroSaving || heroUploading ? 0.6 : 1 }}
-              >
-                {heroSaving ? "Saving…" : "Save"}
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── PRODUCTS ── */}
       <section>
