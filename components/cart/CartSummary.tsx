@@ -41,15 +41,20 @@ export function CartSummary() {
     }
   }
 
+  const sub = subtotal();
+  const freeShipping = sub >= 200;
+
   return (
-    <div style={{
-      backgroundColor: "#161616",
-      border: "1px solid rgba(201,168,76,0.15)",
-      borderRadius: "6px",
-      padding: "28px",
-      position: "sticky",
-      top: "88px",
-    }}>
+    // md:sticky only — no position/top in inline style so Tailwind controls it correctly
+    <div
+      className="md:sticky md:top-[88px]"
+      style={{
+        backgroundColor: "#161616",
+        border: "1px solid rgba(201,168,76,0.15)",
+        borderRadius: "6px",
+        padding: "24px",
+      }}
+    >
       <h2 style={{
         fontFamily: "var(--font-montserrat)",
         fontSize: "14px", fontWeight: 700,
@@ -59,23 +64,37 @@ export function CartSummary() {
         Povzetek naročila
       </h2>
 
+      {/* Subtotal */}
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
         <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
           Vmesni seštevek
         </span>
         <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700, color: "#fff" }}>
-          {formatPrice(subtotal())}
-        </span>
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
-        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
-          Dostava
-        </span>
-        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "#4ade80" }}>
-          Brezplačno
+          {formatPrice(sub)}
         </span>
       </div>
 
+      {/* Shipping */}
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
+          Dostava
+        </span>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: freeShipping ? "#4ade80" : "#fff" }}>
+          {freeShipping ? "Brezplačno" : formatPrice(9.90)}
+        </span>
+      </div>
+      {!freeShipping && (
+        <p style={{
+          fontFamily: "var(--font-opensans)",
+          fontSize: "12px", color: "rgba(255,255,255,0.35)",
+          margin: "0 0 14px 0", textAlign: "right",
+        }}>
+          Brezplačna dostava nad 200 €
+        </p>
+      )}
+      {freeShipping && <div style={{ marginBottom: "14px" }} />}
+
+      {/* Total */}
       <div style={{
         borderTop: "1px solid rgba(255,255,255,0.1)",
         paddingTop: "16px",
@@ -93,30 +112,31 @@ export function CartSummary() {
         </span>
         <span style={{
           fontFamily: "var(--font-montserrat)",
-          fontSize: "18px", fontWeight: 800,
+          fontSize: "20px", fontWeight: 800,
           color: "#c9a84c",
         }}>
-          {formatPrice(subtotal())}
+          {formatPrice(freeShipping ? sub : sub + 9.90)}
         </span>
       </div>
 
+      {/* Stripe checkout button */}
       <button
         onClick={handleCheckout}
         disabled={loading || items.length === 0}
         style={{
           width: "100%",
-          padding: "15px",
-          backgroundColor: "#c9a84c",
-          color: "#fff",
+          padding: "16px",
+          backgroundColor: loading ? "#a07830" : "#c9a84c",
+          color: "#000",
           border: "none",
           borderRadius: "2px",
           fontFamily: "var(--font-montserrat)",
-          fontWeight: 700, fontSize: "13px",
+          fontWeight: 800, fontSize: "14px",
           textTransform: "uppercase", letterSpacing: "0.1em",
           cursor: loading || items.length === 0 ? "not-allowed" : "pointer",
-          opacity: loading || items.length === 0 ? 0.55 : 1,
+          opacity: items.length === 0 ? 0.55 : 1,
           marginBottom: "10px",
-          transition: "opacity 0.2s",
+          transition: "background-color 0.2s",
         }}
       >
         {loading ? "Preusmerjanje…" : "Plačaj s kartico"}
@@ -134,7 +154,8 @@ export function CartSummary() {
         </p>
       )}
 
-      <WhatsAppOrderButton items={items} subtotal={subtotal()} />
+      {/* WhatsApp button */}
+      <WhatsAppOrderButton items={items} subtotal={sub} />
     </div>
   );
 }

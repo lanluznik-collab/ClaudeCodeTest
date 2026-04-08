@@ -40,21 +40,27 @@ export default function CartPage() {
   }
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px" }}>
+    <div className="mx-auto px-4 md:px-6 py-8 md:py-12" style={{ maxWidth: "1200px" }}>
       <h1 style={{
         fontFamily: "var(--font-montserrat)",
         fontSize: "28px", fontWeight: 900,
         textTransform: "uppercase", letterSpacing: "0.06em",
-        color: "#c9a84c", marginBottom: "40px",
+        color: "#c9a84c", marginBottom: "32px",
       }}>
         Košarica
       </h1>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: "48px", alignItems: "start" }}>
+
+      {/* Stack vertically on mobile, sidebar layout on desktop */}
+      {/* NOTE: no display/gridTemplateColumns in inline style — Tailwind grid controls layout */}
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-6 md:gap-12 items-start">
+        {/* Cart items */}
         <div>
           {items.map((item) => (
             <CartLineItem key={item.productId} item={item} />
           ))}
         </div>
+
+        {/* Order summary — full width below items on mobile, sticky sidebar on desktop */}
         <CartSummary />
       </div>
     </div>
