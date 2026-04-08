@@ -9,22 +9,33 @@ export function CartSummary() {
   const items = useCartStore((s) => s.items);
   const subtotal = useCartStore((s) => s.subtotal);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleCheckout() {
+    console.log("[checkout] button clicked, items:", items.length);
     setLoading(true);
+    setError("");
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items }),
       });
+      const data = await res.json();
+      console.log("[checkout] response:", res.status, data);
       if (!res.ok) {
-        const text = await res.text();
-        console.error("Checkout error:", text);
+        setError(data.error ?? "Checkout failed. Please try again.");
         return;
       }
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError("No redirect URL returned. Please try again.");
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Network error";
+      console.error("[checkout] fetch error:", msg);
+      setError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -110,6 +121,18 @@ export function CartSummary() {
       >
         {loading ? "Preusmerjanje…" : "Plačaj s kartico"}
       </button>
+
+      {error && (
+        <p style={{
+          fontFamily: "var(--font-opensans)",
+          fontSize: "13px",
+          color: "#f87171",
+          margin: "0 0 10px 0",
+          lineHeight: 1.5,
+        }}>
+          {error}
+        </p>
+      )}
 
       <WhatsAppOrderButton items={items} subtotal={subtotal()} />
     </div>

@@ -10,14 +10,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
     }
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+    // NEXT_PUBLIC_SITE_URL must be set to https://www.slopeps.com in Vercel env vars
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.slopeps.com";
+
+    console.log("[checkout] creating session for", items.length, "items, siteUrl:", siteUrl);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
       line_items: items.map((item) => ({
         price_data: {
-          currency: "usd",
+          currency: "eur",
           product_data: {
             name: item.name,
             images: item.image ? [item.image] : [],
@@ -40,9 +43,11 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    console.log("[checkout] session created:", session.id, "url:", session.url);
     return NextResponse.json({ url: session.url });
   } catch (err) {
-    console.error("Checkout error:", err);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[checkout] error:", message);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
