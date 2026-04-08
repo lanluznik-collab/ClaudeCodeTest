@@ -23,111 +23,106 @@ export function Navbar() {
   useEffect(() => setMenuOpen(false), [pathname]);
 
   return (
-    <header style={{
-      backgroundColor: "#0a0a0a",
-      borderBottom: "1px solid rgba(201,168,76,0.18)",
-      position: "sticky",
-      top: 0,
-      zIndex: 50,
-    }}>
-      {/* Main bar */}
-      <div style={{
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "0 16px",
-        height: "64px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        position: "relative",
-      }}>
-
-        {/* Logo */}
-        <Link href="/" style={{
-          fontFamily: "var(--font-montserrat)",
-          fontWeight: 900,
-          fontSize: "20px",
-          letterSpacing: "0.15em",
-          color: "#c9a84c",
-          textDecoration: "none",
-          flexShrink: 0,
-        }}>
+    <header
+      className="sticky top-0 z-50"
+      style={{
+        backgroundColor: "#0a0a0a",
+        borderBottom: "1px solid rgba(201,168,76,0.18)",
+      }}
+    >
+      {/* 3-column grid: logo | nav links | icons — no absolute positioning */}
+      <div
+        className="grid grid-cols-3 items-center px-4 mx-auto"
+        style={{ maxWidth: "1200px", height: "64px" }}
+      >
+        {/* Col 1: Logo */}
+        <Link
+          href="/"
+          style={{
+            fontFamily: "var(--font-montserrat)",
+            fontWeight: 900,
+            fontSize: "20px",
+            letterSpacing: "0.15em",
+            color: "#c9a84c",
+            textDecoration: "none",
+          }}
+        >
           SLOPEPS
         </Link>
 
-        {/* Desktop nav — centered, hidden on mobile */}
-        <nav className="hidden md:flex" style={{
-          alignItems: "center",
-          gap: "36px",
-          position: "absolute",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}>
+        {/* Col 2: Nav links — hidden on mobile, flex on desktop */}
+        {/* NOTE: no display in inline style — Tailwind hidden/md:flex controls it */}
+        <nav className="hidden md:flex justify-center items-center gap-8">
           {navLinks.map(({ label, href }) => {
             const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
             return (
-              <Link key={label} href={href} style={{
-                fontFamily: "var(--font-montserrat)",
-                fontSize: "12px",
-                fontWeight: 600,
-                letterSpacing: "0.14em",
-                color: isActive ? "#c9a84c" : "rgba(255,255,255,0.7)",
-                textDecoration: "none",
-                paddingBottom: "4px",
-                borderBottom: isActive ? "2px solid #c9a84c" : "2px solid transparent",
-                transition: "color 0.2s, border-color 0.2s",
-              }}>
+              <Link
+                key={label}
+                href={href}
+                style={{
+                  fontFamily: "var(--font-montserrat)",
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  letterSpacing: "0.14em",
+                  color: isActive ? "#c9a84c" : "rgba(255,255,255,0.7)",
+                  textDecoration: "none",
+                  paddingBottom: "4px",
+                  borderBottom: isActive ? "2px solid #c9a84c" : "2px solid transparent",
+                  transition: "color 0.2s, border-color 0.2s",
+                }}
+              >
                 {label}
               </Link>
             );
           })}
         </nav>
 
-        {/* Right: cart + hamburger */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          <Link href="/cart" style={{
-            position: "relative",
-            color: "rgba(255,255,255,0.65)",
-            display: "flex",
-            alignItems: "center",
-          }}>
+        {/* Col 3: Icons — cart always, hamburger mobile only */}
+        <div className="flex justify-end items-center gap-4">
+          {/* Cart */}
+          <Link
+            href="/cart"
+            className="relative flex items-center"
+            style={{ color: "rgba(255,255,255,0.65)" }}
+          >
             <ShoppingCart size={20} />
             {mounted && totalItems > 0 && (
-              <span style={{
-                position: "absolute",
-                top: "-8px",
-                right: "-8px",
-                backgroundColor: "#c9a84c",
-                color: "#000",
-                fontSize: "10px",
-                fontWeight: 700,
-                fontFamily: "var(--font-montserrat)",
-                width: "18px",
-                height: "18px",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                lineHeight: 1,
-              }}>
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-8px",
+                  right: "-8px",
+                  backgroundColor: "#c9a84c",
+                  color: "#000",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  fontFamily: "var(--font-montserrat)",
+                  width: "18px",
+                  height: "18px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  lineHeight: 1,
+                }}
+              >
                 {totalItems}
               </span>
             )}
           </Link>
 
           {/* Hamburger — mobile only */}
+          {/* NOTE: no display in inline style here — flex + md:hidden controls visibility */}
           <button
-            className="md:hidden"
+            className="flex items-center justify-center md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Zapri meni" : "Odpri meni"}
             style={{
               background: "none",
               border: "none",
-              color: "rgba(255,255,255,0.75)",
+              color: "rgba(255,255,255,0.8)",
               cursor: "pointer",
               padding: "4px",
-              display: "flex",
-              alignItems: "center",
             }}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -135,14 +130,12 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile dropdown */}
+      {/* Mobile dropdown — only renders when menuOpen */}
       {menuOpen && (
-        <nav
-          className="md:hidden"
+        <div
           style={{
-            backgroundColor: "#111",
+            backgroundColor: "#111111",
             borderTop: "1px solid rgba(201,168,76,0.18)",
-            padding: "8px 0 16px",
           }}
         >
           {navLinks.map(({ label, href }) => {
@@ -155,20 +148,21 @@ export function Navbar() {
                 style={{
                   display: "block",
                   fontFamily: "var(--font-montserrat)",
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 600,
-                  letterSpacing: "0.14em",
-                  color: isActive ? "#c9a84c" : "rgba(255,255,255,0.75)",
+                  letterSpacing: "0.1em",
+                  color: isActive ? "#c9a84c" : "rgba(255,255,255,0.8)",
                   textDecoration: "none",
-                  padding: "14px 24px",
-                  borderLeft: isActive ? "2px solid #c9a84c" : "2px solid transparent",
+                  padding: "16px 24px",
+                  borderLeft: isActive ? "3px solid #c9a84c" : "3px solid transparent",
+                  borderBottom: "1px solid rgba(255,255,255,0.05)",
                 }}
               >
                 {label}
               </Link>
             );
           })}
-        </nav>
+        </div>
       )}
     </header>
   );

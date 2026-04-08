@@ -4,14 +4,14 @@ const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/200
 
 export function Hero({ heroImage }: { heroImage?: string }) {
   return (
-    <section style={{
-      backgroundColor: "#0a0a0a",
-      minHeight: "80vh",
-      position: "relative",
-      overflow: "hidden",
-      display: "flex",
-      alignItems: "center",
-    }}>
+    <section
+      style={{
+        backgroundColor: "#0a0a0a",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background patterns */}
       <div style={{
         position: "absolute", inset: 0,
         backgroundImage: HEX_PATTERN,
@@ -24,16 +24,14 @@ export function Hero({ heroImage }: { heroImage?: string }) {
         pointerEvents: "none",
       }} />
 
+      {/* Content: single column on mobile, two columns on desktop */}
+      {/* NOTE: no display in inline style — Tailwind flex controls layout */}
       <div
-        className="flex flex-col md:flex-row items-center gap-10 md:gap-12 w-full"
-        style={{
-          position: "relative", zIndex: 10,
-          maxWidth: "1200px", margin: "0 auto",
-          padding: "60px 24px 120px",
-        }}
+        className="relative flex flex-col md:flex-row items-center gap-8 md:gap-12 mx-auto px-6 py-16 md:py-24 pb-28 md:pb-36 w-full"
+        style={{ maxWidth: "1200px", zIndex: 10 }}
       >
-        {/* LEFT — text */}
-        <div className="flex-1 text-center md:text-left">
+        {/* Text block — full width on mobile */}
+        <div className="w-full md:flex-1 text-center md:text-left">
           <p style={{
             fontFamily: "var(--font-montserrat)",
             fontSize: "11px", fontWeight: 700,
@@ -43,10 +41,14 @@ export function Hero({ heroImage }: { heroImage?: string }) {
             Premium Research Peptidi
           </p>
 
-          <h1 className="hero-headline" style={{
-            fontSize: "clamp(1.9rem, 5vw, 4rem)",
-            lineHeight: 1.1, marginBottom: "24px",
-          }}>
+          <h1
+            className="hero-headline"
+            style={{
+              fontSize: "clamp(1.8rem, 6vw, 4rem)",
+              lineHeight: 1.1,
+              marginBottom: "24px",
+            }}
+          >
             Najvišja kakovost<br />peptidov za prodajo
           </h1>
 
@@ -63,22 +65,23 @@ export function Hero({ heroImage }: { heroImage?: string }) {
           </Link>
         </div>
 
-        {/* RIGHT — hero image or decorative placeholder */}
-        <div className="flex-1 flex justify-center items-center w-full">
+        {/* Image / placeholder — hidden on mobile, visible on desktop */}
+        {/* NOTE: no display in inline style — Tailwind hidden/md:flex controls it */}
+        <div className="hidden md:flex flex-1 justify-center items-center">
           {heroImage ? (
             <img
               src={heroImage}
               alt="Hero product"
-              className="w-full max-w-[280px] md:max-w-[420px]"
-              style={{ objectFit: "contain" }}
+              style={{ width: "420px", maxWidth: "100%", objectFit: "contain" }}
             />
           ) : (
             <div style={{
-              width: "min(320px, 80vw)", height: "min(320px, 80vw)", borderRadius: "50%",
+              width: "360px", height: "360px", borderRadius: "50%",
               background: "radial-gradient(circle at 40% 40%, rgba(201,168,76,0.12), rgba(0,0,0,0.5))",
               border: "1px solid rgba(201,168,76,0.2)",
               display: "flex", alignItems: "center", justifyContent: "center",
               position: "relative",
+              flexShrink: 0,
             }}>
               <div style={{
                 position: "absolute", inset: "20px", borderRadius: "50%",
@@ -96,11 +99,15 @@ export function Hero({ heroImage }: { heroImage?: string }) {
         </div>
       </div>
 
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: "100px",
-        backgroundColor: "#ffffff",
-        clipPath: "polygon(0 100%, 100% 20%, 100% 100%)",
-      }} />
+      {/* Diagonal white cut — smaller height on mobile to avoid large white area */}
+      <div
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          height: "60px",
+          backgroundColor: "#ffffff",
+          clipPath: "polygon(0 100%, 100% 20%, 100% 100%)",
+        }}
+      />
     </section>
   );
 }
