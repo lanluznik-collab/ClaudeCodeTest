@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     }
 
     // TODO: configure an email provider (e.g. nodemailer, Resend, SendGrid)
-    // and send to SloPeps@gmail.com
+    // and send to info@slopeps.com
     console.log("Contact form submission:", { name, email, message });
 
     return NextResponse.json({ ok: true });

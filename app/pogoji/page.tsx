@@ -99,7 +99,7 @@ export default function PogojiPage() {
           </Section>
 
           <Section title="5. Vračila in povračila">
-            <p><strong>Naročila, ki niso bila odposlana:</strong> Odpoved naročila in polno povračilo sta možna v roku 30 dni od oddaje naročila, pod pogojem, da naročilo še ni bilo odposlano. Kontaktirajte nas na <a href="mailto:SloPeps@gmail.com" style={{ color: "#c9a84c" }}>SloPeps@gmail.com</a>.</p>
+            <p><strong>Naročila, ki niso bila odposlana:</strong> Odpoved naročila in polno povračilo sta možna v roku 30 dni od oddaje naročila, pod pogojem, da naročilo še ni bilo odposlano. Kontaktirajte nas na <a href="mailto:info@slopeps.com" style={{ color: "#c9a84c" }}>info@slopeps.com</a>.</p>
             <p><strong>Naročila, ki so bila odposlana:</strong> Ko je naročilo enkrat odposlano, povračila žal niso možna. To je posledica narave naših izdelkov (biološki materiali z zahtevami glede shranjevanja), ki ne dovoljuje ponovne prodaje.</p>
             <p><strong>Poškodovane ali napačne pošiljke:</strong> V primeru napake pri pošiljki ali poškodbe med dostavo nas prosimo kontaktirajte v roku 48 ur od prejema s fotografijami poškodb. V tem primeru bomo zagotovili zamenjavo ali povračilo.</p>
           </Section>

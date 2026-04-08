@@ -201,12 +201,12 @@ export default function ContactPage() {
 
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                 <Mail size={18} style={{ flexShrink: 0, color: "#fff", opacity: 0.85 }} />
-                <a href="mailto:SloPeps@gmail.com" style={{
+                <a href="mailto:info@slopeps.com" style={{
                   fontFamily: "var(--font-montserrat)",
                   fontWeight: 700, fontSize: "14px",
                   color: "#fff", textDecoration: "none",
                 }}>
-                  SloPeps@gmail.com
+                  info@slopeps.com
                 </a>
               </div>
 

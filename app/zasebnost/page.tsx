@@ -56,7 +56,7 @@ export default function ZasebnostPage() {
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
 
           <Section title="1. Upravljavec podatkov">
-            <p>Upravljavec osebnih podatkov je podjetje SloPeps (v nadaljevanju &quot;mi&quot; ali &quot;SloPeps&quot;). Za vsa vprašanja v zvezi z zasebnostjo nas kontaktirajte na: <a href="mailto:SloPeps@gmail.com" style={{ color: "#c9a84c" }}>SloPeps@gmail.com</a>.</p>
+            <p>Upravljavec osebnih podatkov je podjetje SloPeps (v nadaljevanju &quot;mi&quot; ali &quot;SloPeps&quot;). Za vsa vprašanja v zvezi z zasebnostjo nas kontaktirajte na: <a href="mailto:info@slopeps.com" style={{ color: "#c9a84c" }}>info@slopeps.com</a>.</p>
           </Section>
 
           <Section title="2. Katere podatke zbiramo">
@@ -115,7 +115,7 @@ export default function ZasebnostPage() {
               <li>Pravica do prenosljivosti podatkov</li>
               <li>Pravica do ugovora obdelavi</li>
             </ul>
-            <p>Za uveljavljanje svojih pravic nas kontaktirajte na <a href="mailto:SloPeps@gmail.com" style={{ color: "#c9a84c" }}>SloPeps@gmail.com</a>.</p>
+            <p>Za uveljavljanje svojih pravic nas kontaktirajte na <a href="mailto:info@slopeps.com" style={{ color: "#c9a84c" }}>info@slopeps.com</a>.</p>
           </Section>
 
           <Section title="8. Piškotki">
