@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Search } from "lucide-react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useCartStore } from "@/lib/cart-store";
@@ -15,9 +15,12 @@ const navLinks = [
 
 export function Navbar() {
   const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const totalItems = useCartStore((s) => s.totalItems());
   const pathname = usePathname();
+
   useEffect(() => setMounted(true), []);
+  useEffect(() => setMenuOpen(false), [pathname]);
 
   return (
     <header style={{
@@ -27,11 +30,12 @@ export function Navbar() {
       top: 0,
       zIndex: 50,
     }}>
+      {/* Main bar */}
       <div style={{
         maxWidth: "1200px",
         margin: "0 auto",
-        padding: "0 24px",
-        height: "72px",
+        padding: "0 16px",
+        height: "64px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -42,17 +46,17 @@ export function Navbar() {
         <Link href="/" style={{
           fontFamily: "var(--font-montserrat)",
           fontWeight: 900,
-          fontSize: "22px",
+          fontSize: "20px",
           letterSpacing: "0.15em",
           color: "#c9a84c",
           textDecoration: "none",
+          flexShrink: 0,
         }}>
           SLOPEPS
         </Link>
 
-        {/* Nav links — center */}
-        <nav style={{
-          display: "flex",
+        {/* Desktop nav — centered, hidden on mobile */}
+        <nav className="hidden md:flex" style={{
           alignItems: "center",
           gap: "36px",
           position: "absolute",
@@ -79,8 +83,8 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Right icons — cart + search only */}
-        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        {/* Right: cart + hamburger */}
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <Link href="/cart" style={{
             position: "relative",
             color: "rgba(255,255,255,0.65)",
@@ -111,19 +115,61 @@ export function Navbar() {
             )}
           </Link>
 
-          <button style={{
-            background: "none",
-            border: "none",
-            color: "rgba(255,255,255,0.65)",
-            cursor: "pointer",
-            padding: "4px",
-            display: "flex",
-            alignItems: "center",
-          }}>
-            <Search size={20} />
+          {/* Hamburger — mobile only */}
+          <button
+            className="md:hidden"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? "Zapri meni" : "Odpri meni"}
+            style={{
+              background: "none",
+              border: "none",
+              color: "rgba(255,255,255,0.75)",
+              cursor: "pointer",
+              padding: "4px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
+
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <nav
+          className="md:hidden"
+          style={{
+            backgroundColor: "#111",
+            borderTop: "1px solid rgba(201,168,76,0.18)",
+            padding: "8px 0 16px",
+          }}
+        >
+          {navLinks.map(({ label, href }) => {
+            const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
+            return (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  display: "block",
+                  fontFamily: "var(--font-montserrat)",
+                  fontSize: "13px",
+                  fontWeight: 600,
+                  letterSpacing: "0.14em",
+                  color: isActive ? "#c9a84c" : "rgba(255,255,255,0.75)",
+                  textDecoration: "none",
+                  padding: "14px 24px",
+                  borderLeft: isActive ? "2px solid #c9a84c" : "2px solid transparent",
+                }}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </nav>
+      )}
     </header>
   );
 }

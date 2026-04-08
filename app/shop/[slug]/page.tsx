@@ -52,7 +52,7 @@ export default async function ProductPage({ params }: Props) {
 
       {/* Breadcrumb */}
       <div style={{ backgroundColor: "#f7f7f7", borderBottom: "1px solid #eee" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "12px 32px" }}>
+        <div className="mx-auto px-4 md:px-8 py-3" style={{ maxWidth: "1200px" }}>
           <p style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#999", margin: 0 }}>
             <Link href="/" style={{ color: "#999", textDecoration: "none" }}>Domov</Link>
             <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
@@ -64,8 +64,8 @@ export default async function ProductPage({ params }: Props) {
       </div>
 
       {/* Main product section */}
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 32px 64px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "64px", alignItems: "start" }}>
+      <div className="mx-auto px-4 md:px-8 py-8 md:py-12 pb-16" style={{ maxWidth: "1200px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
 
           {/* LEFT: image */}
           <ImageGallery images={product.images} name={product.name} />
@@ -193,7 +193,7 @@ export default async function ProductPage({ params }: Props) {
             }}>
               Sorodni peptidi
             </h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "28px" }}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-7">
               {related.map((p) => <ProductCard key={p.id} product={p} />)}
             </div>
           </div>

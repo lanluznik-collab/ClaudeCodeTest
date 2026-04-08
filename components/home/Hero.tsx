@@ -24,15 +24,16 @@ export function Hero({ heroImage }: { heroImage?: string }) {
         pointerEvents: "none",
       }} />
 
-      <div style={{
-        position: "relative", zIndex: 10,
-        maxWidth: "1200px", margin: "0 auto",
-        padding: "80px 24px 140px",
-        display: "flex", flexDirection: "row",
-        alignItems: "center", gap: "48px", width: "100%",
-      }}>
-        {/* LEFT */}
-        <div style={{ flex: 1 }}>
+      <div
+        className="flex flex-col md:flex-row items-center gap-10 md:gap-12 w-full"
+        style={{
+          position: "relative", zIndex: 10,
+          maxWidth: "1200px", margin: "0 auto",
+          padding: "60px 24px 120px",
+        }}
+      >
+        {/* LEFT — text */}
+        <div className="flex-1 text-center md:text-left">
           <p style={{
             fontFamily: "var(--font-montserrat)",
             fontSize: "11px", fontWeight: 700,
@@ -43,8 +44,8 @@ export function Hero({ heroImage }: { heroImage?: string }) {
           </p>
 
           <h1 className="hero-headline" style={{
-            fontSize: "clamp(2.4rem, 5vw, 4rem)",
-            lineHeight: 1.1, marginBottom: "24px", maxWidth: "520px",
+            fontSize: "clamp(1.9rem, 5vw, 4rem)",
+            lineHeight: 1.1, marginBottom: "24px",
           }}>
             Najvišja kakovost<br />peptidov za prodajo
           </h1>
@@ -52,7 +53,7 @@ export function Hero({ heroImage }: { heroImage?: string }) {
           <p style={{
             fontFamily: "var(--font-opensans)",
             fontSize: "15px", color: "rgba(255,255,255,0.75)",
-            lineHeight: 1.75, maxWidth: "420px", marginBottom: "40px",
+            lineHeight: 1.75, marginBottom: "40px",
           }}>
             Ponosni smo, da ponujamo najvišjo kakovost peptidov in peptidnih mešanic v industriji.
           </p>
@@ -63,16 +64,17 @@ export function Hero({ heroImage }: { heroImage?: string }) {
         </div>
 
         {/* RIGHT — hero image or decorative placeholder */}
-        <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div className="flex-1 flex justify-center items-center w-full">
           {heroImage ? (
             <img
               src={heroImage}
               alt="Hero product"
-              style={{ width: "420px", objectFit: "contain" }}
+              className="w-full max-w-[280px] md:max-w-[420px]"
+              style={{ objectFit: "contain" }}
             />
           ) : (
             <div style={{
-              width: "360px", height: "360px", borderRadius: "50%",
+              width: "min(320px, 80vw)", height: "min(320px, 80vw)", borderRadius: "50%",
               background: "radial-gradient(circle at 40% 40%, rgba(201,168,76,0.12), rgba(0,0,0,0.5))",
               border: "1px solid rgba(201,168,76,0.2)",
               display: "flex", alignItems: "center", justifyContent: "center",

@@ -14,14 +14,14 @@ const cards = ["Mastercard", "Amex", "Visa"];
 export function Footer() {
   return (
     <footer style={{ backgroundColor: "#0a0a0a", borderTop: "1px solid rgba(201,168,76,0.15)" }}>
-      <div style={{
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "60px 24px 40px",
-        display: "grid",
-        gridTemplateColumns: "2fr 1fr 1fr",
-        gap: "48px",
-      }}>
+      <div
+        className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10 md:gap-12"
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "48px 24px 40px",
+        }}
+      >
 
         {/* Left: Logo + Disclaimer */}
         <div>
@@ -112,7 +112,7 @@ export function Footer() {
           }}>
             Sprejemamo plačila
           </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "10px" }}>
             {cards.map((card) => (
               <div key={card} style={{
                 display: "inline-flex",
@@ -122,7 +122,7 @@ export function Footer() {
                 border: "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "6px",
                 padding: "9px 0",
-                width: "120px",
+                width: "100px",
               }}>
                 <span style={{
                   fontFamily: "var(--font-montserrat)",

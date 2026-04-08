@@ -67,7 +67,7 @@ export default async function ShopPage({ searchParams }: Props) {
         <div style={{
           position: "relative", zIndex: 10,
           maxWidth: "1200px", margin: "0 auto",
-          padding: "60px 24px 120px",
+          padding: "40px 20px 100px",
           width: "100%",
           display: "flex",
           alignItems: "center",
