@@ -7,16 +7,25 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const supabase = createServerClient();
-  const { data: products } = await supabase
-    .from("products")
-    .select("*")
-    .eq("featured", true)
-    .order("created_at", { ascending: false })
-    .limit(6);
+  const [{ data: products }, { data: heroSetting }] = await Promise.all([
+    supabase
+      .from("products")
+      .select("*")
+      .eq("featured", true)
+      .order("created_at", { ascending: false })
+      .limit(6),
+    supabase
+      .from("settings")
+      .select("value")
+      .eq("key", "hero_image")
+      .single(),
+  ]);
+
+  const heroImage = heroSetting?.value || undefined;
 
   return (
     <>
-      <Hero />
+      <Hero heroImage={heroImage} />
       <TrustBadges />
       <FeaturedProducts products={products ?? []} />
     </>

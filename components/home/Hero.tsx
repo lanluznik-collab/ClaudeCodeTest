@@ -1,129 +1,104 @@
 import Link from "next/link";
 
-export function Hero() {
+const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3C/svg%3E")`;
+
+export function Hero({ heroImage }: { heroImage?: string }) {
   return (
     <section style={{
-      backgroundColor: "#2a1406",
-      backgroundImage: [
-        "radial-gradient(ellipse 70% 80% at 20% 50%, rgba(157,107,42,0.45) 0%, transparent 65%)",
-        "radial-gradient(circle at 80% 50%, rgba(100,60,15,0.3) 0%, transparent 55%)",
-      ].join(", "),
+      backgroundColor: "#0a0a0a",
       minHeight: "80vh",
       position: "relative",
       overflow: "hidden",
       display: "flex",
       alignItems: "center",
     }}>
-
-      {/* Subtle diagonal line texture */}
       <div style={{
-        position: "absolute",
-        inset: 0,
-        backgroundImage: "repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px)",
+        position: "absolute", inset: 0,
+        backgroundImage: HEX_PATTERN,
+        backgroundSize: "60px 104px",
+        pointerEvents: "none",
+      }} />
+      <div style={{
+        position: "absolute", inset: 0,
+        backgroundImage: "radial-gradient(ellipse 60% 70% at 20% 50%, rgba(201,168,76,0.06) 0%, transparent 70%)",
         pointerEvents: "none",
       }} />
 
-      {/* Content — two columns */}
       <div style={{
-        position: "relative",
-        zIndex: 10,
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "80px 24px 120px",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        gap: "48px",
-        width: "100%",
+        position: "relative", zIndex: 10,
+        maxWidth: "1200px", margin: "0 auto",
+        padding: "80px 24px 140px",
+        display: "flex", flexDirection: "row",
+        alignItems: "center", gap: "48px", width: "100%",
       }}>
-
-        {/* LEFT — text */}
+        {/* LEFT */}
         <div style={{ flex: 1 }}>
-          {/* Label */}
           <p style={{
             fontFamily: "var(--font-montserrat)",
-            fontSize: "11px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.25em",
-            color: "rgb(231,210,147)",
-            marginBottom: "20px",
-            opacity: 0.85,
+            fontSize: "11px", fontWeight: 700,
+            textTransform: "uppercase", letterSpacing: "0.25em",
+            color: "#c9a84c", marginBottom: "20px", opacity: 0.85,
           }}>
-            Premium Research Peptides
+            Premium Research Peptidi
           </p>
 
-          {/* Headline — exact gradient from corepeptides.com */}
-          <h1
-            className="hero-headline"
-            style={{
-              fontSize: "clamp(2.5rem, 5vw, 4.2rem)",
-              lineHeight: 1.1,
-              marginBottom: "24px",
-              maxWidth: "520px",
-            }}
-          >
-            Highest Quality<br />
-            Products For Sale
+          <h1 className="hero-headline" style={{
+            fontSize: "clamp(2.4rem, 5vw, 4rem)",
+            lineHeight: 1.1, marginBottom: "24px", maxWidth: "520px",
+          }}>
+            Najvišja kakovost<br />peptidov za prodajo
           </h1>
 
-          {/* Subtitle */}
           <p style={{
             fontFamily: "var(--font-opensans)",
-            fontSize: "15px",
-            fontWeight: 400,
-            color: "rgba(255,255,255,0.82)",
-            lineHeight: 1.75,
-            maxWidth: "420px",
-            marginBottom: "40px",
+            fontSize: "15px", color: "rgba(255,255,255,0.75)",
+            lineHeight: 1.75, maxWidth: "420px", marginBottom: "40px",
           }}>
-            We are proud to carry the highest quality products and blends in the industry.
+            Ponosni smo, da ponujamo najvišjo kakovost peptidov in peptidnih mešanic v industriji.
           </p>
 
-          {/* CTA — exact corepeptides.com style */}
           <Link href="/shop" className="hero-cta">
-            BUY NOW
+            KUPI PEPTIDE
           </Link>
         </div>
 
-        {/* RIGHT — product image */}
+        {/* RIGHT — hero image or decorative placeholder */}
         <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <div style={{
-            width: "360px",
-            height: "360px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle at 40% 40%, rgba(157,107,42,0.25), rgba(0,0,0,0.4))",
-            border: "1px solid rgba(183,135,66,0.25)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "relative",
-          }}>
+          {heroImage ? (
+            <img
+              src={heroImage}
+              alt="Hero product"
+              style={{ width: "420px", objectFit: "contain" }}
+            />
+          ) : (
             <div style={{
-              position: "absolute",
-              inset: "20px",
-              borderRadius: "50%",
-              border: "1px solid rgba(231,210,147,0.12)",
-            }} />
-            <p style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-montserrat)" }}>
-              Product Image
-            </p>
-          </div>
+              width: "360px", height: "360px", borderRadius: "50%",
+              background: "radial-gradient(circle at 40% 40%, rgba(201,168,76,0.12), rgba(0,0,0,0.5))",
+              border: "1px solid rgba(201,168,76,0.2)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              position: "relative",
+            }}>
+              <div style={{
+                position: "absolute", inset: "20px", borderRadius: "50%",
+                border: "1px solid rgba(201,168,76,0.1)",
+              }} />
+              <p style={{
+                fontSize: "11px", textTransform: "uppercase",
+                letterSpacing: "0.2em", color: "rgba(255,255,255,0.2)",
+                fontFamily: "var(--font-montserrat)",
+              }}>
+                Slika izdelka
+              </p>
+            </div>
+          )}
         </div>
-
       </div>
 
-      {/* Diagonal white cut at bottom — exact corepeptides.com diagonal split */}
       <div style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: "100px",
+        position: "absolute", bottom: 0, left: 0, right: 0, height: "100px",
         backgroundColor: "#ffffff",
-        clipPath: "polygon(0 100%, 100% 25%, 100% 100%)",
+        clipPath: "polygon(0 100%, 100% 20%, 100% 100%)",
       }} />
-
     </section>
   );
 }
