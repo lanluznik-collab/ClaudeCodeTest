@@ -39,7 +39,7 @@ export function OrderTable({ orders }: { orders: Order[] }) {
             <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Date</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Name</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Email</th>
-            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Naslov</th>
+            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Naslov dostave</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Items</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Total</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Method</th>
