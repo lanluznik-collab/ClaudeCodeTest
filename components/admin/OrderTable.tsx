@@ -34,6 +34,7 @@ export function OrderTable({ orders }: { orders: Order[] }) {
           <tr className="border-b border-gray-100">
             <th className="text-left py-3 pr-4 font-medium text-gray-500">Date</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500">Customer</th>
+            <th className="text-left py-3 pr-4 font-medium text-gray-500">Address</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500">Total</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500">Method</th>
             <th className="text-left py-3 pr-4 font-medium text-gray-500">Items</th>
@@ -49,6 +50,9 @@ export function OrderTable({ orders }: { orders: Order[] }) {
               <td className="py-3 pr-4">
                 <p className="font-medium">{o.customer_name ?? "—"}</p>
                 <p className="text-gray-400 text-xs">{o.customer_email ?? ""}</p>
+              </td>
+              <td className="py-3 pr-4 text-gray-500 text-xs whitespace-pre-line">
+                {o.customer_address ?? "—"}
               </td>
               <td className="py-3 pr-4 font-medium">{formatPrice(o.total)}</td>
               <td className="py-3 pr-4 capitalize text-gray-500">
