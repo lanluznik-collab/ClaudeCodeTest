@@ -20,7 +20,7 @@ export interface Order {
   customer_name: string | null;
   customer_email: string | null;
   customer_address: string | null;
-  payment_method: "bank_transfer" | "whatsapp";
+  payment_method: "bank" | "whatsapp";
   status: "pending_payment" | "pending" | "paid" | "shipped" | "delivered" | "cancelled";
   created_at: string;
 }

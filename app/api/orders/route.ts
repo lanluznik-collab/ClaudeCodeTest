@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       customer_name,
       customer_email,
       customer_address,
-      payment_method: "bank_transfer",
+      payment_method: "bank",
       status: "pending_payment",
     });
 
