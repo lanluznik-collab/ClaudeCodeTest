@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       customer_name,
       customer_email,
       customer_address,
-      payment_method: "bank",
+      payment_method: "bank_transfer",
       status: "pending_payment",
     }).select();
 
