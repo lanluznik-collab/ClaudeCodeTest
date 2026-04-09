@@ -30,7 +30,9 @@ export async function POST(req: NextRequest) {
 
     const supabase = createServiceClient();
 
-    const { error } = await supabase.from("orders").insert({
+    console.log("[orders] inserting:", { customer_name, customer_email, customer_address, total });
+
+    const { data, error } = await supabase.from("orders").insert({
       items,
       total,
       customer_name,
@@ -38,13 +40,14 @@ export async function POST(req: NextRequest) {
       customer_address,
       payment_method: "bank",
       status: "pending_payment",
-    });
+    }).select();
 
     if (error) {
-      console.error("[orders] insert error:", error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      console.error("[orders] supabase error:", JSON.stringify(error));
+      return NextResponse.json({ error: error.message, details: error }, { status: 500 });
     }
 
+    console.log("[orders] inserted row:", JSON.stringify(data));
     return NextResponse.json({ order_ref });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
