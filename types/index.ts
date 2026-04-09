@@ -19,8 +19,9 @@ export interface Order {
   total: number;
   customer_name: string | null;
   customer_email: string | null;
-  payment_method: "stripe" | "whatsapp";
-  status: "pending" | "paid" | "shipped" | "delivered" | "cancelled";
+  customer_address: string | null;
+  payment_method: "bank_transfer" | "whatsapp";
+  status: "pending_payment" | "pending" | "paid" | "shipped" | "delivered" | "cancelled";
   created_at: string;
 }
 

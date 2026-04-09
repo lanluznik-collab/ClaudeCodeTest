@@ -5,6 +5,7 @@ import { Order } from "@/types";
 import { formatPrice } from "@/lib/utils";
 
 const statusColors: Record<string, string> = {
+  pending_payment: "bg-orange-50 text-orange-700",
   pending: "bg-yellow-50 text-yellow-700",
   paid: "bg-blue-50 text-blue-700",
   shipped: "bg-purple-50 text-purple-700",
@@ -12,7 +13,7 @@ const statusColors: Record<string, string> = {
   cancelled: "bg-red-50 text-red-400",
 };
 
-const statusOptions = ["pending", "paid", "shipped", "delivered", "cancelled"];
+const statusOptions = ["pending_payment", "pending", "paid", "shipped", "delivered", "cancelled"];
 
 export function OrderTable({ orders }: { orders: Order[] }) {
   const router = useRouter();
