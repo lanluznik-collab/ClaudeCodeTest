@@ -7,8 +7,8 @@ import { formatPrice } from "@/lib/utils";
 import { WhatsAppOrderButton } from "./WhatsAppOrderButton";
 
 const BANK_NAME = "SloPeps";
-const BANK_IBAN = "YOUR_IBAN_HERE";
-const BANK_BIC = "YOUR_BIC_HERE";
+const BANK_IBAN = "SI56 0440 3026 6483 426";
+const BANK_BIC = "KBMASI2X";
 
 function generateOrderRef(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

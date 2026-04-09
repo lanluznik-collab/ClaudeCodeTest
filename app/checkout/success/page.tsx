@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { useCartStore } from "@/lib/cart-store";
 
 const BANK_NAME = "SloPeps";
-const BANK_IBAN = "YOUR_IBAN_HERE";
-const BANK_BIC = "YOUR_BIC_HERE";
+const BANK_IBAN = "SI56 0440 3026 6483 426";
+const BANK_BIC = "KBMASI2X";
 
 export default function SuccessPage() {
   const clearCart = useCartStore((s) => s.clearCart);
