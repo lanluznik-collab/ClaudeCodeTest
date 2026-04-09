@@ -59,7 +59,7 @@ export function OrderTable({ orders }: { orders: Order[] }) {
                 {o.customer_email ?? "—"}
               </td>
               <td className="py-3 pr-4 text-gray-500 whitespace-pre-line max-w-[200px]">
-                {o.customer_address ?? "—"}
+                {o.customer_address || "—"}
               </td>
               <td className="py-3 pr-4 text-gray-500">
                 {Array.isArray(o.items) ? (
