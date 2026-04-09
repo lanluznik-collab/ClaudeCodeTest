@@ -31,7 +31,6 @@ export async function POST(req: NextRequest) {
     const supabase = createServiceClient();
 
     const { error } = await supabase.from("orders").insert({
-      stripe_session_id: order_ref,
       items,
       total,
       customer_name,

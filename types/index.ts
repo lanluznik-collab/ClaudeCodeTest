@@ -14,7 +14,6 @@ export interface Product {
 
 export interface Order {
   id: string;
-  stripe_session_id: string | null;
   items: CartItem[];
   total: number;
   customer_name: string | null;
