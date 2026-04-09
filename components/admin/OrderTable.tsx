@@ -15,15 +15,6 @@ const statusColors: Record<string, string> = {
 
 const statusOptions = ["pending_payment", "pending", "paid", "shipped", "delivered", "cancelled"];
 
-function Row({ label, value }: { label: string; value: React.ReactNode }) {
-  return (
-    <div className="flex gap-3 py-2 border-b border-gray-50 last:border-0">
-      <span className="text-xs text-gray-400 w-36 shrink-0 pt-0.5">{label}</span>
-      <span className="text-sm text-gray-800 break-words min-w-0">{value ?? "—"}</span>
-    </div>
-  );
-}
-
 export function OrderTable({ orders }: { orders: Order[] }) {
   const router = useRouter();
 
@@ -41,59 +32,71 @@ export function OrderTable({ orders }: { orders: Order[] }) {
   }
 
   return (
-    <div className="space-y-4">
-      {orders.map((o) => (
-        <div key={o.id} className="border border-gray-100 rounded-lg p-5">
-          {/* Header: date + status */}
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs text-gray-400">
-              {new Date(o.created_at).toLocaleString("sl-SI")}
-            </span>
-            <select
-              value={o.status}
-              onChange={(e) => updateStatus(o.id, e.target.value)}
-              className={`text-xs px-3 py-1 rounded-full border-0 font-medium focus:ring-1 focus:ring-black ${
-                statusColors[o.status] ?? "bg-gray-50 text-gray-600"
-              }`}
-            >
-              {statusOptions.map((s) => (
-                <option key={s} value={s} className="bg-white text-black font-normal">
-                  {s}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Details */}
-          <Row label="Ime" value={o.customer_name} />
-          <Row label="E-pošta" value={o.customer_email} />
-          <Row
-            label="Naslov dostave"
-            value={
-              o.customer_address ? (
-                <span className="whitespace-pre-line">{o.customer_address}</span>
-              ) : null
-            }
-          />
-          <Row
-            label="Izdelki"
-            value={
-              Array.isArray(o.items) && o.items.length > 0 ? (
-                <ul className="space-y-0.5">
-                  {o.items.map((item: any, i: number) => (
-                    <li key={i}>
-                      {item.name} × {item.quantity}
-                      {item.price ? ` — ${formatPrice(item.price * item.quantity)}` : ""}
-                    </li>
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-gray-100">
+            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Date</th>
+            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Name</th>
+            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Email</th>
+            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Address</th>
+            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Items</th>
+            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Total</th>
+            <th className="text-left py-3 pr-4 font-medium text-gray-500 whitespace-nowrap">Method</th>
+            <th className="text-left py-3 font-medium text-gray-500 whitespace-nowrap">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((o) => (
+            <tr key={o.id} className="border-b border-gray-50 hover:bg-gray-50 align-top">
+              <td className="py-3 pr-4 text-gray-500 whitespace-nowrap">
+                {new Date(o.created_at).toLocaleDateString("sl-SI")}
+              </td>
+              <td className="py-3 pr-4 font-medium whitespace-nowrap">
+                {o.customer_name ?? "—"}
+              </td>
+              <td className="py-3 pr-4 text-gray-500">
+                {o.customer_email ?? "—"}
+              </td>
+              <td className="py-3 pr-4 text-gray-500 whitespace-pre-line max-w-[200px]">
+                {o.customer_address ?? "—"}
+              </td>
+              <td className="py-3 pr-4 text-gray-500">
+                {Array.isArray(o.items) ? (
+                  <ul>
+                    {o.items.map((item: any, i: number) => (
+                      <li key={i} className="whitespace-nowrap">
+                        {item.name} ×{item.quantity}
+                      </li>
+                    ))}
+                  </ul>
+                ) : "—"}
+              </td>
+              <td className="py-3 pr-4 font-medium whitespace-nowrap">
+                {formatPrice(o.total)}
+              </td>
+              <td className="py-3 pr-4 text-gray-500 whitespace-nowrap capitalize">
+                {o.payment_method ?? "—"}
+              </td>
+              <td className="py-3">
+                <select
+                  value={o.status}
+                  onChange={(e) => updateStatus(o.id, e.target.value)}
+                  className={`text-xs px-2 py-1 rounded-full border-0 focus:ring-1 focus:ring-black ${
+                    statusColors[o.status] ?? "bg-gray-50 text-gray-600"
+                  }`}
+                >
+                  {statusOptions.map((s) => (
+                    <option key={s} value={s} className="bg-white text-black">
+                      {s}
+                    </option>
                   ))}
-                </ul>
-              ) : null
-            }
-          />
-          <Row label="Skupaj" value={<span className="font-semibold">{formatPrice(o.total)}</span>} />
-          <Row label="Način plačila" value={o.payment_method} />
-        </div>
-      ))}
+                </select>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
