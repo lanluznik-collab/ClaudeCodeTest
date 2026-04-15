@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -36,18 +37,14 @@ export function Navbar() {
         style={{ maxWidth: "1200px", height: "64px" }}
       >
         {/* Col 1: Logo */}
-        <Link
-          href="/"
-          style={{
-            fontFamily: "var(--font-montserrat)",
-            fontWeight: 900,
-            fontSize: "20px",
-            letterSpacing: "0.15em",
-            color: "#c9a84c",
-            textDecoration: "none",
-          }}
-        >
-          SLOPEPS
+        <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
+          <Image
+            src="/logo.png"
+            alt="SloPeps"
+            width={120}
+            height={32}
+            style={{ objectFit: "contain" }}
+          />
         </Link>
 
         {/* Col 2: Nav links — hidden on mobile, flex on desktop */}
