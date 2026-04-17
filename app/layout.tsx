@@ -18,11 +18,8 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'SloPeps - Premium Research Peptidi',
-  description: 'Najvišja kakovost peptidov za raziskovalne namene. Dostava po Sloveniji.',
-  icons: {
-    icon: '/favicon.ico',
-  },
+  title: "Store",
+  description: "Premium products delivered to your door.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
