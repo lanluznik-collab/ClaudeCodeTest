@@ -34,12 +34,19 @@ export default async function ProductPage({ params }: Props) {
 
   if (!product) notFound();
 
-  const { data: related } = await supabase
-    .from("products")
-    .select("*")
-    .eq("category", product.category ?? "")
-    .neq("id", product.id)
-    .limit(4);
+  const [{ data: related }, { data: coaDocs }] = await Promise.all([
+    supabase
+      .from("products")
+      .select("*")
+      .eq("category", product.category ?? "")
+      .neq("id", product.id)
+      .limit(4),
+    supabase
+      .from("coa_documents")
+      .select("*")
+      .eq("product_id", product.id)
+      .order("created_at", { ascending: false }),
+  ]);
 
   const tiers = [
     { qty: "1 – 4", price: product.price,        prihranek: "—" },
@@ -181,6 +188,7 @@ export default async function ProductPage({ params }: Props) {
         <ProductTabs
           description={product.description}
           coaImages={product.coa_images ?? []}
+          coaDocs={coaDocs ?? []}
         />
 
         {/* Related products */}

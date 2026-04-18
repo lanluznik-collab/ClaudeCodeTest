@@ -9,6 +9,7 @@ import { useCartStore } from "@/lib/cart-store";
 const navLinks = [
   { label: "DOMOV",    href: "/" },
   { label: "TRGOVINA", href: "/shop" },
+  { label: "BLOG",     href: "/blog" },
   { label: "O NAS",    href: "/about" },
   { label: "KONTAKT",  href: "/contact" },
 ];

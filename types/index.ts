@@ -32,3 +32,27 @@ export interface CartItem {
   quantity: number;
   slug: string;
 }
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  content: string | null;
+  cover_image: string | null;
+  author: string | null;
+  reading_time: number | null;
+  published_at: string;
+  created_at: string;
+}
+
+export interface CoaDocument {
+  id: string;
+  product_id: string;
+  batch_number: string | null;
+  test_date: string | null;
+  file_url: string | null;
+  file_size: string | null;
+  status: string;
+  created_at: string;
+}

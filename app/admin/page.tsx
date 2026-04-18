@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Product, Order } from "@/types";
+import { Product, Order, CoaDocument } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { Upload, X, Pencil, Trash2 } from "lucide-react"; // Upload used in ImageUploader below
 
@@ -202,6 +202,14 @@ export default function AdminDashboard() {
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
 
+  // COA documents (managed per product in admin)
+  const [coaProductId, setCoaProductId] = useState<string>("");
+  const [coaDocs, setCoaDocs] = useState<CoaDocument[]>([]);
+  const [loadingCoa, setLoadingCoa] = useState(false);
+  const [coaForm, setCoaForm] = useState({ batch_number: "", test_date: "", file_url: "", file_size: "", status: "Aktualni" });
+  const [coaUploading, setCoaUploading] = useState(false);
+  const [addingCoa, setAddingCoa] = useState(false);
+
   // ── fetch ──────────────────────────────────────────────────────────────────
 
   const fetchProducts = useCallback(async () => {
@@ -222,6 +230,63 @@ export default function AdminDashboard() {
     fetchProducts();
     fetchOrders();
   }, [fetchProducts, fetchOrders]);
+
+  const fetchCoaDocs = useCallback(async (productId: string) => {
+    if (!productId) { setCoaDocs([]); return; }
+    setLoadingCoa(true);
+    const res = await fetch(`/api/admin/coa?product_id=${productId}`);
+    if (res.ok) setCoaDocs(await res.json());
+    setLoadingCoa(false);
+  }, []);
+
+  useEffect(() => { fetchCoaDocs(coaProductId); }, [coaProductId, fetchCoaDocs]);
+
+  async function uploadCoaFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setCoaUploading(true);
+    const body = new FormData();
+    body.append("file", file);
+    const res = await fetch("/api/admin/upload", { method: "POST", body });
+    if (res.ok) {
+      const { url } = await res.json();
+      const sizeKb = Math.round(file.size / 1024);
+      const sizeLabel = sizeKb >= 1024 ? `${(sizeKb / 1024).toFixed(1)} MB` : `${sizeKb} KB`;
+      setCoaForm((f) => ({ ...f, file_url: url, file_size: sizeLabel }));
+    }
+    setCoaUploading(false);
+    e.target.value = "";
+  }
+
+  async function handleAddCoaDoc(e: React.FormEvent) {
+    e.preventDefault();
+    if (!coaProductId) return;
+    setAddingCoa(true);
+    const body = {
+      product_id: coaProductId,
+      batch_number: coaForm.batch_number.trim() || null,
+      test_date: coaForm.test_date || null,
+      file_url: coaForm.file_url || null,
+      file_size: coaForm.file_size.trim() || null,
+      status: coaForm.status,
+    };
+    const res = await fetch("/api/admin/coa", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) {
+      setCoaForm({ batch_number: "", test_date: "", file_url: "", file_size: "", status: "Aktualni" });
+      fetchCoaDocs(coaProductId);
+    }
+    setAddingCoa(false);
+  }
+
+  async function handleDeleteCoaDoc(id: string) {
+    if (!confirm("Izbriši ta certifikat?")) return;
+    const res = await fetch(`/api/admin/coa/${id}`, { method: "DELETE" });
+    if (res.ok) fetchCoaDocs(coaProductId);
+  }
 
   // ── product form helpers ───────────────────────────────────────────────────
 
@@ -464,6 +529,156 @@ export default function AdminDashboard() {
             </div>
           )}
         </div>
+      </section>
+
+      {/* ── COA DOCUMENTS ── */}
+      <section>
+        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#111", margin: "0 0 16px 0" }}>Certifikati analize (COA)</h2>
+
+        {/* Product selector */}
+        <div style={{ ...card, marginBottom: "20px" }}>
+          <label style={labelStyle}>Izberi izdelek</label>
+          <select
+            value={coaProductId}
+            onChange={(e) => setCoaProductId(e.target.value)}
+            style={{ ...inputStyle, maxWidth: "360px" }}
+          >
+            <option value="">— Izberi izdelek —</option>
+            {products.map((p) => (
+              <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
+          </select>
+        </div>
+
+        {coaProductId && (
+          <>
+            {/* Add new COA form */}
+            <div style={{ ...card, marginBottom: "20px", borderLeft: "3px solid #c9a84c" }}>
+              <h3 style={{ fontSize: "14px", fontWeight: 700, color: "#111", margin: "0 0 16px 0" }}>Dodaj certifikat</h3>
+              <form onSubmit={handleAddCoaDoc}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "14px", marginBottom: "14px" }}>
+                  <div>
+                    <label style={labelStyle}>Številka serije</label>
+                    <input
+                      value={coaForm.batch_number}
+                      onChange={(e) => setCoaForm((f) => ({ ...f, batch_number: e.target.value }))}
+                      style={inputStyle} placeholder="npr. LOT-2024-001"
+                    />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Datum testa</label>
+                    <input
+                      type="date" value={coaForm.test_date}
+                      onChange={(e) => setCoaForm((f) => ({ ...f, test_date: e.target.value }))}
+                      style={inputStyle}
+                    />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Status</label>
+                    <select
+                      value={coaForm.status}
+                      onChange={(e) => setCoaForm((f) => ({ ...f, status: e.target.value }))}
+                      style={inputStyle}
+                    >
+                      <option>Aktualni</option>
+                      <option>Zastarel</option>
+                      <option>Pregled</option>
+                    </select>
+                  </div>
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={labelStyle}>Datoteka (PDF ali slika)</label>
+                    {coaForm.file_url ? (
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <a href={coaForm.file_url} target="_blank" rel="noopener noreferrer"
+                          style={{ fontSize: "13px", color: "#c9a84c" }}>
+                          {coaForm.file_size ? `Datoteka (${coaForm.file_size})` : "Naložena datoteka"}
+                        </a>
+                        <button type="button" onClick={() => setCoaForm((f) => ({ ...f, file_url: "", file_size: "" }))}
+                          style={{ ...btnDanger, padding: "4px 8px", fontSize: "11px" }}>
+                          <X size={10} />
+                        </button>
+                      </div>
+                    ) : (
+                      <label style={{
+                        display: "inline-flex", alignItems: "center", gap: "8px",
+                        padding: "7px 14px", border: "2px dashed #ddd", borderRadius: "6px",
+                        cursor: coaUploading ? "not-allowed" : "pointer", opacity: coaUploading ? 0.5 : 1,
+                      }}>
+                        <Upload size={13} color="#aaa" />
+                        <span style={{ fontSize: "13px", color: "#888" }}>
+                          {coaUploading ? "Nalagam…" : "Naloži datoteko"}
+                        </span>
+                        <input type="file" accept="image/*,.pdf" onChange={uploadCoaFile}
+                          disabled={coaUploading} style={{ display: "none" }} />
+                      </label>
+                    )}
+                  </div>
+                </div>
+                <button type="submit" disabled={addingCoa} style={{ ...btnPrimary, opacity: addingCoa ? 0.6 : 1 }}>
+                  {addingCoa ? "Dodajam…" : "Dodaj certifikat"}
+                </button>
+              </form>
+            </div>
+
+            {/* COA documents table */}
+            <div style={card}>
+              {loadingCoa ? (
+                <p style={{ fontSize: "14px", color: "#888", textAlign: "center", padding: "16px 0" }}>Nalagam…</p>
+              ) : coaDocs.length === 0 ? (
+                <p style={{ fontSize: "14px", color: "#888", textAlign: "center", padding: "16px 0" }}>
+                  Ni certifikatov za ta izdelek.
+                </p>
+              ) : (
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <thead>
+                      <tr>
+                        {["Serija", "Datum testa", "Velikost", "Status", "Datoteka", ""].map((h) => (
+                          <th key={h} style={thStyle}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {coaDocs.map((doc) => (
+                        <tr key={doc.id}>
+                          <td style={{ ...tdStyle, fontWeight: 600 }}>{doc.batch_number ?? "—"}</td>
+                          <td style={{ ...tdStyle, color: "#666" }}>
+                            {doc.test_date ? new Date(doc.test_date).toLocaleDateString("sl-SI") : "—"}
+                          </td>
+                          <td style={{ ...tdStyle, color: "#666" }}>{doc.file_size ?? "—"}</td>
+                          <td style={tdStyle}>
+                            <span style={{
+                              fontSize: "11px", fontWeight: 700,
+                              color: doc.status === "Aktualni" ? "#166534" : doc.status === "Zastarel" ? "#991b1b" : "#92400e",
+                              backgroundColor: doc.status === "Aktualni" ? "#dcfce7" : doc.status === "Zastarel" ? "#fee2e2" : "#fef3c7",
+                              padding: "2px 8px", borderRadius: "100px",
+                            }}>
+                              {doc.status}
+                            </span>
+                          </td>
+                          <td style={tdStyle}>
+                            {doc.file_url ? (
+                              <a href={doc.file_url} target="_blank" rel="noopener noreferrer"
+                                style={{ fontSize: "12px", color: "#c9a84c", textDecoration: "none" }}>
+                                Prenesi
+                              </a>
+                            ) : "—"}
+                          </td>
+                          <td style={{ ...tdStyle, textAlign: "right" }}>
+                            <button onClick={() => handleDeleteCoaDoc(doc.id)} style={btnDanger}>
+                              <Trash2 size={12} style={{ marginRight: "4px", verticalAlign: "middle" }} />
+                              Izbriši
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </section>
 
       {/* ── ORDERS ── */}
