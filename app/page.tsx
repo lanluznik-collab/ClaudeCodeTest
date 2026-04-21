@@ -1,6 +1,8 @@
-import { Hero } from "@/components/home/Hero";
-import { TrustBadges } from "@/components/home/TrustBadges";
-import { FeaturedProducts } from "@/components/home/FeaturedProducts";
+import { HeroCarousel } from "@/components/home/HeroCarousel";
+import { TrustBar } from "@/components/home/TrustBar";
+import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
+import { StatsSection } from "@/components/home/StatsSection";
+import { CtaBox } from "@/components/home/CtaBox";
 import { createServerClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -12,13 +14,15 @@ export default async function HomePage() {
     .select("*")
     .eq("featured", true)
     .order("created_at", { ascending: false })
-    .limit(6);
+    .limit(12);
 
   return (
     <>
-      <Hero />
-      <TrustBadges />
-      <FeaturedProducts products={products ?? []} />
+      <HeroCarousel />
+      <TrustBar />
+      <FeaturedCarousel products={products ?? []} />
+      <StatsSection />
+      <CtaBox />
     </>
   );
 }
