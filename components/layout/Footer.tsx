@@ -1,69 +1,57 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useLanguageStore } from "@/lib/language-store";
+import { translations } from "@/lib/i18n";
 
-const quickLinks = [
-  { label: "Peptidi", href: "/shop" },
-  { label: "O nas", href: "/about" },
-  { label: "Dostava, vračila in povračila", href: "/dostava" },
-  { label: "Zasebnost", href: "/zasebnost" },
-  { label: "Pogoji poslovanja", href: "/pogoji" },
-  { label: "Kontakt", href: "/contact" },
-];
-
-const cards = ["Mastercard", "Amex", "Visa"];
+const paymentMethods = ["Mastercard", "Visa", "Amex", "Bank Transfer"];
 
 export function Footer() {
+  const [mounted, setMounted] = useState(false);
+  const lang = useLanguageStore((s) => s.lang);
+  useEffect(() => setMounted(true), []);
+
+  const t = mounted ? translations[lang].footer : translations.sl.footer;
+  const links = mounted ? translations[lang].links : translations.sl.links;
+
   return (
     <footer style={{ backgroundColor: "#0a0a0a", borderTop: "1px solid rgba(201,168,76,0.15)" }}>
       <div
         className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10 md:gap-12"
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "48px 24px 40px",
-        }}
+        style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px 40px" }}
       >
-
         {/* Left: Logo + Disclaimer */}
         <div>
           <p style={{
             fontFamily: "var(--font-montserrat)",
-            fontWeight: 900,
-            fontSize: "22px",
-            letterSpacing: "0.15em",
-            color: "#c9a84c",
+            fontWeight: 900, fontSize: "22px",
+            letterSpacing: "0.15em", color: "#c9a84c",
             margin: "0 0 20px 0",
           }}>
             SLOPEPS
           </p>
           <p style={{
             fontFamily: "var(--font-opensans)",
-            fontSize: "13px",
-            fontStyle: "italic",
-            color: "#c9a84c",
-            lineHeight: 1.75,
-            margin: "0 0 16px 0",
+            fontSize: "13px", fontStyle: "italic",
+            color: "#c9a84c", lineHeight: 1.75, margin: "0 0 14px 0",
           }}>
-            Vsi izdelki so namenjeni izključno za raziskovalne, laboratorijske ali analitske namene in niso namenjeni za človeško porabo.
+            {t.disclaimer}
           </p>
           <p style={{
             fontFamily: "var(--font-opensans)",
-            fontSize: "12px",
-            color: "rgba(255,255,255,0.35)",
-            lineHeight: 1.75,
-            margin: "0 0 16px 0",
+            fontSize: "12px", color: "rgba(255,255,255,0.35)",
+            lineHeight: 1.75, margin: "0 0 14px 0",
           }}>
-            SloPeps je dobavitelj kemikalij, ne lekarna ali licencirani proizvajalec zdravil. Naši izdelki niso bili ocenjeni s strani regulatornih organov in niso namenjeni za diagnozo, zdravljenje ali preprečevanje bolezni.
+            {t.legal}
           </p>
           <p style={{
             fontFamily: "var(--font-montserrat)",
-            fontSize: "10px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.08em",
-            color: "rgba(255,255,255,0.22)",
-            margin: 0,
+            fontSize: "10px", fontWeight: 700,
+            textTransform: "uppercase", letterSpacing: "0.08em",
+            color: "rgba(255,255,255,0.22)", margin: 0,
           }}>
-            Zaužitje s strani ljudi/živali prepovedano. Samo za laboratorijsko/in-vitro eksperimentalno uporabo.
+            {t.fine}
           </p>
         </div>
 
@@ -71,24 +59,19 @@ export function Footer() {
         <div>
           <h3 style={{
             fontFamily: "var(--font-montserrat)",
-            fontSize: "12px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.14em",
-            color: "#fff",
-            margin: "0 0 20px 0",
+            fontSize: "12px", fontWeight: 700,
+            textTransform: "uppercase", letterSpacing: "0.14em",
+            color: "#fff", margin: "0 0 20px 0",
           }}>
-            Hitre povezave
+            {t.quickLinks}
           </h3>
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-            {quickLinks.map(({ label, href }) => (
-              <li key={label}>
+            {links.map(({ label, href }) => (
+              <li key={href}>
                 <Link href={href} style={{
                   fontFamily: "var(--font-opensans)",
-                  fontSize: "13px",
-                  color: "rgba(255,255,255,0.5)",
-                  textDecoration: "none",
-                  transition: "color 0.2s",
+                  fontSize: "13px", color: "rgba(255,255,255,0.5)",
+                  textDecoration: "none", transition: "color 0.2s",
                 }}
                   className="hover:text-[#c9a84c]"
                 >
@@ -99,37 +82,29 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Right: Now Accepting */}
+        {/* Right: Payment methods */}
         <div>
           <h3 style={{
             fontFamily: "var(--font-montserrat)",
-            fontSize: "12px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.14em",
-            color: "#fff",
-            margin: "0 0 20px 0",
+            fontSize: "12px", fontWeight: 700,
+            textTransform: "uppercase", letterSpacing: "0.14em",
+            color: "#fff", margin: "0 0 20px 0",
           }}>
-            Sprejemamo plačila
+            {t.payments}
           </h3>
           <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "10px" }}>
-            {cards.map((card) => (
+            {paymentMethods.map((card) => (
               <div key={card} style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
                 backgroundColor: "rgba(255,255,255,0.06)",
                 border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "6px",
-                padding: "9px 0",
-                width: "100px",
+                borderRadius: "6px", padding: "8px 12px", minWidth: "80px",
               }}>
                 <span style={{
                   fontFamily: "var(--font-montserrat)",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  letterSpacing: "0.05em",
-                  color: "rgba(255,255,255,0.65)",
+                  fontSize: "11px", fontWeight: 700,
+                  letterSpacing: "0.05em", color: "rgba(255,255,255,0.65)",
+                  whiteSpace: "nowrap",
                 }}>
                   {card}
                 </span>
@@ -142,16 +117,13 @@ export function Footer() {
       {/* Bottom bar */}
       <div style={{
         borderTop: "1px solid rgba(255,255,255,0.06)",
-        padding: "16px 24px",
-        textAlign: "center",
+        padding: "16px 24px", textAlign: "center",
       }}>
         <p style={{
           fontFamily: "var(--font-opensans)",
-          fontSize: "12px",
-          color: "rgba(255,255,255,0.28)",
-          margin: 0,
+          fontSize: "12px", color: "rgba(255,255,255,0.28)", margin: 0,
         }}>
-          Copyright {new Date().getFullYear()} SloPeps. Vse pravice pridržane.
+          {t.copyright}
         </p>
       </div>
     </footer>

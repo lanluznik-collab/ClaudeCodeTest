@@ -3,6 +3,8 @@ import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
+import { CartSidebar } from "@/components/layout/CartSidebar";
 import { Providers } from "./providers";
 
 const montserrat = Montserrat({
@@ -18,17 +20,25 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Store",
-  description: "Premium products delivered to your door.",
+  title: "SloPeps — Premium Research Peptides",
+  description: "Premium research peptides with >99% purity. HPLC and MS verified. Free shipping over €200.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${montserrat.variable} ${openSans.variable} antialiased`}
-        style={{ fontFamily: "var(--font-opensans), Helvetica Neue, Arial, sans-serif", background: "#0a0a0a", color: "#fff" }}>
+    <html lang="sl">
+      <body
+        className={`${montserrat.variable} ${openSans.variable} antialiased`}
+        style={{
+          fontFamily: "var(--font-opensans), Helvetica Neue, Arial, sans-serif",
+          background: "#0a0a0a",
+          color: "#fff",
+        }}
+      >
         <Providers>
+          <AnnouncementBar />
           <Navbar />
+          <CartSidebar />
           <main>{children}</main>
           <Footer />
         </Providers>
