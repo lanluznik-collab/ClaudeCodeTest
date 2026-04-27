@@ -44,6 +44,10 @@
   --shadow-md: 0 4px 12px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
   --shadow-lg: 0 8px 24px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.08);
   --shadow-xl: 0 20px 48px rgba(0,0,0,.18), 0 8px 16px rgba(0,0,0,.10);
+
+  --heart: #f43f5e;
+  --heart-light: #fff1f2;
+  --danger-light: #fef2f2;
 }
 
 /* Utility container used by Phase 3 layout components */
@@ -669,3 +673,70 @@ h1, h2, h3, h4 {
 @media (max-width: 680px) {
   .contact-grid { grid-template-columns: 1fr; }
 }
+
+/* ─── Wishlist page ─────────────────────────────────────────────────────────── */
+@keyframes pulse-heart {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.wishlist-grid.list-view { grid-template-columns: 1fr; gap: 16px; }
+
+@media (max-width: 1024px) {
+  .wishlist-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .wishlist-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .wishlist-grid.list-view .wishlist-card      { flex-direction: column; }
+  .wishlist-grid.list-view .wishlist-card-img  {
+    aspect-ratio: 4/3.5; width: 100%; min-height: unset; flex-shrink: unset;
+  }
+}
+@media (max-width: 480px) {
+  .wishlist-grid { grid-template-columns: 1fr; }
+}
+
+.wishlist-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-100);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition), border-color 0.2s ease;
+}
+
+.wishlist-grid.list-view .wishlist-card { flex-direction: row; }
+
+.wishlist-card-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 4 / 3.5;
+  background: linear-gradient(180deg, var(--gray-50), var(--white));
+  text-decoration: none;
+}
+.wishlist-grid.list-view .wishlist-card-img {
+  aspect-ratio: 1;
+  width: 200px;
+  min-height: 180px;
+  flex-shrink: 0;
+  padding: 24px;
+}
+
+.wishlist-card-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.wishlist-grid.list-view .wishlist-card-info { padding: 24px 28px; }
