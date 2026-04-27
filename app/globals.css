@@ -659,3 +659,13 @@ h1, h2, h3, h4 {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
+
+/* ─── Contact page ──────────────────────────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 680px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
