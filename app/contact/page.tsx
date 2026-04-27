@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import PageHero from "@/components/layout/PageHero";
@@ -27,7 +27,7 @@ export default function ContactPage() {
     width: "48px",
     height: "48px",
     borderRadius: "12px",
-    background: "rgba(14,165,233,0.10)",
+    background: "rgba(201,168,76,0.10)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

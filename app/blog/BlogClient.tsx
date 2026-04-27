@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -104,7 +104,7 @@ export default function BlogClient({ posts }: Props) {
                     {post.tag && (
                       <div style={{
                         position: "absolute", top: 16, left: 16,
-                        background: "rgba(14,165,233,.9)",
+                        background: "rgba(201,168,76,.9)",
                         backdropFilter: "blur(6px)",
                         color: "white",
                         padding: "5px 12px",

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -189,7 +189,7 @@ export default function AboutPage() {
               <div key={tkTitle} className="about-value-card">
                 <div style={{
                   width: "56px", height: "56px",
-                  background: "rgba(14,165,233,.1)",
+                  background: "rgba(201,168,76,.1)",
                   borderRadius: "16px",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   marginBottom: "20px",
@@ -283,7 +283,7 @@ export default function AboutPage() {
       }}>
         <div style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 60% 80% at 80% 50%, rgba(14,165,233,.15), transparent)",
+          background: "radial-gradient(ellipse 60% 80% at 80% 50%, rgba(201,168,76,.15), transparent)",
           pointerEvents: "none",
         }} />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
