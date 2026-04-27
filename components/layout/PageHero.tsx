@@ -24,13 +24,12 @@ export default function PageHero({
   return (
     <section
       style={{
-        background: 'linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 50%, #0c1a2e 100%)',
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%)',
         padding: paddingY,
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      <div className="page-hero-before" />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         {labelText && (

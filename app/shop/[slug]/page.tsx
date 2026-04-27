@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
 import { createServerClient } from "@/lib/supabase/server";
@@ -55,10 +55,10 @@ export default async function ProductPage({ params }: Props) {
   ];
 
   return (
-    <div style={{ backgroundColor: "#fff", color: "#111", minHeight: "60vh" }}>
+    <div style={{ backgroundColor: "#0a0a0a", color: "#eeeeee", minHeight: "60vh" }}>
 
       {/* Breadcrumb */}
-      <div style={{ backgroundColor: "#f7f7f7", borderBottom: "1px solid #eee" }}>
+      <div style={{ backgroundColor: "#111111", borderBottom: "1px solid #2a2a2a" }}>
         <div className="mx-auto px-4 md:px-8 py-3" style={{ maxWidth: "1200px" }}>
           <p style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#999", margin: 0 }}>
             <Link href="/" style={{ color: "#999", textDecoration: "none" }}>Domov</Link>

@@ -74,7 +74,7 @@ export default function AboutPage() {
                   dangerouslySetInnerHTML={{ __html: num }}
                   style={{
                     fontSize: "36px", fontWeight: 800,
-                    color: "var(--gray-900)", letterSpacing: "-1px", lineHeight: 1,
+                    color: "#ffffff", letterSpacing: "-1px", lineHeight: 1,
                   }}
                 />
                 <p style={{ fontSize: "13px", color: "var(--gray-500)", marginTop: "4px", fontWeight: 500, margin: "4px 0 0 0" }}>
@@ -98,7 +98,7 @@ export default function AboutPage() {
               </div>
               <h2 style={{
                 fontSize: "clamp(26px, 3.5vw, 36px)", fontWeight: 800,
-                color: "var(--gray-900)", letterSpacing: "-0.5px",
+                color: "#ffffff", letterSpacing: "-0.5px",
                 lineHeight: 1.25, marginBottom: "20px",
               }}>
                 {tl.storyTitle}
@@ -171,7 +171,7 @@ export default function AboutPage() {
             </div>
             <h2 style={{
               fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800,
-              color: "var(--gray-900)", letterSpacing: "-0.5px", margin: 0,
+              color: "#ffffff", letterSpacing: "-0.5px", margin: 0,
             }}>
               {tl.valuesTitle}
             </h2>
@@ -196,7 +196,7 @@ export default function AboutPage() {
                 }}>
                   <i className={icon} style={{ fontSize: "26px", color: "var(--primary)" }} />
                 </div>
-                <h3 style={{ fontSize: "17px", fontWeight: 700, color: "var(--gray-900)", marginBottom: "10px" }}>
+                <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#ffffff", marginBottom: "10px" }}>
                   {tl[tkTitle as TlKey] as string}
                 </h3>
                 <p style={{ fontSize: "14px", color: "var(--gray-500)", lineHeight: 1.7, margin: 0 }}>
@@ -218,7 +218,7 @@ export default function AboutPage() {
             </div>
             <h2 style={{
               fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800,
-              color: "var(--gray-900)", letterSpacing: "-0.5px", margin: 0,
+              color: "#ffffff", letterSpacing: "-0.5px", margin: 0,
             }}>
               {tl.processTitle}
             </h2>
@@ -252,7 +252,7 @@ export default function AboutPage() {
             </div>
             <h2 style={{
               fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800,
-              color: "var(--gray-900)", letterSpacing: "-0.5px", margin: 0,
+              color: "#ffffff", letterSpacing: "-0.5px", margin: 0,
             }}>
               {tl.certsTitle}
             </h2>

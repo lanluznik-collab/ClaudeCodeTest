@@ -46,17 +46,17 @@ export default function PogojiPage() {
         </div>
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: "80px",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#111111",
           clipPath: "polygon(0 100%, 100% 0%, 100% 100%)",
         }} />
       </section>
 
       {/* Content */}
-      <section style={{ backgroundColor: "#fff", color: "#111", padding: "64px 0 80px" }}>
+      <section style={{ backgroundColor: "#111111", color: "#eeeeee", padding: "64px 0 80px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
 
           <div style={{
-            backgroundColor: "#fffbf0",
+            backgroundColor: "#1a1a08",
             border: "1px solid rgba(201,168,76,0.3)",
             borderRadius: "6px",
             padding: "20px 24px",

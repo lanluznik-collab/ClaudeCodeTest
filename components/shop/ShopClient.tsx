@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo, useCallback, useEffect } from "react";
 import Link from "next/link";
@@ -95,7 +95,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
           zIndex: 301,
           width: "min(860px, calc(100vw - 32px))",
           maxHeight: "calc(100vh - 48px)",
-          backgroundColor: "#fff",
+          backgroundColor: "#1a1a1a",
           borderRadius: "8px",
           overflow: "auto",
           display: "grid",
@@ -446,9 +446,9 @@ export function ShopClient({ products, categories }: Props) {
   const inputBase: React.CSSProperties = {
     fontFamily: "var(--font-opensans)",
     fontSize: "13px",
-    color: "#333",
-    backgroundColor: "#fff",
-    border: "1px solid #e0e0e0",
+    color: "#eeeeee",
+    backgroundColor: "#1a1a1a",
+    border: "1px solid #2a2a2a",
     borderRadius: "4px",
     padding: "8px 12px",
     cursor: "pointer",
@@ -501,7 +501,7 @@ export function ShopClient({ products, categories }: Props) {
         </div>
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: "70px",
-          backgroundColor: "#f8f8f8",
+          backgroundColor: "#111111",
           clipPath: "polygon(0 100%, 100% 0%, 100% 100%)",
         }} />
       </section>
@@ -511,8 +511,8 @@ export function ShopClient({ products, categories }: Props) {
         position: "sticky",
         top: "64px",
         zIndex: 40,
-        backgroundColor: "#f8f8f8",
-        borderBottom: "1px solid #e8e8e8",
+        backgroundColor: "#111111",
+        borderBottom: "1px solid #2a2a2a",
         boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
       }}>
         <div style={{
@@ -581,7 +581,7 @@ export function ShopClient({ products, categories }: Props) {
           {/* In-stock */}
           <label style={{
             display: "flex", alignItems: "center", gap: "6px",
-            fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#333",
+            fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#eeeeee",
             cursor: "pointer", userSelect: "none", whiteSpace: "nowrap",
           }}>
             <input
@@ -610,39 +610,39 @@ export function ShopClient({ products, categories }: Props) {
           </div>
 
           {/* View toggle */}
-          <div style={{ display: "flex", border: "1px solid #e0e0e0", borderRadius: "4px", overflow: "hidden" }}>
+          <div style={{ display: "flex", border: "1px solid #2a2a2a", borderRadius: "4px", overflow: "hidden" }}>
             <button
               onClick={() => setView("grid")}
               title={t.grid}
               style={{
                 width: "36px", height: "36px",
-                backgroundColor: view === "grid" ? "#111" : "#fff",
+                backgroundColor: view === "grid" ? "#c9a84c" : "#1a1a1a",
                 border: "none", cursor: "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "background 0.15s",
               }}
             >
-              <Grid3X3 size={15} color={view === "grid" ? "#fff" : "#888"} />
+              <Grid3X3 size={15} color={view === "grid" ? "#0a0a0a" : "#888"} />
             </button>
             <button
               onClick={() => setView("list")}
               title={t.list}
               style={{
                 width: "36px", height: "36px",
-                backgroundColor: view === "list" ? "#111" : "#fff",
-                border: "none", borderLeft: "1px solid #e0e0e0", cursor: "pointer",
+                backgroundColor: view === "list" ? "#c9a84c" : "#1a1a1a",
+                border: "none", borderLeft: "1px solid #2a2a2a", cursor: "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "background 0.15s",
               }}
             >
-              <List size={15} color={view === "list" ? "#fff" : "#888"} />
+              <List size={15} color={view === "list" ? "#0a0a0a" : "#888"} />
             </button>
           </div>
         </div>
 
         {/* Results count bar */}
         <div style={{
-          borderTop: "1px solid #efefef",
+          borderTop: "1px solid #2a2a2a",
           padding: "6px 24px",
           maxWidth: "1200px", margin: "0 auto",
         }}>
@@ -669,7 +669,7 @@ export function ShopClient({ products, categories }: Props) {
       </div>
 
       {/* ─── Products ─── */}
-      <section style={{ backgroundColor: "#fff", padding: "40px 0 96px" }}>
+      <section style={{ backgroundColor: "#0a0a0a", padding: "40px 0 96px" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
           {filtered.length === 0 ? (
             <div style={{ textAlign: "center", padding: "80px 0" }}>
