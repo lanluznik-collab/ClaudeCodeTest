@@ -7,6 +7,7 @@ export const translations = {
       shop: "TRGOVINA",
       blog: "BLOG",
       about: "O NAS",
+      faq: "FAQ",
       contact: "KONTAKT",
     },
     announcements: [
@@ -280,6 +281,7 @@ export const translations = {
       shop: "SHOP",
       blog: "BLOG",
       about: "ABOUT",
+      faq: "FAQ",
       contact: "CONTACT",
     },
     announcements: [
