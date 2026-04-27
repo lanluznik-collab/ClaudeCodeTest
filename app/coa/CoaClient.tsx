@@ -99,44 +99,6 @@ export default function CoaClient({ docs, uniqueProducts }: Props) {
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <style>{`
-        .coa-hero-glow {
-          position: absolute;
-          top: -40%;
-          right: -5%;
-          width: 500px;
-          height: 500px;
-          background: radial-gradient(circle, rgba(14,165,233,.12), transparent 70%);
-          pointer-events: none;
-        }
-        .coa-dl-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          padding: 7px 14px;
-          border-radius: 8px;
-          background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-          color: white;
-          font-size: 12px;
-          font-weight: 700;
-          text-decoration: none;
-          transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-        .coa-dl-btn:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(14,165,233,.35);
-        }
-        .coa-row:hover td { background: var(--gray-50); }
-        .coa-field:focus {
-          border-color: var(--primary) !important;
-          background: var(--white) !important;
-          box-shadow: 0 0 0 3px rgba(14,165,233,.15);
-        }
-        @media (max-width: 1024px) { .coa-col-size { display: none !important; } }
-        @media (max-width: 768px)  { .coa-col-date, .coa-col-status { display: none !important; } }
-        @media (max-width: 480px)  { .coa-col-thumb { display: none !important; } }
-      `}</style>
-
       <section
         style={{
           background: "linear-gradient(135deg, var(--gray-900), #1a2640)",
@@ -508,12 +470,6 @@ export default function CoaClient({ docs, uniqueProducts }: Props) {
         </div>
       </section>
 
-      <style>{`
-        .coa-product-link:hover {
-          color: var(--primary-dark) !important;
-          text-decoration: underline !important;
-        }
-      `}</style>
     </>
   );
 }

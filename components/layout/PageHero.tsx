@@ -30,25 +30,6 @@ export default function PageHero({
         overflow: 'hidden',
       }}
     >
-      <style>{`
-        .page-hero-before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background:
-            radial-gradient(ellipse 70% 80% at 10% 50%, rgba(14,165,233,.2), transparent),
-            radial-gradient(ellipse 50% 60% at 90% 20%, rgba(99,102,241,.15), transparent);
-          pointer-events: none;
-        }
-        .page-hero-title em {
-          color: var(--primary);
-          font-style: normal;
-        }
-        .page-hero-breadcrumb a:hover {
-          color: var(--primary);
-        }
-      `}</style>
-
       <div className="page-hero-before" />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
