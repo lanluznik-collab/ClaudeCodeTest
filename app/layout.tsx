@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { CartSidebar } from "@/components/layout/CartSidebar";
 import { Providers } from "./providers";
+import Toast from "@/components/ui/Toast";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CartSidebar />
           <main>{children}</main>
           <Footer />
+          <Toast />
         </Providers>
       </body>
     </html>
