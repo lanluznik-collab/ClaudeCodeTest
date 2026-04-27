@@ -28,6 +28,7 @@ export function Navbar() {
     { label: t.home,    href: "/" },
     { label: t.shop,    href: "/shop" },
     { label: t.blog,    href: "/blog" },
+    { label: t.faq,     href: "/faq" },
     { label: t.about,   href: "/about" },
     { label: t.contact, href: "/contact" },
   ];
