@@ -115,12 +115,12 @@ export default function ContactPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                 <p style={labelStyle}>{tl.contactEmailLbl}</p>
                 <a
-                  href="mailto:SloPeps@gmail.com"
+                  href="mailto:info@slopeps.com"
                   style={{ ...valueStyle, color: "var(--primary)", textDecoration: "none" }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary-dark)")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "var(--primary)")}
                 >
-                  SloPeps@gmail.com
+                  info@slopeps.com
                 </a>
                 <p style={subStyle}>{tl.contactEmailSub}</p>
               </div>
