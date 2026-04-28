@@ -78,7 +78,7 @@ export const translations = {
         {
           image: "/hero-slide-4.jpg",
           eyebrow: "Za vaše raziskave",
-          headline: "Zagotovljeno za\nin-vitro uso",
+          headline: "Zagotovljeno za\nin-vitro uporabo",
           sub: "Premium peptidi izključno za laboratorijsko in in-vitro eksperimentalno uporabo.",
           cta: "Oglej si vse",
           href: "/shop",
@@ -187,7 +187,7 @@ export const translations = {
 
     // ===== FAQ PAGE =====
     faqHero: 'Pogosta vprašanja',
-    faqHeroSub: 'Vse kar morate vedeti o naročilih, dostavi in naših peptidnih izdelkih.',
+    faqHeroSub: 'Vse, kar morate vedeti o naročilih, dostavi in naših peptidnih izdelkih.',
     faqSearchPh: 'Iskanje po vprašanjih...',
     faqNoResults: 'Ni zadetkov za iskani izraz.',
     faqExpandAll: 'Odpri vse',
@@ -208,7 +208,7 @@ export const translations = {
     contactEmailSub: 'Odgovorimo v 24 urah',
     contactFaqTitle: 'Pogosta vprašanja',
     contactFaq1q: 'Kdaj prejmem naročilo?',
-    contactFaq1a: 'Standardna dostava znotraj Slovenije traja 1-3 delovne dni.',
+    contactFaq1a: 'Standardna dostava znotraj Slovenije traja 1–3 delovnih dni.',
     contactFaq2q: 'Ali so peptidi originalni?',
     contactFaq2a: 'Da – vsak lot je neodvisno testiran z HPLC in MS analizo.',
     contactFaq3q: 'Kako plačam?',
