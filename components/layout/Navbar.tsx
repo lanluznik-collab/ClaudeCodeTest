@@ -27,6 +27,7 @@ export function Navbar() {
   const navLinks = [
     { label: t.home,    href: "/" },
     { label: t.shop,    href: "/shop" },
+    { label: "COA Vault", href: "/coa" },
     { label: t.blog,    href: "/blog" },
     { label: t.faq,     href: "/faq" },
     { label: t.about,   href: "/about" },
