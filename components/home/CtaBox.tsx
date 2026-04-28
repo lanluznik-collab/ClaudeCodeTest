@@ -13,7 +13,7 @@ export function CtaBox() {
   const t = mounted ? translations[lang].home.cta : translations.sl.home.cta;
 
   return (
-    <section style={{ backgroundColor: "#fff", padding: "72px 24px 80px" }}>
+    <section style={{ backgroundColor: "#111111", padding: "72px 24px 80px" }}>
       <div style={{
         maxWidth: "760px", margin: "0 auto", textAlign: "center",
         backgroundColor: "#0a0a0a",
