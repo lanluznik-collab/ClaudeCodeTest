@@ -75,10 +75,10 @@ export function Navbar() {
       }}
     >
       <div
-        className="grid grid-cols-3 items-center px-4 mx-auto"
+        className="relative flex items-center justify-between px-4 mx-auto"
         style={{ maxWidth: "1200px", height: "64px" }}
       >
-        {/* Col 1: Logo */}
+        {/* Logo */}
         <Link
           href="/"
           style={{
@@ -93,8 +93,8 @@ export function Navbar() {
           SLOPEPS
         </Link>
 
-        {/* Col 2: Nav links — desktop only */}
-        <nav className="hidden md:flex justify-center items-center gap-7">
+        {/* Nav links — absolutely centered so they never compete with logo/icons for space */}
+        <nav className="hidden md:flex items-center gap-5 absolute left-1/2 -translate-x-1/2">
           {navLinks.map(({ label, href }) => {
             const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
             return (
@@ -120,8 +120,8 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Col 3: Right icons */}
-        <div className="flex justify-end items-center gap-3">
+        {/* Right icons */}
+        <div className="flex items-center gap-3">
           {/* Language toggle — desktop */}
           <div className="hidden md:block">
             {mounted && <LangToggle />}
