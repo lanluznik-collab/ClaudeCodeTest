@@ -13,6 +13,9 @@ export function HeroCarousel() {
   const [mounted, setMounted] = useState(false);
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const minSwipeDistance = 50;
 
   useEffect(() => setMounted(true), []);
 
@@ -20,6 +23,28 @@ export function HeroCarousel() {
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), [slides.length]);
   const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), [slides.length]);
+  const goHero = useCallback((index: number) => setCurrent((index + slides.length) % slides.length), [slides.length]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(null);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (Math.abs(distance) >= minSwipeDistance) {
+      if (distance > 0) {
+        goHero(current + 1);
+      } else {
+        goHero(current - 1);
+      }
+    }
+  };
 
   useEffect(() => {
     if (paused) return;
@@ -32,10 +57,14 @@ export function HeroCarousel() {
 
   return (
     <section
-      style={{ position: "relative", height: "clamp(380px, 55vw, 600px)", overflow: "hidden", backgroundColor: "#0a0a0a" }}
+      style={{ position: "relative", height: "clamp(380px, 55vw, 600px)", overflow: "hidden", backgroundColor: "#0a0a0a", touchAction: "pan-y" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
+      <style>{`@media (max-width: 768px) { .hero-prev, .hero-next { display: none; } }`}</style>
       {/* Hex texture */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1,
@@ -147,6 +176,7 @@ export function HeroCarousel() {
 
       {/* Arrow buttons */}
       <button
+        className="hero-prev"
         onClick={prev}
         aria-label="Prejšnji"
         style={{
@@ -164,6 +194,7 @@ export function HeroCarousel() {
       </button>
 
       <button
+        className="hero-next"
         onClick={next}
         aria-label="Naslednji"
         style={{
