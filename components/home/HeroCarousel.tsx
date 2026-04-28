@@ -64,7 +64,7 @@ export function HeroCarousel() {
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      <style>{`@media (max-width: 768px) { .hero-prev, .hero-next { display: none; } }`}</style>
+      <style>{`@media (max-width: 768px) { .hero-prev, .hero-next { display: none !important; } }`}</style>
       {/* Hex texture */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1,
