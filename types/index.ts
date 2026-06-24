@@ -56,3 +56,16 @@ export interface CoaDocument {
   status: string;
   created_at: string;
 }
+
+export interface HeroSlide {
+  id: string;
+  title: string;
+  label: string | null;
+  subtitle: string | null;
+  button_text: string;
+  button_link: string;
+  image_url: string | null;
+  is_active: boolean;
+  sort_order: number;
+  created_at: string;
+}

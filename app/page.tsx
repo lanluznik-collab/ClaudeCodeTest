@@ -9,16 +9,23 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const supabase = createServerClient();
-  const { data: products } = await supabase
-    .from("products")
-    .select("*")
-    .eq("featured", true)
-    .order("created_at", { ascending: false })
-    .limit(12);
+  const [{ data: products }, { data: heroSlides }] = await Promise.all([
+    supabase
+      .from("products")
+      .select("*")
+      .eq("featured", true)
+      .order("created_at", { ascending: false })
+      .limit(12),
+    supabase
+      .from("hero_slides")
+      .select("*")
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true }),
+  ]);
 
   return (
     <>
-      <HeroCarousel />
+      <HeroCarousel slides={heroSlides ?? []} />
       <TrustBar />
       <FeaturedCarousel products={products ?? []} />
       <StatsSection />

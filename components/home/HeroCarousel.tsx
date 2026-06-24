@@ -5,10 +5,31 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
+import { HeroSlide } from "@/types";
 
 const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(201%2C168%2C76%2C0.06)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(201%2C168%2C76%2C0.06)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(201%2C168%2C76%2C0.06)' stroke-width='1'/%3E%3C/svg%3E")`;
 
-export function HeroCarousel() {
+type SlideDisplay = {
+  image: string | null;
+  eyebrow: string | null;
+  headline: string;
+  sub: string | null;
+  cta: string;
+  href: string;
+};
+
+function dbSlidesToDisplay(slides: HeroSlide[]): SlideDisplay[] {
+  return slides.map((s) => ({
+    image: s.image_url,
+    eyebrow: s.label,
+    headline: s.title,
+    sub: s.subtitle,
+    cta: s.button_text,
+    href: s.button_link,
+  }));
+}
+
+export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
   const lang = useLanguageStore((s) => s.lang);
   const [mounted, setMounted] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -19,7 +40,20 @@ export function HeroCarousel() {
 
   useEffect(() => setMounted(true), []);
 
-  const slides = translations[lang].home.heroSlides;
+  const i18nSlides = translations[lang].home.heroSlides;
+
+  // Use DB slides if provided and non-empty, otherwise fall back to i18n
+  const useDbSlides = dbSlides && dbSlides.length > 0;
+  const displaySlides: SlideDisplay[] = useDbSlides
+    ? dbSlidesToDisplay(dbSlides)
+    : i18nSlides.map((s) => ({ image: s.image, eyebrow: s.eyebrow, headline: s.headline, sub: s.sub, cta: s.cta, href: s.href }));
+
+  // SSR-safe: use sl i18n slides until mounted (avoids hydration mismatch)
+  const ssrSlides: SlideDisplay[] = useDbSlides
+    ? dbSlidesToDisplay(dbSlides)
+    : translations.sl.home.heroSlides.map((s) => ({ image: s.image, eyebrow: s.eyebrow, headline: s.headline, sub: s.sub, cta: s.cta, href: s.href }));
+
+  const slides = mounted ? displaySlides : ssrSlides;
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), [slides.length]);
   const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), [slides.length]);
@@ -52,9 +86,6 @@ export function HeroCarousel() {
     return () => clearInterval(timer);
   }, [next, paused]);
 
-  // Use SL slides for SSR to avoid hydration mismatch
-  const displaySlides = mounted ? slides : translations.sl.home.heroSlides;
-
   return (
     <section
       style={{ position: "relative", height: "clamp(380px, 55vw, 600px)", overflow: "hidden", backgroundColor: "#0a0a0a", touchAction: "pan-y" }}
@@ -74,7 +105,7 @@ export function HeroCarousel() {
       }} />
 
       {/* Slides */}
-      {displaySlides.map((slide, i) => (
+      {slides.map((slide, i) => (
         <div
           key={i}
           style={{
@@ -84,19 +115,21 @@ export function HeroCarousel() {
             pointerEvents: i === current ? "auto" : "none",
           }}
         >
-          {/* Background image */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={slide.image}
-            alt=""
-            aria-hidden="true"
-            onError={(e) => { e.currentTarget.style.display = "none"; }}
-            style={{
-              position: "absolute", inset: 0,
-              width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "center",
-            }}
-          />
+          {/* Background image — only rendered when image_url exists */}
+          {slide.image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={slide.image}
+              alt=""
+              aria-hidden="true"
+              onError={(e) => { e.currentTarget.style.display = "none"; }}
+              style={{
+                position: "absolute", inset: 0,
+                width: "100%", height: "100%",
+                objectFit: "cover", objectPosition: "center",
+              }}
+            />
+          )}
 
           {/* Dark gradient overlay */}
           <div style={{
@@ -112,17 +145,19 @@ export function HeroCarousel() {
             width: "100%", left: "50%", transform: "translateX(-50%)",
           }}>
             <div style={{ maxWidth: "560px" }}>
-              <p style={{
-                fontFamily: "var(--font-montserrat)",
-                fontSize: "11px", fontWeight: 700,
-                textTransform: "uppercase", letterSpacing: "0.25em",
-                color: "#c9a84c", marginBottom: "16px",
-                opacity: i === current ? 1 : 0,
-                transform: i === current ? "translateY(0)" : "translateY(8px)",
-                transition: "opacity 0.6s 0.2s ease, transform 0.6s 0.2s ease",
-              }}>
-                {slide.eyebrow}
-              </p>
+              {slide.eyebrow && (
+                <p style={{
+                  fontFamily: "var(--font-montserrat)",
+                  fontSize: "11px", fontWeight: 700,
+                  textTransform: "uppercase", letterSpacing: "0.25em",
+                  color: "#c9a84c", marginBottom: "16px",
+                  opacity: i === current ? 1 : 0,
+                  transform: i === current ? "translateY(0)" : "translateY(8px)",
+                  transition: "opacity 0.6s 0.2s ease, transform 0.6s 0.2s ease",
+                }}>
+                  {slide.eyebrow}
+                </p>
+              )}
 
               <h1 style={{
                 fontFamily: "var(--font-montserrat)",
@@ -138,17 +173,19 @@ export function HeroCarousel() {
                 {slide.headline}
               </h1>
 
-              <p style={{
-                fontFamily: "var(--font-opensans)",
-                fontSize: "15px", lineHeight: 1.7,
-                color: "rgba(255,255,255,0.75)",
-                margin: "0 0 36px 0",
-                opacity: i === current ? 1 : 0,
-                transform: i === current ? "translateY(0)" : "translateY(12px)",
-                transition: "opacity 0.6s 0.4s ease, transform 0.6s 0.4s ease",
-              }}>
-                {slide.sub}
-              </p>
+              {slide.sub && (
+                <p style={{
+                  fontFamily: "var(--font-opensans)",
+                  fontSize: "15px", lineHeight: 1.7,
+                  color: "rgba(255,255,255,0.75)",
+                  margin: "0 0 36px 0",
+                  opacity: i === current ? 1 : 0,
+                  transform: i === current ? "translateY(0)" : "translateY(12px)",
+                  transition: "opacity 0.6s 0.4s ease, transform 0.6s 0.4s ease",
+                }}>
+                  {slide.sub}
+                </p>
+              )}
 
               <Link
                 href={slide.href}
@@ -216,7 +253,7 @@ export function HeroCarousel() {
         position: "absolute", bottom: "24px", left: "50%", transform: "translateX(-50%)",
         zIndex: 10, display: "flex", gap: "8px",
       }}>
-        {displaySlides.map((_, i) => (
+        {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
