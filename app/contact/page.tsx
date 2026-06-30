@@ -79,12 +79,17 @@ export default function ContactPage() {
 
       <section style={{ padding: "56px 0 80px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
-          <div className="contact-grid">
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+
+            {/* Info card row — centred, compact */}
+            <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap" }}>
 
             {/* Card 1 — Address */}
             <div
               style={{
                 ...cardBase,
+                flex: "1 1 280px",
+                maxWidth: "340px",
                 ...(hovered === 0 ? { boxShadow: "var(--shadow-md)", borderColor: "var(--gray-300)" } : {}),
               }}
               onMouseEnter={() => setHovered(0)}
@@ -104,6 +109,8 @@ export default function ContactPage() {
             <div
               style={{
                 ...cardBase,
+                flex: "1 1 280px",
+                maxWidth: "340px",
                 ...(hovered === 1 ? { boxShadow: "var(--shadow-md)", borderColor: "var(--gray-300)" } : {}),
               }}
               onMouseEnter={() => setHovered(1)}
@@ -125,16 +132,15 @@ export default function ContactPage() {
                 <p style={subStyle}>{tl.contactEmailSub}</p>
               </div>
             </div>
+            </div>{/* end info card row */}
 
-            {/* FAQ mini card — spans both columns */}
+            {/* FAQ mini card — full width */}
             <div
               style={{
-                gridColumn: "1 / -1",
                 background: "var(--white)",
                 border: "1px solid var(--gray-200)",
                 borderRadius: "var(--radius-lg)",
                 padding: "22px",
-                marginTop: "4px",
               }}
             >
               <h4
