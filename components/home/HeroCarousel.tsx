@@ -270,13 +270,6 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
         ))}
       </div>
 
-      {/* Bottom diagonal cut */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0,
-        height: "60px", zIndex: 5,
-        backgroundColor: "#fff",
-        clipPath: "polygon(0 100%, 100% 20%, 100% 100%)",
-      }} />
     </section>
   );
 }

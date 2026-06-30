@@ -63,15 +63,6 @@ export function Hero() {
         </Link>
       </div>
 
-      {/* Diagonal white cut */}
-      <div
-        className="absolute bottom-0 left-0 right-0"
-        style={{
-          height: "60px",
-          backgroundColor: "#ffffff",
-          clipPath: "polygon(0 100%, 100% 20%, 100% 100%)",
-        }}
-      />
     </section>
   );
 }
