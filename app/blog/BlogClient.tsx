@@ -74,7 +74,7 @@ export default function BlogClient({ posts }: Props) {
       />
 
       {/* Main layout */}
-      <section style={{ background: "var(--gray-50)", padding: "64px 0 80px" }}>
+      <section style={{ background: "var(--gray-50)" }} className="pt-16 pb-8 md:pb-20">
         <div className="container">
           <div className="blog-grid">
 
@@ -265,8 +265,8 @@ export default function BlogClient({ posts }: Props) {
 
               {/* Card 2: Disclaimer */}
               <div style={{
-                background: "var(--accent-light)",
-                border: "1px solid #c7d2fe",
+                background: "#f3f4f6",
+                border: "1px solid #dde1f0",
                 borderRadius: "var(--radius-lg)",
                 padding: "20px",
               }}>
