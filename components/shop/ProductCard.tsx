@@ -15,9 +15,10 @@ interface Props {
   product: Product;
   onQuickView?: (p: Product) => void;
   disableLink?: boolean;
+  lightBg?: boolean;
 }
 
-export function ProductCard({ product, onQuickView, disableLink }: Props) {
+export function ProductCard({ product, onQuickView, disableLink, lightBg }: Props) {
   const [hovering, setHovering] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
@@ -160,7 +161,8 @@ export function ProductCard({ product, onQuickView, disableLink }: Props) {
         {product.category && (
           <p style={{
             fontFamily: "var(--font-opensans)", fontSize: "11px",
-            color: "#999", textTransform: "uppercase",
+            color: lightBg ? "#999" : "rgba(255,255,255,0.45)",
+            textTransform: "uppercase",
             letterSpacing: "0.08em", margin: "0 0 4px 0",
           }}>
             {product.category}
@@ -169,7 +171,8 @@ export function ProductCard({ product, onQuickView, disableLink }: Props) {
 
         <h2 style={{
           fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700,
-          color: "#111", margin: "0 0 6px 0", lineHeight: 1.4,
+          color: lightBg ? "#111" : "rgba(255,255,255,0.92)",
+          margin: "0 0 6px 0", lineHeight: 1.4,
           textTransform: "uppercase", letterSpacing: "0.04em",
           transition: "color 0.2s",
           ...(hovering ? { color: "#c9a84c" } : {}),

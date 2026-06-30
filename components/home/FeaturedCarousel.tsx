@@ -137,7 +137,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
                 width: "clamp(200px, 22vw, 260px)",
               }}
             >
-              <ProductCard product={product} disableLink={isMobile} />
+              <ProductCard product={product} disableLink={isMobile} lightBg />
             </div>
           ))}
         </div>
