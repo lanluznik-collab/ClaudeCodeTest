@@ -23,7 +23,22 @@
       "Bash(git commit -m ':*)",
       "Bash(git push:*)",
       "Bash(git commit:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(sed:*)",
+      "Bash(unzip -l \"favicon_io \\(1\\).zip\")",
+      "Bash(unzip -o \"favicon_io \\(1\\).zip\" favicon.ico)",
+      "Bash(unzip -o \"favicon_io \\(1\\).zip\" favicon.ico -d ../app/)",
+      "WebFetch(domain:localhost)",
+      "Bash(grep -v \"//\")",
+      "Bash(npm run *)",
+      "Read(//tmp/**)",
+      "Bash(npx kill-port *)",
+      "Bash(ls app/faq)",
+      "Bash(ls lib/faq*)",
+      "Bash(claude doctor *)",
+      "Bash(/c/Users/Gigabyte_PC/AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/bin/claude.exe doctor *)",
+      "Bash(/c/Users/Gigabyte_PC/AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/bin/claude.exe *)",
+      "PowerShell(Get-PSDrive *)"
     ]
   }
 }
