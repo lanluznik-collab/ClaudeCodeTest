@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
 
-const paymentMethods = ["Mastercard", "Visa", "Amex", "Bank Transfer"];
-
 export function Footer() {
   const [mounted, setMounted] = useState(false);
   const lang = useLanguageStore((s) => s.lang);
@@ -18,7 +16,7 @@ export function Footer() {
   return (
     <footer style={{ backgroundColor: "#0a0a0a", borderTop: "1px solid rgba(201,168,76,0.15)" }}>
       <div
-        className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 md:gap-12 footer-main-grid"
+        className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 md:gap-16 footer-main-grid"
         style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px 40px" }}
       >
         {/* Left: Logo + Disclaimer */}
@@ -80,36 +78,6 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Right: Payment methods */}
-        <div>
-          <h3 className="footer-section-heading" style={{
-            fontFamily: "var(--font-montserrat)",
-            fontSize: "12px", fontWeight: 700,
-            textTransform: "uppercase", letterSpacing: "0.14em",
-            color: "#fff", margin: "0 0 20px 0",
-          }}>
-            {t.payments}
-          </h3>
-          <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "10px" }}>
-            {paymentMethods.map((card) => (
-              <div key={card} className="footer-payment-badge" style={{
-                display: "inline-flex", alignItems: "center", justifyContent: "center",
-                backgroundColor: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: "6px", padding: "8px 12px", minWidth: "80px",
-              }}>
-                <span className="footer-payment-badge-text" style={{
-                  fontFamily: "var(--font-montserrat)",
-                  fontSize: "11px", fontWeight: 700,
-                  letterSpacing: "0.05em", color: "rgba(255,255,255,0.65)",
-                  whiteSpace: "nowrap",
-                }}>
-                  {card}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Bottom bar */}
@@ -134,8 +102,6 @@ export function Footer() {
           .footer-section-heading  { font-size: 11px !important; margin-bottom: 12px !important; }
           .footer-links-list       { gap: 6px !important; }
           .footer-link             { font-size: 12px !important; }
-          .footer-payment-badge    { padding: 5px 8px !important; min-width: 60px !important; }
-          .footer-payment-badge-text { font-size: 10px !important; }
           .footer-bottom           { padding: 10px 16px !important; }
         }
       `}</style>
