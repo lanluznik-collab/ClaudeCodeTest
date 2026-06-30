@@ -82,14 +82,13 @@ export default function ContactPage() {
           <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
 
             {/* Info card row — centred, compact */}
-            <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap" }}>
+            <div className="flex flex-col md:flex-row justify-center gap-5">
 
             {/* Card 1 — Address */}
             <div
+              className="w-full max-w-[340px]"
               style={{
                 ...cardBase,
-                flex: "1 1 280px",
-                maxWidth: "340px",
                 ...(hovered === 0 ? { boxShadow: "var(--shadow-md)", borderColor: "var(--gray-300)" } : {}),
               }}
               onMouseEnter={() => setHovered(0)}
@@ -107,10 +106,9 @@ export default function ContactPage() {
 
             {/* Card 2 — Email */}
             <div
+              className="w-full max-w-[340px]"
               style={{
                 ...cardBase,
-                flex: "1 1 280px",
-                maxWidth: "340px",
                 ...(hovered === 1 ? { boxShadow: "var(--shadow-md)", borderColor: "var(--gray-300)" } : {}),
               }}
               onMouseEnter={() => setHovered(1)}
