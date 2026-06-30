@@ -12,7 +12,6 @@ import { useUiStore } from "@/lib/ui-store";
 import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
 
-const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3C/svg%3E")`;
 
 interface Props {
   products: Product[];
@@ -459,51 +458,97 @@ export function ShopClient({ products, categories }: Props) {
     <>
       {/* ─── Page hero ─── */}
       <section style={{
-        backgroundColor: "#0a0a0a",
         position: "relative",
         overflow: "hidden",
-        minHeight: "220px",
+        minHeight: "260px",
         display: "flex",
         alignItems: "center",
+        background: "linear-gradient(160deg, #0a1628 0%, #0f2744 55%, #1a3a6b 100%)",
       }}>
+        {/* Radial corner glow */}
         <div style={{
           position: "absolute", inset: 0,
-          backgroundImage: HEX_PATTERN,
-          backgroundSize: "60px 104px",
+          background: "radial-gradient(ellipse 55% 90% at 95% 10%, rgba(56,189,248,0.13) 0%, transparent 65%)",
           pointerEvents: "none",
         }} />
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(135deg, rgba(15,39,68,0.8) 0%, rgba(10,10,10,0.5) 100%)",
-          pointerEvents: "none",
-        }} />
+
         <div style={{
           position: "relative", zIndex: 10,
           maxWidth: "1200px", margin: "0 auto",
-          padding: "48px 24px 96px",
+          padding: "48px 24px 56px",
           width: "100%",
         }}>
-          <p style={{
-            fontFamily: "var(--font-montserrat)",
-            fontSize: "11px", fontWeight: 700,
-            textTransform: "uppercase", letterSpacing: "0.25em",
-            color: "#c9a84c", marginBottom: "12px",
-          }}>{t.hero.eyebrow}</p>
+          {/* Breadcrumb */}
+          <nav style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "22px" }}>
+            <Link href="/" style={{
+              fontFamily: "var(--font-opensans)",
+              fontSize: "13px",
+              color: "rgba(148,163,184,0.75)",
+              textDecoration: "none",
+            }}>
+              Domov
+            </Link>
+            <span style={{ color: "rgba(148,163,184,0.35)", fontSize: "15px" }}>›</span>
+            <span style={{
+              fontFamily: "var(--font-opensans)",
+              fontSize: "13px", fontWeight: 600,
+              color: "#fff",
+            }}>
+              Vsi raziskovalni peptidi
+            </span>
+          </nav>
+
+          {/* Heading */}
           <h1 style={{
             fontFamily: "var(--font-montserrat)",
-            fontSize: "clamp(2rem, 4vw, 3.2rem)",
+            fontSize: "clamp(1.8rem, 4vw, 3rem)",
             fontWeight: 900,
             textTransform: "uppercase",
             letterSpacing: "0.06em",
             color: "#fff",
-            margin: 0,
-          }}>{t.hero.title}</h1>
+            margin: "0 0 14px 0",
+            lineHeight: 1.1,
+          }}>
+            Vsi raziskovalni peptidi
+          </h1>
+
+          {/* Subtitle */}
+          <p style={{
+            fontFamily: "var(--font-opensans)",
+            fontSize: "15px",
+            color: "rgba(148,163,184,0.85)",
+            lineHeight: 1.65,
+            margin: "0 0 28px 0",
+            maxWidth: "560px",
+          }}>
+            Raziskujte našo celotno ponudbo neodvisno testiranih raziskovalnih peptidov z dokazano čistostjo.
+          </p>
+
+          {/* Badges */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {[
+              { icon: "🧪", text: `${products.length} peptidov` },
+              { icon: "✓", text: "99.9% čistost" },
+              { icon: "🚚", text: "EU dostava" },
+            ].map(({ icon, text }) => (
+              <div key={text} style={{
+                display: "inline-flex", alignItems: "center", gap: "7px",
+                padding: "7px 14px",
+                backgroundColor: "rgba(255,255,255,0.07)",
+                border: "1px solid rgba(255,255,255,0.14)",
+                borderRadius: "100px",
+              }}>
+                <span style={{ fontSize: "14px", lineHeight: 1 }}>{icon}</span>
+                <span style={{
+                  fontFamily: "var(--font-montserrat)",
+                  fontSize: "12px", fontWeight: 700,
+                  color: "rgba(255,255,255,0.85)",
+                  letterSpacing: "0.03em",
+                }}>{text}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <div style={{
-          position: "absolute", bottom: 0, left: 0, right: 0, height: "70px",
-          backgroundColor: "#111111",
-          clipPath: "polygon(0 100%, 100% 0%, 100% 100%)",
-        }} />
       </section>
 
       {/* ─── Sticky toolbar ─── */}
