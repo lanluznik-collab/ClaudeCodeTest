@@ -14,9 +14,10 @@ import { translations } from "@/lib/i18n";
 interface Props {
   product: Product;
   onQuickView?: (p: Product) => void;
+  disableLink?: boolean;
 }
 
-export function ProductCard({ product, onQuickView }: Props) {
+export function ProductCard({ product, onQuickView, disableLink }: Props) {
   const [hovering, setHovering] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
@@ -55,7 +56,11 @@ export function ProductCard({ product, onQuickView }: Props) {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      <Link href={`/shop/${product.slug}`} style={{ textDecoration: "none", display: "block" }}>
+      <Link
+        href={`/shop/${product.slug}`}
+        style={{ textDecoration: "none", display: "block" }}
+        onClick={disableLink ? (e) => e.preventDefault() : undefined}
+      >
         {/* Image container */}
         <div style={{
           position: "relative",

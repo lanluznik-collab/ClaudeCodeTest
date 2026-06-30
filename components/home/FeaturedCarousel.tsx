@@ -13,9 +13,16 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const lang = useLanguageStore((s) => s.lang);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   function checkScroll() {
     const el = scrollRef.current;
@@ -130,7 +137,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
                 width: "clamp(200px, 22vw, 260px)",
               }}
             >
-              <ProductCard product={product} />
+              <ProductCard product={product} disableLink={isMobile} />
             </div>
           ))}
         </div>
