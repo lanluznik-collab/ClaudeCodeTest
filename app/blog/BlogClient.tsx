@@ -265,8 +265,8 @@ export default function BlogClient({ posts }: Props) {
 
               {/* Card 2: Disclaimer */}
               <div style={{
-                background: "#f3f4f6",
-                border: "1px solid #dde1f0",
+                background: "#e5e7eb",
+                border: "1px solid #c9cfe0",
                 borderRadius: "var(--radius-lg)",
                 padding: "20px",
               }}>
@@ -280,7 +280,7 @@ export default function BlogClient({ posts }: Props) {
                   {tl.blogDisclaimerTitle}
                 </h3>
                 <p style={{
-                  fontSize: "13px", color: "var(--gray-600)",
+                  fontSize: "13px", color: "#6b7280",
                   lineHeight: 1.65, margin: 0,
                 }}>
                   {tl.blogDisclaimerText}
