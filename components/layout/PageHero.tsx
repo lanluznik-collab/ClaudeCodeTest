@@ -110,7 +110,7 @@ export default function PageHero({
           <p
             style={{
               fontSize: '16px',
-              color: 'var(--gray-300)',
+              color: 'rgba(255,255,255,0.6)',
               lineHeight: 1.75,
               maxWidth: '760px',
               margin: 0,
