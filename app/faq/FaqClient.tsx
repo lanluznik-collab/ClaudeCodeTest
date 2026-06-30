@@ -108,7 +108,7 @@ export default function FaqClient() {
         subtitle={tl.faqHeroSub}
       />
 
-      <section style={{ background: "var(--gray-50)", padding: "64px 0 80px" }}>
+      <section style={{ background: "var(--gray-50)" }} className="pt-8 md:pt-16 pb-20">
         <div className="container">
           <div className="faq-layout">
 
