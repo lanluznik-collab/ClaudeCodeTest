@@ -18,12 +18,12 @@ export function Footer() {
   return (
     <footer style={{ backgroundColor: "#0a0a0a", borderTop: "1px solid rgba(201,168,76,0.15)" }}>
       <div
-        className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10 md:gap-12"
+        className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 md:gap-12 footer-main-grid"
         style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px 40px" }}
       >
         {/* Left: Logo + Disclaimer */}
         <div>
-          <p style={{
+          <p className="footer-logo" style={{
             fontFamily: "var(--font-montserrat)",
             fontWeight: 900, fontSize: "22px",
             letterSpacing: "0.15em", color: "#c9a84c",
@@ -31,14 +31,14 @@ export function Footer() {
           }}>
             SLOPEPS
           </p>
-          <p style={{
+          <p className="footer-disclaimer" style={{
             fontFamily: "var(--font-opensans)",
             fontSize: "13px", fontStyle: "italic",
             color: "#c9a84c", lineHeight: 1.75, margin: "0 0 14px 0",
           }}>
             {t.disclaimer}
           </p>
-          <p style={{
+          <p className="footer-legal" style={{
             fontFamily: "var(--font-opensans)",
             fontSize: "12px", color: "rgba(255,255,255,0.35)",
             lineHeight: 1.75, margin: "0 0 14px 0",
@@ -57,7 +57,7 @@ export function Footer() {
 
         {/* Middle: Quick Links */}
         <div>
-          <h3 style={{
+          <h3 className="footer-section-heading" style={{
             fontFamily: "var(--font-montserrat)",
             fontSize: "12px", fontWeight: 700,
             textTransform: "uppercase", letterSpacing: "0.14em",
@@ -65,16 +65,14 @@ export function Footer() {
           }}>
             {t.quickLinks}
           </h3>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+          <ul className="footer-links-list" style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
             {links.map(({ label, href }) => (
               <li key={href}>
-                <Link href={href} style={{
+                <Link href={href} className="footer-link hover:text-[#c9a84c]" style={{
                   fontFamily: "var(--font-opensans)",
                   fontSize: "13px", color: "rgba(255,255,255,0.5)",
                   textDecoration: "none", transition: "color 0.2s",
-                }}
-                  className="hover:text-[#c9a84c]"
-                >
+                }}>
                   {label}
                 </Link>
               </li>
@@ -84,7 +82,7 @@ export function Footer() {
 
         {/* Right: Payment methods */}
         <div>
-          <h3 style={{
+          <h3 className="footer-section-heading" style={{
             fontFamily: "var(--font-montserrat)",
             fontSize: "12px", fontWeight: 700,
             textTransform: "uppercase", letterSpacing: "0.14em",
@@ -94,13 +92,13 @@ export function Footer() {
           </h3>
           <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "10px" }}>
             {paymentMethods.map((card) => (
-              <div key={card} style={{
+              <div key={card} className="footer-payment-badge" style={{
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 backgroundColor: "rgba(255,255,255,0.06)",
                 border: "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "6px", padding: "8px 12px", minWidth: "80px",
               }}>
-                <span style={{
+                <span className="footer-payment-badge-text" style={{
                   fontFamily: "var(--font-montserrat)",
                   fontSize: "11px", fontWeight: 700,
                   letterSpacing: "0.05em", color: "rgba(255,255,255,0.65)",
@@ -115,7 +113,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div style={{
+      <div className="footer-bottom" style={{
         borderTop: "1px solid rgba(255,255,255,0.06)",
         padding: "16px 24px", textAlign: "center",
       }}>
@@ -126,6 +124,21 @@ export function Footer() {
           {t.copyright}
         </p>
       </div>
+
+      <style>{`
+        @media (max-width: 767px) {
+          .footer-main-grid        { padding: 28px 16px 24px !important; }
+          .footer-logo             { font-size: 19px !important; margin-bottom: 12px !important; }
+          .footer-disclaimer       { font-size: 11px !important; line-height: 1.5 !important; margin-bottom: 8px !important; }
+          .footer-legal            { font-size: 11px !important; line-height: 1.5 !important; margin-bottom: 8px !important; }
+          .footer-section-heading  { font-size: 11px !important; margin-bottom: 12px !important; }
+          .footer-links-list       { gap: 6px !important; }
+          .footer-link             { font-size: 12px !important; }
+          .footer-payment-badge    { padding: 5px 8px !important; min-width: 60px !important; }
+          .footer-payment-badge-text { font-size: 10px !important; }
+          .footer-bottom           { padding: 10px 16px !important; }
+        }
+      `}</style>
     </footer>
   );
 }
