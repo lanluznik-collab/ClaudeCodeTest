@@ -29,6 +29,24 @@ function dbSlidesToDisplay(slides: HeroSlide[]): SlideDisplay[] {
   }));
 }
 
+// Guards against placeholder/test data (e.g. title="234", button_link="234")
+// so a broken hero_slides row never reaches production.
+function isValidHeroSlide(slide: HeroSlide): boolean {
+  const isPlaceholder = (value: string) => {
+    const trimmed = value.trim();
+    if (trimmed.length < 3) return true;
+    if (/^\d+$/.test(trimmed)) return true;
+    return false;
+  };
+  if (!slide.title || isPlaceholder(slide.title)) return false;
+  if (!slide.button_text || isPlaceholder(slide.button_text)) return false;
+  if (!slide.button_link) return false;
+  const link = slide.button_link.trim();
+  const isValidLink = link.startsWith("/") || link.startsWith("http://") || link.startsWith("https://");
+  if (!isValidLink || /^\d+$/.test(link.replace(/^\//, ""))) return false;
+  return true;
+}
+
 export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
   const lang = useLanguageStore((s) => s.lang);
   const [mounted, setMounted] = useState(false);
@@ -42,15 +60,16 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
 
   const i18nSlides = translations[lang].home.heroSlides;
 
-  // Use DB slides if provided and non-empty, otherwise fall back to i18n
-  const useDbSlides = dbSlides && dbSlides.length > 0;
+  // Use validated DB slides if any exist, otherwise fall back to the static i18n hero
+  const validDbSlides = (dbSlides ?? []).filter(isValidHeroSlide);
+  const useDbSlides = validDbSlides.length > 0;
   const displaySlides: SlideDisplay[] = useDbSlides
-    ? dbSlidesToDisplay(dbSlides)
+    ? dbSlidesToDisplay(validDbSlides)
     : i18nSlides.map((s) => ({ image: s.image, eyebrow: s.eyebrow, headline: s.headline, sub: s.sub, cta: s.cta, href: s.href }));
 
   // SSR-safe: use sl i18n slides until mounted (avoids hydration mismatch)
   const ssrSlides: SlideDisplay[] = useDbSlides
-    ? dbSlidesToDisplay(dbSlides)
+    ? dbSlidesToDisplay(validDbSlides)
     : translations.sl.home.heroSlides.map((s) => ({ image: s.image, eyebrow: s.eyebrow, headline: s.headline, sub: s.sub, cta: s.cta, href: s.href }));
 
   const slides = mounted ? displaySlides : ssrSlides;
@@ -211,64 +230,68 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
         </div>
       ))}
 
-      {/* Arrow buttons */}
-      <button
-        className="hero-prev"
-        onClick={prev}
-        aria-label="Prejšnji"
-        style={{
-          position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)",
-          zIndex: 10, width: "44px", height: "44px",
-          backgroundColor: "rgba(0,0,0,0.45)", border: "1px solid rgba(255,255,255,0.15)",
-          borderRadius: "50%", cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          color: "#fff", transition: "background 0.2s",
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.8)")}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.45)")}
-      >
-        <ChevronLeft size={20} />
-      </button>
-
-      <button
-        className="hero-next"
-        onClick={next}
-        aria-label="Naslednji"
-        style={{
-          position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)",
-          zIndex: 10, width: "44px", height: "44px",
-          backgroundColor: "rgba(0,0,0,0.45)", border: "1px solid rgba(255,255,255,0.15)",
-          borderRadius: "50%", cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          color: "#fff", transition: "background 0.2s",
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.8)")}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.45)")}
-      >
-        <ChevronRight size={20} />
-      </button>
-
-      {/* Dot indicators */}
-      <div style={{
-        position: "absolute", bottom: "24px", left: "50%", transform: "translateX(-50%)",
-        zIndex: 10, display: "flex", gap: "8px",
-      }}>
-        {slides.map((_, i) => (
+      {/* Arrow buttons and dot indicators — only meaningful when there's more than one slide */}
+      {slides.length > 1 && (
+        <>
           <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            aria-label={`Diapozitiv ${i + 1}`}
+            className="hero-prev"
+            onClick={prev}
+            aria-label="Prejšnji"
             style={{
-              width: i === current ? "28px" : "8px",
-              height: "8px",
-              borderRadius: "4px",
-              backgroundColor: i === current ? "#c9a84c" : "rgba(255,255,255,0.4)",
-              border: "none", cursor: "pointer", padding: 0,
-              transition: "width 0.3s ease, background 0.3s ease",
+              position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)",
+              zIndex: 10, width: "44px", height: "44px",
+              backgroundColor: "rgba(0,0,0,0.45)", border: "1px solid rgba(255,255,255,0.15)",
+              borderRadius: "50%", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: "#fff", transition: "background 0.2s",
             }}
-          />
-        ))}
-      </div>
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.8)")}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.45)")}
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          <button
+            className="hero-next"
+            onClick={next}
+            aria-label="Naslednji"
+            style={{
+              position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)",
+              zIndex: 10, width: "44px", height: "44px",
+              backgroundColor: "rgba(0,0,0,0.45)", border: "1px solid rgba(255,255,255,0.15)",
+              borderRadius: "50%", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: "#fff", transition: "background 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.8)")}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.45)")}
+          >
+            <ChevronRight size={20} />
+          </button>
+
+          {/* Dot indicators */}
+          <div style={{
+            position: "absolute", bottom: "24px", left: "50%", transform: "translateX(-50%)",
+            zIndex: 10, display: "flex", gap: "8px",
+          }}>
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                aria-label={`Diapozitiv ${i + 1}`}
+                style={{
+                  width: i === current ? "28px" : "8px",
+                  height: "8px",
+                  borderRadius: "4px",
+                  backgroundColor: i === current ? "#c9a84c" : "rgba(255,255,255,0.4)",
+                  border: "none", cursor: "pointer", padding: 0,
+                  transition: "width 0.3s ease, background 0.3s ease",
+                }}
+              />
+            ))}
+          </div>
+        </>
+      )}
 
     </section>
   );

@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const supabase = createServerClient();
-  const [{ data: products }, { data: heroSlides }] = await Promise.all([
+  const [{ data: products }, { data: heroSlides }, { data: blogPosts }] = await Promise.all([
     supabase
       .from("products")
       .select("*")
@@ -21,6 +21,10 @@ export default async function HomePage() {
       .select("*")
       .eq("is_active", true)
       .order("sort_order", { ascending: true }),
+    supabase
+      .from("blog_posts")
+      .select("id")
+      .limit(1),
   ]);
 
   return (
@@ -29,7 +33,7 @@ export default async function HomePage() {
       <TrustBar />
       <FeaturedCarousel products={products ?? []} />
       <StatsSection />
-      <CtaBox />
+      <CtaBox hasBlogPosts={(blogPosts ?? []).length > 0} />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import PageHero from "@/components/layout/PageHero";
 import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
+import { buildGeneralInquiryURL } from "@/lib/whatsapp";
 
 export default function ContactPage() {
   const lang = useLanguageStore((s) => s.lang);
@@ -130,6 +131,32 @@ export default function ContactPage() {
                 <p style={subStyle}>{tl.contactEmailSub}</p>
               </div>
             </div>
+
+            {/* Card 3 — WhatsApp (whole card is the one-click button) */}
+            <a
+              href={buildGeneralInquiryURL(lang)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full max-w-[340px]"
+              style={{
+                ...cardBase,
+                textDecoration: "none",
+                cursor: "pointer",
+                borderColor: hovered === 2 ? "#25D366" : "var(--gray-200)",
+                boxShadow: hovered === 2 ? "var(--shadow-md)" : undefined,
+              }}
+              onMouseEnter={() => setHovered(2)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              <div style={{ ...iconWrap, background: "rgba(37,211,102,0.12)", color: "#25D366" }}>
+                <i className="ri-whatsapp-line" />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                <p style={labelStyle}>{tl.contactWhatsappLbl}</p>
+                <p style={{ ...valueStyle, color: "#25D366" }}>{tl.contactWhatsappValue}</p>
+                <p style={subStyle}>{tl.contactWhatsappSub}</p>
+              </div>
+            </a>
             </div>{/* end info card row */}
 
             {/* FAQ mini card — full width */}

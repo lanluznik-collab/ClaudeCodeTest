@@ -153,7 +153,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
           <h2 style={{
             fontFamily: "var(--font-montserrat)",
             fontSize: "clamp(1.1rem, 2vw, 1.6rem)",
-            fontWeight: 900, color: "#111",
+            fontWeight: 900, color: "#fff",
             margin: "0 0 10px 0", lineHeight: 1.2,
           }}>
             {product.name}
@@ -170,7 +170,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
           {product.description && (
             <p style={{
               fontFamily: "var(--font-opensans)", fontSize: "13px",
-              lineHeight: 1.7, color: "#555", margin: "0 0 20px 0",
+              lineHeight: 1.7, color: "rgba(255,255,255,0.7)", margin: "0 0 20px 0",
             }}>
               {product.description.slice(0, 220)}
               {product.description.length > 220 ? "…" : ""}
@@ -181,27 +181,27 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
             display: "flex", alignItems: "center",
             gap: "10px", marginBottom: "16px",
             padding: "14px 0",
-            borderTop: "1px solid #f0f0f0",
-            borderBottom: "1px solid #f0f0f0",
+            borderTop: "1px solid rgba(255,255,255,0.12)",
+            borderBottom: "1px solid rgba(255,255,255,0.12)",
           }}>
-            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#555" }}>
+            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>
               Qty:
             </span>
             <div style={{
               display: "inline-flex", alignItems: "center",
-              border: "1px solid #ddd", borderRadius: "4px", overflow: "hidden",
+              border: "1px solid rgba(255,255,255,0.2)", borderRadius: "4px", overflow: "hidden",
             }}>
               <button
                 onClick={() => setQty((q) => Math.max(1, q - 1))}
                 style={{
                   width: "34px", height: "34px", background: "none",
-                  border: "none", cursor: "pointer", fontSize: "16px", color: "#555",
+                  border: "none", cursor: "pointer", fontSize: "16px", color: "rgba(255,255,255,0.7)",
                 }}
               >−</button>
               <span style={{
                 padding: "0 14px",
                 fontFamily: "var(--font-montserrat)",
-                fontSize: "14px", fontWeight: 700, color: "#111",
+                fontSize: "14px", fontWeight: 700, color: "#fff",
                 minWidth: "32px", textAlign: "center",
               }}>{qty}</span>
               <button
@@ -210,13 +210,13 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
                 style={{
                   width: "34px", height: "34px", background: "none",
                   border: "none", cursor: qty < product.stock ? "pointer" : "not-allowed",
-                  fontSize: "16px", color: "#555",
+                  fontSize: "16px", color: "rgba(255,255,255,0.7)",
                 }}
               >+</button>
             </div>
             <span style={{
               fontFamily: "var(--font-opensans)", fontSize: "12px",
-              color: product.stock > 0 ? "#4a7c59" : "#e53935",
+              color: product.stock > 0 ? "#4ade80" : "#f87171",
             }}>
               {product.stock > 0 ? `${product.stock} na zalogi` : tQv.outOfStock}
             </span>
@@ -249,12 +249,12 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
               display: "block", textAlign: "center",
               padding: "12px",
               backgroundColor: "transparent",
-              border: "1px solid #ddd",
+              border: "1px solid rgba(255,255,255,0.25)",
               borderRadius: "3px",
               fontFamily: "var(--font-montserrat)",
               fontWeight: 700, fontSize: "12px",
               textTransform: "uppercase", letterSpacing: "0.08em",
-              color: "#555", textDecoration: "none",
+              color: "rgba(255,255,255,0.85)", textDecoration: "none",
             }}
           >
             {tQv.viewFull}
@@ -305,7 +305,7 @@ function ProductListRow({ product, onQuickView, tCart }: {
       gap: "20px",
       alignItems: "center",
       padding: "16px 0",
-      borderBottom: "1px solid #f0f0f0",
+      borderBottom: "1px solid rgba(255,255,255,0.1)",
     }}>
       <Link href={`/shop/${product.slug}`} style={{ display: "block", flexShrink: 0 }}>
         <div style={{
@@ -343,14 +343,14 @@ function ProductListRow({ product, onQuickView, tCart }: {
         <Link href={`/shop/${product.slug}`} style={{ textDecoration: "none" }}>
           <h3 style={{
             fontFamily: "var(--font-montserrat)", fontSize: "15px", fontWeight: 700,
-            color: "#111", margin: "0 0 6px 0",
+            color: "#fff", margin: "0 0 6px 0",
             textTransform: "uppercase", letterSpacing: "0.04em",
           }}>{product.name}</h3>
         </Link>
         {product.description && (
           <p style={{
             fontFamily: "var(--font-opensans)", fontSize: "13px",
-            color: "#777", margin: 0, lineHeight: 1.5,
+            color: "rgba(255,255,255,0.55)", margin: 0, lineHeight: 1.5,
           }}>
             {product.description.slice(0, 100)}{product.description.length > 100 ? "…" : ""}
           </p>
@@ -529,7 +529,7 @@ export function ShopClient({ products, categories }: Props) {
             {[
               { icon: "🧪", text: `${products.length} peptidov` },
               { icon: "✓", text: "99.9% čistost" },
-              { icon: "🚚", text: "EU dostava" },
+              { icon: "🚚", text: "Dostava po Sloveniji" },
             ].map(({ icon, text }) => (
               <div key={text} style={{
                 display: "inline-flex", alignItems: "center", gap: "7px",

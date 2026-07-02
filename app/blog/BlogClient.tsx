@@ -235,33 +235,35 @@ export default function BlogClient({ posts }: Props) {
             {/* ── RIGHT: sidebar ───────────────────────────────────────── */}
             <aside className="blog-sidebar">
 
-              {/* Card 1: Categories */}
-              <div style={{
-                background: "var(--white)",
-                border: "1px solid var(--gray-200)",
-                borderRadius: "var(--radius-lg)",
-                padding: "24px",
-              }}>
-                <h3 style={{
-                  fontSize: "13px", fontWeight: 700,
-                  textTransform: "uppercase", letterSpacing: "0.8px",
-                  color: "var(--gray-500)", marginBottom: "16px",
+              {/* Card 1: Categories — only meaningful once there are articles to filter */}
+              {posts.length > 0 && (
+                <div style={{
+                  background: "var(--white)",
+                  border: "1px solid var(--gray-200)",
+                  borderRadius: "var(--radius-lg)",
+                  padding: "24px",
                 }}>
-                  {tl.blogSideCats}
-                </h3>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0" }}>
-                  {SIDEBAR_TAGS.map(({ icon, tk }) => (
-                    <button
-                      key={tk}
-                      className="blog-tag-pill"
-                      style={{ margin: "0 6px 8px 0" }}
-                    >
-                      <i className={icon} />
-                      {tl[tk as TlKey] as string}
-                    </button>
-                  ))}
+                  <h3 style={{
+                    fontSize: "13px", fontWeight: 700,
+                    textTransform: "uppercase", letterSpacing: "0.8px",
+                    color: "var(--gray-500)", marginBottom: "16px",
+                  }}>
+                    {tl.blogSideCats}
+                  </h3>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0" }}>
+                    {SIDEBAR_TAGS.map(({ icon, tk }) => (
+                      <button
+                        key={tk}
+                        className="blog-tag-pill"
+                        style={{ margin: "0 6px 8px 0" }}
+                      >
+                        <i className={icon} />
+                        {tl[tk as TlKey] as string}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Card 2: Disclaimer */}
               <div style={{

@@ -35,8 +35,8 @@ export const faqData: FaqCategory[] = [
           eng: "What payment methods do you accept?",
         },
         a: {
-          slo: "Sprejemamo plačila z bančno kartico (Visa, Mastercard) prek varnega Stripe prehoda ter bančno nakazilo (SEPA). Plačilo z gotovino ni mogoče.",
-          eng: "We accept card payments (Visa, Mastercard) via the secure Stripe gateway and bank transfer (SEPA). Cash payment is not available.",
+          slo: "Sprejemamo plačilo z bančnim nakazilom (SEPA) ali prek naročila po WhatsAppu. Po oddaji naročila prejmete podatke za nakazilo (IBAN in sklic); ko prejmemo vaše plačilo, naročilo potrdimo po e-pošti ali WhatsAppu in ga pripravimo za odpošiljanje. Plačilo s kartico ali gotovino trenutno ni na voljo.",
+          eng: "We accept payment via SEPA bank transfer or a WhatsApp order. After placing your order you'll receive the transfer details (IBAN and reference); once we receive your payment, we confirm your order by email or WhatsApp and prepare it for dispatch. Card and cash payments are not currently available.",
         },
       },
       {

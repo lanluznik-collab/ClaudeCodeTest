@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { SHIPPING } from "@/lib/config/shipping";
+import { formatPrice } from "@/lib/utils";
 
 const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3C/svg%3E")`;
 
@@ -13,7 +15,7 @@ const cards = [
       </svg>
     ),
     title: "Brezplačna dostava",
-    body: "Za vsa naročila nad 200 € zagotavljamo brezplačno dostavo po vsej Sloveniji in izbranih evropskih državah.",
+    body: `Za vsa naročila nad ${formatPrice(SHIPPING.freeThreshold)} znotraj Slovenije zagotavljamo brezplačno dostavo. Za dostavo v EU in druge države nas kontaktirajte pred naročilom.`,
   },
   {
     icon: (
@@ -23,7 +25,7 @@ const cards = [
       </svg>
     ),
     title: "Rok dostave",
-    body: "Naročila, oddana pred 12:00, odpošljemo isti delovni dan. Dostava v Sloveniji traja 1–3 delovne dni, v EU 3–7 delovnih dni.",
+    body: `Naročila, oddana pred 12:00, odpošljemo isti delovni dan. Dostava v Sloveniji traja ${SHIPPING.deliveryTime.sl}, v EU (na povpraševanje) približno 3–7 delovnih dni.`,
   },
   {
     icon: (
@@ -100,7 +102,7 @@ export default function DostavaPage() {
           }}>
             {cards.map(({ icon, title, body }) => (
               <div key={title} style={{
-                border: "1px solid #e8e8e8",
+                border: "1px solid rgba(255,255,255,0.15)",
                 borderRadius: "6px",
                 padding: "28px 24px",
                 display: "flex",
@@ -111,14 +113,14 @@ export default function DostavaPage() {
                 <h3 style={{
                   fontFamily: "var(--font-montserrat)",
                   fontSize: "15px", fontWeight: 800,
-                  color: "#111", margin: 0,
+                  color: "#fff", margin: 0,
                 }}>
                   {title}
                 </h3>
                 <p style={{
                   fontFamily: "var(--font-opensans)",
                   fontSize: "14px", lineHeight: 1.7,
-                  color: "#555", margin: 0,
+                  color: "rgba(255,255,255,0.65)", margin: 0,
                 }}>
                   {body}
                 </p>
@@ -131,34 +133,34 @@ export default function DostavaPage() {
             fontFamily: "var(--font-montserrat)",
             fontSize: "20px", fontWeight: 800,
             textTransform: "uppercase", letterSpacing: "0.06em",
-            color: "#111", marginBottom: "24px",
-            paddingBottom: "12px", borderBottom: "2px solid #f0f0f0",
+            color: "#fff", marginBottom: "24px",
+            paddingBottom: "12px", borderBottom: "2px solid rgba(255,255,255,0.12)",
           }}>
             Podrobnosti dostave
           </h2>
 
           <div style={{ marginBottom: "48px" }}>
             {[
-              { label: "Slovenija", value: "1–3 delovni dnevi · Brezplačno nad 200 €, sicer 4,90 €" },
-              { label: "EU (izbrane države)", value: "3–7 delovnih dni · Brezplačno nad 200 €, sicer 9,90 €" },
+              { label: "Slovenija", value: `${SHIPPING.deliveryTime.sl} · Brezplačno nad ${formatPrice(SHIPPING.freeThreshold)}, sicer ${formatPrice(SHIPPING.price)}` },
+              { label: "EU (na povpraševanje)", value: "Približno 3–7 delovnih dni · Cena in pogoji po dogovoru — kontaktirajte nas pred naročilom" },
               { label: "Ostale države", value: "Kontaktirajte nas za ceno in rok dostave" },
             ].map(({ label, value }, i) => (
               <div key={label} style={{
                 display: "grid",
                 gridTemplateColumns: "200px 1fr",
-                borderBottom: i < 2 ? "1px solid #f0f0f0" : "none",
+                borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.1)" : "none",
               }}>
                 <span style={{
                   fontFamily: "var(--font-montserrat)",
                   fontSize: "13px", fontWeight: 700,
                   textTransform: "uppercase", letterSpacing: "0.06em",
-                  color: "#777", padding: "14px 0",
+                  color: "rgba(255,255,255,0.55)", padding: "14px 0",
                 }}>
                   {label}
                 </span>
                 <span style={{
                   fontFamily: "var(--font-opensans)",
-                  fontSize: "14px", color: "#333",
+                  fontSize: "14px", color: "rgba(255,255,255,0.8)",
                   padding: "14px 0",
                 }}>
                   {value}
@@ -172,8 +174,8 @@ export default function DostavaPage() {
             fontFamily: "var(--font-montserrat)",
             fontSize: "20px", fontWeight: 800,
             textTransform: "uppercase", letterSpacing: "0.06em",
-            color: "#111", marginBottom: "24px",
-            paddingBottom: "12px", borderBottom: "2px solid #f0f0f0",
+            color: "#fff", marginBottom: "24px",
+            paddingBottom: "12px", borderBottom: "2px solid rgba(255,255,255,0.12)",
           }}>
             Vračila in povračila
           </h2>
@@ -181,11 +183,11 @@ export default function DostavaPage() {
           <div style={{
             fontFamily: "var(--font-opensans)",
             fontSize: "15px", lineHeight: 1.8,
-            color: "#444", marginBottom: "40px",
+            color: "rgba(255,255,255,0.75)", marginBottom: "40px",
           }}>
-            <p><strong style={{ color: "#111" }}>Preden je naročilo odposlano:</strong> Naročilo lahko brez stroškov odpoveste v roku 30 dni od oddaje naročila. Polno povračilo sredstev bo izvedeno v roku 5–10 delovnih dni.</p>
-            <p><strong style={{ color: "#111" }}>Po odposilju naročila:</strong> Ker so naši peptidi biološki materiali, ki zahtevajo posebne pogoje shranjevanja, vračil odposlanih naročil žal ne moremo sprejeti. To velja za zaščito kakovosti in varnosti vseh strank.</p>
-            <p><strong style={{ color: "#111" }}>Napačna ali poškodovana pošiljka:</strong> V primeru napake pri pošiljki ali poškodbe med dostavo nas kontaktirajte v roku 48 ur od prejema paketa s fotografijami. Zagotovili bomo zamenjavo ali povračilo brez dodatnih stroškov.</p>
+            <p><strong style={{ color: "#fff" }}>Preden je naročilo odposlano:</strong> Naročilo lahko brez stroškov odpoveste v roku 30 dni od oddaje naročila. Polno povračilo sredstev bo izvedeno v roku 5–10 delovnih dni.</p>
+            <p><strong style={{ color: "#fff" }}>Po odposilju naročila:</strong> Ker so naši peptidi biološki materiali, ki zahtevajo posebne pogoje shranjevanja, vračil odposlanih naročil žal ne moremo sprejeti. To velja za zaščito kakovosti in varnosti vseh strank.</p>
+            <p><strong style={{ color: "#fff" }}>Napačna ali poškodovana pošiljka:</strong> V primeru napake pri pošiljki ali poškodbe med dostavo nas kontaktirajte v roku 48 ur od prejema paketa s fotografijami. Zagotovili bomo zamenjavo ali povračilo brez dodatnih stroškov.</p>
           </div>
 
           {/* CTA */}

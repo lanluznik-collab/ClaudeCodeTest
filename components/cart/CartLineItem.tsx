@@ -1,14 +1,21 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { useLanguageStore } from "@/lib/language-store";
+import { translations } from "@/lib/i18n";
 import { CartItem } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { X } from "lucide-react";
 
 export function CartLineItem({ item }: { item: CartItem }) {
   const { updateQuantity, removeItem } = useCartStore();
+  const lang = useLanguageStore((s) => s.lang);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const t = mounted ? translations[lang].cart : translations.sl.cart;
 
   return (
     <div style={{
@@ -55,7 +62,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
           fontSize: "13px", color: "rgba(255,255,255,0.4)",
           margin: "0 0 12px 0",
         }}>
-          {formatPrice(item.price)} / kos
+          {formatPrice(item.price)} {t.perUnit}
         </p>
 
         {/* Qty controls */}

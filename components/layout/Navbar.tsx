@@ -130,7 +130,7 @@ export function Navbar() {
           {/* Cart button */}
           <button
             onClick={openCart}
-            aria-label="Košarica"
+            aria-label={translations[lang].cart.title}
             className="relative flex items-center"
             style={{
               background: "none",

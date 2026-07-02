@@ -1,12 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { useLanguageStore } from "@/lib/language-store";
+import { translations } from "@/lib/i18n";
 import { CartLineItem } from "@/components/cart/CartLineItem";
 import { CartSummary } from "@/components/cart/CartSummary";
 
 export default function CartPage() {
   const items = useCartStore((s) => s.items);
+  const lang = useLanguageStore((s) => s.lang);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const t = mounted ? translations[lang].cart : translations.sl.cart;
 
   if (items.length === 0) {
     return (
@@ -20,7 +27,7 @@ export default function CartPage() {
           fontSize: "16px", color: "rgba(255,255,255,0.45)",
           marginBottom: "28px",
         }}>
-          Vaša košarica je prazna.
+          {t.empty}
         </p>
         <Link href="/shop" style={{
           display: "inline-block",
@@ -33,7 +40,7 @@ export default function CartPage() {
           textDecoration: "none",
           borderRadius: "2px",
         }}>
-          Nazaj v trgovino
+          {t.continueShopping}
         </Link>
       </div>
     );
@@ -47,7 +54,7 @@ export default function CartPage() {
         textTransform: "uppercase", letterSpacing: "0.06em",
         color: "#c9a84c", marginBottom: "32px",
       }}>
-        Košarica
+        {t.title}
       </h1>
 
       {/* Stack vertically on mobile, sidebar layout on desktop */}

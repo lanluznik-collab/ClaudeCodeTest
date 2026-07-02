@@ -1,6 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useLanguageStore } from "@/lib/language-store";
+import { translations } from "@/lib/i18n";
 
 export default function CancelPage() {
+  const lang = useLanguageStore((s) => s.lang);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const tc = mounted ? translations[lang].checkout : translations.sl.checkout;
+
   return (
     <div style={{
       maxWidth: "500px", margin: "0 auto",
@@ -13,14 +23,14 @@ export default function CancelPage() {
         textTransform: "uppercase", letterSpacing: "0.06em",
         color: "#fff", marginBottom: "12px",
       }}>
-        Naročilo preklicano
+        {tc.orderCancelled}
       </h1>
       <p style={{
         fontFamily: "var(--font-opensans)",
         fontSize: "15px", color: "rgba(255,255,255,0.45)",
         lineHeight: 1.7, marginBottom: "36px",
       }}>
-        Vaša košarica je še vedno shranjena.
+        {tc.cartStillSaved}
       </p>
       <Link href="/cart" style={{
         display: "inline-block",
@@ -33,7 +43,7 @@ export default function CancelPage() {
         textDecoration: "none",
         borderRadius: "2px",
       }}>
-        Nazaj v košarico
+        {tc.backToCart}
       </Link>
     </div>
   );

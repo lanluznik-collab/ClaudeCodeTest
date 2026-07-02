@@ -1,6 +1,16 @@
 import { CartItem, Product } from "@/types";
+import { SHIPPING, calculateShipping } from "@/lib/config/shipping";
+import { Lang } from "@/lib/language-store";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
+
+export function buildGeneralInquiryURL(lang: Lang = "sl"): string {
+  const greeting =
+    lang === "en"
+      ? "Hello! I have a question about your products."
+      : "Pozdravljeni! Imam vprašanje glede vaših izdelkov.";
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(greeting)}`;
+}
 
 export function buildProductInquiryURL(
   product: Product,
@@ -20,8 +30,8 @@ export function buildCartOrderURL(
   items: CartItem[],
   subtotal: number
 ): string {
-  const freeShipping = subtotal >= 200;
-  const shipping = freeShipping ? 0 : 9.9;
+  const shipping = calculateShipping(subtotal);
+  const freeShipping = shipping === 0;
   const total = subtotal + shipping;
 
   const lines = items
@@ -30,7 +40,7 @@ export function buildCartOrderURL(
 
   const shippingLine = freeShipping
     ? `Dostava: Brezplačno`
-    : `Dostava: 9,90 €`;
+    : `Dostava: ${SHIPPING.price.toFixed(2).replace(".", ",")} €`;
 
   const message = encodeURIComponent(
     `Pozdravljeni! Rad/a bi oddal/a naslednje naročilo:\n\n` +

@@ -59,7 +59,7 @@ export default function AboutPage() {
             {(
               [
                 { num: "100<em>%</em>",   label: tl.statYears },
-                { num: "27",              label: tl.statCustomers },
+                { num: "500<em>+</em>",   label: tl.statCustomers },
                 { num: "99<em>.9%</em>",  label: tl.statPurity },
                 { num: "30<em>+</em>",    label: tl.statProducts },
               ] as const

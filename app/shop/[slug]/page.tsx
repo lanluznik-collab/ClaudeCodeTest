@@ -8,6 +8,7 @@ import { WhatsAppButton } from "@/components/product/WhatsAppButton";
 import { ProductTabs } from "@/components/product/ProductTabs";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { formatPrice } from "@/lib/utils";
+import { SHIPPING } from "@/lib/config/shipping";
 
 interface Props {
   params: { slug: string };
@@ -65,7 +66,7 @@ export default async function ProductPage({ params }: Props) {
             <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
             <Link href="/shop" style={{ color: "#999", textDecoration: "none" }}>Trgovina</Link>
             <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
-            <span style={{ color: "#333" }}>{product.name}</span>
+            <span style={{ color: "#ddd" }}>{product.name}</span>
           </p>
         </div>
       </div>
@@ -91,7 +92,7 @@ export default async function ProductPage({ params }: Props) {
             <h1 style={{
               fontFamily: "var(--font-montserrat)",
               fontSize: "clamp(1.5rem, 2.8vw, 2.1rem)", fontWeight: 900,
-              color: "#111", lineHeight: 1.2, margin: "0 0 16px 0",
+              color: "#fff", lineHeight: 1.2, margin: "0 0 16px 0",
             }}>
               {product.name}
             </h1>
@@ -140,7 +141,7 @@ export default async function ProductPage({ params }: Props) {
                 fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700,
                 textTransform: "uppercase", letterSpacing: "0.09em", color: "#fff",
               }}>
-                BREZPLAČNA DOSTAVA za naročila nad 200 €
+                BREZPLAČNA DOSTAVA za naročila nad {formatPrice(SHIPPING.freeThreshold)}
               </span>
             </div>
 
@@ -148,7 +149,7 @@ export default async function ProductPage({ params }: Props) {
             <div style={{ marginBottom: "24px" }}>
               <p style={{
                 fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
-                textTransform: "uppercase", letterSpacing: "0.14em", color: "#555", margin: "0 0 10px 0",
+                textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.55)", margin: "0 0 10px 0",
               }}>
                 Popusti pri količini
               </p>

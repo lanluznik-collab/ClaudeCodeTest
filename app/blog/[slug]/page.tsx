@@ -38,7 +38,7 @@ export default async function BlogPostPage({ params }: Props) {
             <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
             <Link href="/blog" style={{ color: "#999", textDecoration: "none" }}>Blog</Link>
             <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
-            <span style={{ color: "#333" }}>{post.title}</span>
+            <span style={{ color: "#ddd" }}>{post.title}</span>
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: Props) {
         <h1 style={{
           fontFamily: "var(--font-montserrat)",
           fontSize: "clamp(1.8rem,4vw,2.8rem)", fontWeight: 900,
-          color: "#111", lineHeight: 1.2, margin: "0 0 32px 0",
+          color: "#fff", lineHeight: 1.2, margin: "0 0 32px 0",
         }}>
           {post.title}
         </h1>
@@ -68,14 +68,14 @@ export default async function BlogPostPage({ params }: Props) {
           <img
             src={post.cover_image}
             alt={post.title}
-            style={{ width: "100%", borderRadius: "8px", marginBottom: "40px", border: "1px solid #eee" }}
+            style={{ width: "100%", borderRadius: "8px", marginBottom: "40px", border: "1px solid rgba(255,255,255,0.15)" }}
           />
         )}
 
         {post.excerpt && (
           <p style={{
             fontFamily: "var(--font-opensans)", fontSize: "18px", lineHeight: 1.7,
-            color: "#555", fontStyle: "italic",
+            color: "rgba(255,255,255,0.7)", fontStyle: "italic",
             borderLeft: "3px solid #c9a84c", paddingLeft: "20px", marginBottom: "40px",
           }}>
             {post.excerpt}
@@ -85,13 +85,13 @@ export default async function BlogPostPage({ params }: Props) {
         {post.content && (
           <div style={{
             fontFamily: "var(--font-opensans)", fontSize: "16px",
-            lineHeight: 1.9, color: "#333", whiteSpace: "pre-wrap",
+            lineHeight: 1.9, color: "rgba(255,255,255,0.8)", whiteSpace: "pre-wrap",
           }}>
             {post.content}
           </div>
         )}
 
-        <div style={{ marginTop: "64px", paddingTop: "32px", borderTop: "1px solid #eee" }}>
+        <div style={{ marginTop: "64px", paddingTop: "32px", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
           <Link href="/blog" style={{
             fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700,
             letterSpacing: "0.1em", color: "#c9a84c", textDecoration: "none", textTransform: "uppercase",

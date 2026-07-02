@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
 
-export function CtaBox() {
+export function CtaBox({ hasBlogPosts = true }: { hasBlogPosts?: boolean }) {
   const [mounted, setMounted] = useState(false);
   const lang = useLanguageStore((s) => s.lang);
   useEffect(() => setMounted(true), []);
@@ -76,23 +76,25 @@ export function CtaBox() {
             {t.btn1}
           </Link>
 
-          <Link
-            href={t.href2}
-            style={{
-              display: "inline-block",
-              padding: "14px 32px",
-              backgroundColor: "transparent",
-              color: "#fff",
-              fontFamily: "var(--font-montserrat)",
-              fontWeight: 700, fontSize: "13px",
-              textTransform: "uppercase", letterSpacing: "0.1em",
-              textDecoration: "none",
-              borderRadius: "2px",
-              border: "1px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            {t.btn2}
-          </Link>
+          {hasBlogPosts && (
+            <Link
+              href={t.href2}
+              style={{
+                display: "inline-block",
+                padding: "14px 32px",
+                backgroundColor: "transparent",
+                color: "#fff",
+                fontFamily: "var(--font-montserrat)",
+                fontWeight: 700, fontSize: "13px",
+                textTransform: "uppercase", letterSpacing: "0.1em",
+                textDecoration: "none",
+                borderRadius: "2px",
+                border: "1px solid rgba(255,255,255,0.2)",
+              }}
+            >
+              {t.btn2}
+            </Link>
+          )}
         </div>
       </div>
     </section>

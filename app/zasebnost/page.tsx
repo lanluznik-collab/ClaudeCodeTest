@@ -65,7 +65,7 @@ export default function ZasebnostPage() {
               <li>Ime in priimek</li>
               <li>E-poštni naslov</li>
               <li>Naslov za dostavo</li>
-              <li>Podatki o plačilu (obdelani varno prek Stripe — mi ne shranjujemo podatkov o kartici)</li>
+              <li>Podatki o plačilu (podatki za bančno nakazilo SEPA oz. podatki, ki jih posredujete prek WhatsApp naročila — podatkov o plačilnih karticah ne zbiramo niti ne shranjujemo)</li>
               <li>Podatki o naročilu (izdelki, količine, znesek)</li>
               <li>Tehnični podatki (IP naslov, vrsta brskalnika, čas obiska)</li>
             </ul>
@@ -94,7 +94,7 @@ export default function ZasebnostPage() {
           <Section title="5. Deljenje podatkov s tretjimi stranmi">
             <p>Vaših podatkov ne prodajamo tretjim osebam. Podatke delimo le z naslednjimi ponudniki storitev, ki so nujni za delovanje naše spletne strani:</p>
             <ul>
-              <li><strong>Stripe</strong> — za varno obdelavo plačil</li>
+              <li><strong>WhatsApp (Meta)</strong> — za komunikacijo in oddajo naročil prek WhatsAppa</li>
               <li><strong>Supabase</strong> — za shranjevanje podatkov</li>
               <li><strong>Dostavna podjetja</strong> — za dostavo naročil</li>
             </ul>
@@ -142,16 +142,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 style={{
         fontFamily: "var(--font-montserrat)",
         fontSize: "17px", fontWeight: 800,
-        color: "#111", marginBottom: "14px",
+        color: "#fff", marginBottom: "14px",
         paddingBottom: "10px",
-        borderBottom: "1px solid #f0f0f0",
+        borderBottom: "1px solid rgba(255,255,255,0.12)",
       }}>
         {title}
       </h2>
       <div style={{
         fontFamily: "var(--font-opensans)",
         fontSize: "15px", lineHeight: 1.8,
-        color: "#444",
+        color: "rgba(255,255,255,0.75)",
       }}>
         {children}
       </div>

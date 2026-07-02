@@ -21,7 +21,7 @@ const checkboxLabelStyle: React.CSSProperties = {
   gap: "6px",
   fontFamily: "var(--font-opensans)",
   fontSize: "13px",
-  color: "#333",
+  color: "rgba(255,255,255,0.8)",
   cursor: "pointer",
   userSelect: "none",
 };
@@ -82,7 +82,7 @@ export function ShopFilters({ categories }: { categories: string[] }) {
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#555" }}>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>
           Razvrsti:
         </span>
         <select value={currentSort} onChange={(e) => update("sort", e.target.value)} style={dropdownStyle}>

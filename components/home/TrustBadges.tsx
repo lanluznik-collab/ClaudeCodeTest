@@ -1,7 +1,9 @@
 import { Truck, ShieldCheck, Headphones } from "lucide-react";
+import { SHIPPING } from "@/lib/config/shipping";
+import { formatPrice } from "@/lib/utils";
 
 const badges = [
-  { icon: Truck,        label: "Brezplačna dostava",  sub: "Vsako naročilo nad 200 € se pošlje brezplačno po vsej Sloveniji." },
+  { icon: Truck,        label: "Brezplačna dostava",  sub: `Vsako naročilo nad ${formatPrice(SHIPPING.freeThreshold)} se pošlje brezplačno po vsej Sloveniji.` },
   { icon: ShieldCheck,  label: "Najvišja kakovost",   sub: "Ponujamo le peptide z neodvisno potrjeno čistostjo, ki presega 99 %." },
   { icon: Headphones,   label: "Spletna podpora",     sub: "Naša ekipa je na voljo za vsa vaša vprašanja. Pišite nam kadarkoli." },
 ];

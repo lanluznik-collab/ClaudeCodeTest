@@ -49,13 +49,13 @@ export function AddToCartButton({ product }: { product: Product }) {
           fontFamily: "var(--font-montserrat)",
           fontSize: "11px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#555",
+          color: "rgba(255,255,255,0.55)",
         }}>
           Količina
         </span>
         <div style={{
           display: "flex", alignItems: "center",
-          border: "1px solid #ddd", borderRadius: "4px",
+          border: "1px solid rgba(255,255,255,0.2)", borderRadius: "4px",
           overflow: "hidden",
         }}>
           <button
@@ -63,7 +63,7 @@ export function AddToCartButton({ product }: { product: Product }) {
             style={{
               width: "36px", height: "36px",
               background: "none", border: "none",
-              color: "#555", fontSize: "18px",
+              color: "rgba(255,255,255,0.7)", fontSize: "18px",
               cursor: "pointer", display: "flex",
               alignItems: "center", justifyContent: "center",
             }}
@@ -74,7 +74,7 @@ export function AddToCartButton({ product }: { product: Product }) {
             padding: "0 14px",
             fontFamily: "var(--font-montserrat)",
             fontSize: "14px", fontWeight: 700,
-            color: "#111", minWidth: "32px",
+            color: "#fff", minWidth: "32px",
             textAlign: "center",
           }}>
             {qty}
@@ -84,7 +84,7 @@ export function AddToCartButton({ product }: { product: Product }) {
             style={{
               width: "36px", height: "36px",
               background: "none", border: "none",
-              color: "#555", fontSize: "18px",
+              color: "rgba(255,255,255,0.7)", fontSize: "18px",
               cursor: "pointer", display: "flex",
               alignItems: "center", justifyContent: "center",
             }}

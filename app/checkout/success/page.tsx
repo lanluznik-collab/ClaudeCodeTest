@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/lib/cart-store";
+import { useLanguageStore } from "@/lib/language-store";
+import { translations } from "@/lib/i18n";
 
 const BANK_NAME = "SloPeps";
 const BANK_IBAN = "SI56 0440 3026 6483 426";
@@ -12,6 +14,10 @@ export default function SuccessPage() {
   const clearCart = useCartStore((s) => s.clearCart);
   const [orderRef, setOrderRef] = useState<string | null>(null);
   const [total, setTotal] = useState<string | null>(null);
+  const lang = useLanguageStore((s) => s.lang);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const tc = mounted ? translations[lang].checkout : translations.sl.checkout;
 
   useEffect(() => {
     clearCart();
@@ -52,7 +58,7 @@ export default function SuccessPage() {
         textTransform: "uppercase", letterSpacing: "0.06em",
         color: "#c9a84c", marginBottom: "16px",
       }}>
-        Hvala za vaše naročilo!
+        {tc.thankYou}
       </h1>
 
       <p style={{
@@ -60,8 +66,7 @@ export default function SuccessPage() {
         fontSize: "15px", color: "rgba(255,255,255,0.6)",
         lineHeight: 1.7, marginBottom: "36px",
       }}>
-        Prosimo nakažite znesek na spodnje bančne podatke.
-        Vaše naročilo bo odposlano po prejemu plačila.
+        {tc.thankYouBody}
       </p>
 
       {/* Bank details box */}
@@ -79,15 +84,15 @@ export default function SuccessPage() {
           textTransform: "uppercase", letterSpacing: "0.1em",
           color: "#c9a84c", margin: "0 0 16px 0",
         }}>
-          Podatki za bančno nakazilo
+          {tc.transferDetails}
         </p>
 
         {[
-          ["Prejemnik", BANK_NAME],
-          ["IBAN", BANK_IBAN],
-          ["BIC / SWIFT", BANK_BIC],
-          ...(orderRef ? [["Referenca", orderRef]] : []),
-          ...(total ? [["Znesek", `${parseFloat(total).toFixed(2)} €`]] : []),
+          [tc.recipient, BANK_NAME],
+          [tc.iban, BANK_IBAN],
+          [tc.bic, BANK_BIC],
+          ...(orderRef ? [[tc.reference, orderRef]] : []),
+          ...(total ? [[tc.amount, `${parseFloat(total).toFixed(2)} €`]] : []),
         ].map(([label, value]) => (
           <div key={label} style={{
             display: "flex",
@@ -106,7 +111,7 @@ export default function SuccessPage() {
             <span style={{
               fontFamily: "var(--font-montserrat)",
               fontSize: "13px", fontWeight: 700,
-              color: label === "Referenca" ? "#c9a84c" : "#fff",
+              color: label === tc.reference ? "#c9a84c" : "#fff",
               textAlign: "right",
             }}>
               {value}
@@ -120,7 +125,7 @@ export default function SuccessPage() {
         fontSize: "13px", color: "rgba(255,255,255,0.35)",
         lineHeight: 1.6, marginBottom: "36px",
       }}>
-        Potrditev naročila boste prejeli na vaš e-poštni naslov.
+        {tc.confirmationEmailNote}
       </p>
 
       <Link href="/shop" style={{
@@ -134,7 +139,7 @@ export default function SuccessPage() {
         textDecoration: "none",
         borderRadius: "2px",
       }}>
-        Nazaj v trgovino
+        {tc.backToShop}
       </Link>
     </div>
   );

@@ -92,10 +92,10 @@ export default function PogojiPage() {
           <Section title="4. Plačilo">
             <p>Sprejemamo plačila prek naslednjih metod:</p>
             <ul>
-              <li>Kreditne in debetne kartice (Visa, Mastercard, Amex) prek Stripe</li>
+              <li>Bančno nakazilo SEPA (podatki za nakazilo so posredovani ob oddaji naročila)</li>
               <li>WhatsApp naročila (po dogovoru)</li>
             </ul>
-            <p>Vsa plačila so varno obdelana. Podatkov o kartici ne shranjujemo.</p>
+            <p>Naročilo potrdimo, ko prejmemo vaše plačilo oz. potrdimo dogovor prek WhatsAppa. Plačilo s kartico trenutno ni na voljo. Podatkov o plačilnih karticah ne zbiramo niti ne shranjujemo.</p>
           </Section>
 
           <Section title="5. Vračila in povračila">
@@ -136,16 +136,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 style={{
         fontFamily: "var(--font-montserrat)",
         fontSize: "17px", fontWeight: 800,
-        color: "#111", marginBottom: "14px",
+        color: "#fff", marginBottom: "14px",
         paddingBottom: "10px",
-        borderBottom: "1px solid #f0f0f0",
+        borderBottom: "1px solid rgba(255,255,255,0.12)",
       }}>
         {title}
       </h2>
       <div style={{
         fontFamily: "var(--font-opensans)",
         fontSize: "15px", lineHeight: 1.8,
-        color: "#444",
+        color: "rgba(255,255,255,0.75)",
       }}>
         {children}
       </div>

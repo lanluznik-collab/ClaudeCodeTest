@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/lib/cart-store";
+import { useLanguageStore } from "@/lib/language-store";
+import { translations } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
+import { SHIPPING, calculateShipping } from "@/lib/config/shipping";
 import { WhatsAppOrderButton } from "./WhatsAppOrderButton";
 
 const BANK_NAME = "SloPeps";
@@ -48,6 +51,12 @@ export function CartSummary() {
   const clearCart = useCartStore((s) => s.clearCart);
   const router = useRouter();
 
+  const lang = useLanguageStore((s) => s.lang);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const t = mounted ? translations[lang].cart : translations.sl.cart;
+  const tc = mounted ? translations[lang].checkout : translations.sl.checkout;
+
   const [view, setView] = useState<"summary" | "bank_form">("summary");
   const [orderRef, setOrderRef] = useState("");
   const [loading, setLoading] = useState(false);
@@ -58,8 +67,8 @@ export function CartSummary() {
   const [address, setAddress] = useState("");
 
   const sub = subtotal();
-  const freeShipping = sub >= 200;
-  const shippingCost = freeShipping ? 0 : 9.9;
+  const shippingCost = calculateShipping(sub);
+  const freeShipping = shippingCost === 0;
   const total = sub + shippingCost;
 
   function handleShowBankForm() {
@@ -90,7 +99,7 @@ export function CartSummary() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error ?? "Napaka pri oddaji naročila. Poskusite znova.");
+        setError(data.error ?? tc.orderError);
         return;
       }
 
@@ -102,7 +111,7 @@ export function CartSummary() {
       clearCart();
       router.push("/checkout/success");
     } catch {
-      setError("Napaka pri povezavi. Preverite internetno povezavo in poskusite znova.");
+      setError(tc.connectionError);
     } finally {
       setLoading(false);
     }
@@ -144,7 +153,7 @@ export function CartSummary() {
             gap: "6px",
           }}
         >
-          ← Nazaj
+          {tc.back}
         </button>
 
         <h2 style={{
@@ -153,7 +162,7 @@ export function CartSummary() {
           textTransform: "uppercase", letterSpacing: "0.1em",
           color: "#fff", margin: "0 0 20px 0",
         }}>
-          Bančno nakazilo
+          {tc.bankTransfer}
         </h2>
 
         {/* Order summary */}
@@ -169,9 +178,9 @@ export function CartSummary() {
             </div>
           ))}
           <div style={{ ...infoRowStyle, marginBottom: "6px", marginTop: "10px" }}>
-            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>Dostava</span>
+            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>{t.shipping}</span>
             <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: freeShipping ? "#4ade80" : "#fff" }}>
-              {freeShipping ? "Brezplačno" : formatPrice(9.9)}
+              {freeShipping ? t.freeShipping : formatPrice(SHIPPING.price)}
             </span>
           </div>
           <div style={{
@@ -181,7 +190,7 @@ export function CartSummary() {
             marginBottom: "0",
           }}>
             <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#fff" }}>
-              Skupaj
+              {t.total}
             </span>
             <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "18px", fontWeight: 800, color: "#c9a84c" }}>
               {formatPrice(total)}
@@ -198,14 +207,14 @@ export function CartSummary() {
           marginBottom: "20px",
         }}>
           <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#c9a84c", margin: "0 0 12px 0" }}>
-            Podatki za nakazilo
+            {tc.transferDetails}
           </p>
           {[
-            ["Prejemnik", BANK_NAME],
-            ["IBAN", BANK_IBAN],
-            ["BIC / SWIFT", BANK_BIC],
-            ["Referenca", orderRef],
-            ["Znesek", formatPrice(total)],
+            [tc.recipient, BANK_NAME],
+            [tc.iban, BANK_IBAN],
+            [tc.bic, BANK_BIC],
+            [tc.reference, orderRef],
+            [tc.amount, formatPrice(total)],
           ].map(([label, value]) => (
             <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
               <span style={{ fontFamily: "var(--font-opensans)", fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>{label}</span>
@@ -217,35 +226,35 @@ export function CartSummary() {
         {/* Customer form */}
         <form onSubmit={handleConfirmOrder}>
           <div style={{ marginBottom: "14px" }}>
-            <label style={labelStyle}>Ime in priimek *</label>
+            <label style={labelStyle}>{tc.fullName}</label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Janez Novak"
+              placeholder={tc.namePlaceholder}
               style={inputStyle}
             />
           </div>
           <div style={{ marginBottom: "14px" }}>
-            <label style={labelStyle}>E-pošta *</label>
+            <label style={labelStyle}>{tc.email}</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="janez@email.com"
+              placeholder={tc.emailPlaceholder}
               style={inputStyle}
             />
           </div>
           <div style={{ marginBottom: "20px" }}>
-            <label style={labelStyle}>Naslov dostave *</label>
+            <label style={labelStyle}>{tc.deliveryAddress}</label>
             <textarea
               required
               rows={3}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              placeholder={"Ulica 1\n1000 Ljubljana\nSlovenija"}
+              placeholder={tc.addressPlaceholder}
               style={{ ...inputStyle, resize: "vertical", lineHeight: 1.5 }}
             />
           </div>
@@ -281,7 +290,7 @@ export function CartSummary() {
               transition: "background-color 0.2s",
             }}
           >
-            {loading ? "Oddajam naročilo…" : "Potrdi naročilo"}
+            {loading ? tc.submitting : tc.confirmOrder}
           </button>
         </form>
       </div>
@@ -300,13 +309,13 @@ export function CartSummary() {
         textTransform: "uppercase", letterSpacing: "0.1em",
         color: "#fff", margin: "0 0 20px 0",
       }}>
-        Povzetek naročila
+        {tc.orderSummary}
       </h2>
 
       {/* Subtotal */}
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
         <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
-          Vmesni seštevek
+          {t.subtotal}
         </span>
         <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700, color: "#fff" }}>
           {formatPrice(sub)}
@@ -316,10 +325,10 @@ export function CartSummary() {
       {/* Shipping */}
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
         <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
-          Dostava
+          {t.shipping}
         </span>
         <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: freeShipping ? "#4ade80" : "#fff" }}>
-          {freeShipping ? "Brezplačno" : formatPrice(9.9)}
+          {freeShipping ? t.freeShipping : formatPrice(SHIPPING.price)}
         </span>
       </div>
       {!freeShipping && (
@@ -328,7 +337,7 @@ export function CartSummary() {
           fontSize: "12px", color: "rgba(255,255,255,0.35)",
           margin: "0 0 14px 0", textAlign: "right",
         }}>
-          Brezplačna dostava nad 200 €
+          {t.freeShippingNote}
         </p>
       )}
       {freeShipping && <div style={{ marginBottom: "14px" }} />}
@@ -347,7 +356,7 @@ export function CartSummary() {
           textTransform: "uppercase", letterSpacing: "0.08em",
           color: "#fff",
         }}>
-          Skupaj
+          {t.total}
         </span>
         <span style={{
           fontFamily: "var(--font-montserrat)",
@@ -388,7 +397,7 @@ export function CartSummary() {
           <rect x="2" y="5" width="20" height="14" rx="2" />
           <line x1="2" y1="10" x2="22" y2="10" />
         </svg>
-        Plačilo z bančnim nakazilom
+        {tc.payByBankTransfer}
       </button>
 
       {/* WhatsApp button */}

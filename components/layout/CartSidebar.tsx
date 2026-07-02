@@ -10,6 +10,7 @@ import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
 import { formatPrice } from "@/lib/utils";
 import { buildCartOrderURL } from "@/lib/whatsapp";
+import { SHIPPING, calculateShipping } from "@/lib/config/shipping";
 
 export function CartSidebar() {
   const cartOpen = useUiStore((s) => s.cartOpen);
@@ -41,8 +42,8 @@ export function CartSidebar() {
 
   const t = translations[lang].cart;
   const sub = subtotal();
-  const freeShipping = sub >= 200;
-  const shippingCost = freeShipping ? 0 : 9.9;
+  const shippingCost = calculateShipping(sub);
+  const freeShipping = shippingCost === 0;
   const total = sub + shippingCost;
   const whatsappUrl = buildCartOrderURL(items, sub);
 
@@ -219,7 +220,7 @@ export function CartSidebar() {
                       fontSize: "12px", color: "rgba(255,255,255,0.35)",
                       margin: 0,
                     }}>
-                      {formatPrice(item.price)} / kos
+                      {formatPrice(item.price)} {t.perUnit}
                     </p>
 
                     {/* Qty + line price */}
@@ -315,7 +316,7 @@ export function CartSidebar() {
                 {t.shipping}
               </span>
               <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: freeShipping ? "#4ade80" : "#fff" }}>
-                {freeShipping ? t.freeShipping : formatPrice(9.9)}
+                {freeShipping ? t.freeShipping : formatPrice(SHIPPING.price)}
               </span>
             </div>
 

@@ -9,7 +9,15 @@ export function createServiceClient() {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
-// Use anon key for server components (respects RLS)
+// Use anon key for server components (respects RLS).
+// Forces cache: "no-store" so Next.js's fetch Data Cache never serves stale
+// rows to Server Components — those pages already opt out of the route cache
+// via `export const dynamic = "force-dynamic"`, and DB writes (e.g. from the
+// admin panel) need to show up on the next request, not after a rebuild.
 export function createServerClient() {
-  return createClient(supabaseUrl, supabaseAnonKey);
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    global: {
+      fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+    },
+  });
 }

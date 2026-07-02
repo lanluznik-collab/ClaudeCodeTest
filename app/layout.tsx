@@ -7,6 +7,7 @@ import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { CartSidebar } from "@/components/layout/CartSidebar";
 import { Providers } from "./providers";
 import Toast from "@/components/ui/Toast";
+import { SHIPPING } from "@/lib/config/shipping";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -22,7 +23,7 @@ const openSans = Open_Sans({
 
 export const metadata: Metadata = {
   title: "SloPeps — Premium Research Peptides",
-  description: "Premium research peptides with >99% purity. HPLC and MS verified. Free shipping over €200.",
+  description: `Premium research peptides with >99% purity. HPLC and MS verified. Free shipping over €${SHIPPING.freeThreshold} in Slovenia.`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
