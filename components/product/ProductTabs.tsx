@@ -1,20 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { CoaDocument } from "@/types";
+import { useState, useEffect } from "react";
+import { CoaDocument, Product } from "@/types";
+import { useLanguageStore } from "@/lib/language-store";
+import { translations } from "@/lib/i18n";
+import { Accordion } from "./Accordion";
+import { PRODUCT_INFO_SECTIONS } from "@/lib/product-info-sections";
 
 interface Props {
-  description: string | null;
+  product: Product;
   coaImages: string[];
   coaDocs?: CoaDocument[];
 }
 
-const tabs = [
-  { key: "opis",  label: "Opis" },
-  { key: "coa",   label: "Certifikat analize" },
-] as const;
-
-type TabKey = typeof tabs[number]["key"];
+type TabKey = "opis" | "coa";
 
 // Light, saturated variants so status text stays readable on the dark
 // product page background even at low badge-background opacity.
@@ -24,8 +23,19 @@ const statusColor: Record<string, string> = {
   Pregled:   "#fbbf24",
 };
 
-export function ProductTabs({ description, coaImages, coaDocs }: Props) {
+export function ProductTabs({ product, coaImages, coaDocs }: Props) {
   const [active, setActive] = useState<TabKey>("opis");
+  const lang = useLanguageStore((s) => s.lang);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const tl = mounted ? translations[lang] : translations.sl;
+
+  const description = lang === "en" ? product.description_en : product.description_sl;
+
+  const tabs: { key: TabKey; label: string }[] = [
+    { key: "opis", label: tl.prodTabOpis },
+    { key: "coa", label: tl.prodTabCoa },
+  ];
 
   return (
     <div style={{ marginTop: "72px", borderTop: "2px solid rgba(255,255,255,0.1)", paddingTop: "52px" }}>
@@ -55,39 +65,30 @@ export function ProductTabs({ description, coaImages, coaDocs }: Props) {
       {active === "opis" && (
         <div>
           {description && (
-            <p style={{
-              fontFamily: "var(--font-opensans)", fontSize: "15px", lineHeight: 1.85,
-              color: "rgba(255,255,255,0.75)", maxWidth: "800px", marginBottom: "48px",
-            }}>
-              {description}
-            </p>
+            <>
+              <h3 style={{
+                fontFamily: "var(--font-montserrat)", fontSize: "15px", fontWeight: 800,
+                textTransform: "uppercase", letterSpacing: "0.1em", color: "#fff", margin: "0 0 14px 0",
+              }}>
+                {tl.prodCompositionTitle}
+              </h3>
+              <p style={{
+                fontFamily: "var(--font-opensans)", fontSize: "15px", lineHeight: 1.85,
+                color: "rgba(255,255,255,0.75)", maxWidth: "800px", marginBottom: "16px",
+              }}>
+                {description}
+              </p>
+            </>
           )}
 
-          <h3 style={{
-            fontFamily: "var(--font-montserrat)", fontSize: "15px", fontWeight: 800,
-            textTransform: "uppercase", letterSpacing: "0.1em", color: "#fff", margin: "0 0 14px 0",
-          }}>
-            Kemijska sestava
-          </h3>
-          <p style={{
-            fontFamily: "var(--font-opensans)", fontSize: "14px", lineHeight: 1.8,
-            color: "rgba(255,255,255,0.65)", maxWidth: "800px", marginBottom: "40px",
-          }}>
-            Naši peptidi so sintetizirani s pomočjo industrijske metode sinteze peptidov na trdni fazi (SPPS). Vsaka serija je podrobno preverjena glede strukturne celovitosti, aminokislinske sestave in molekulske mase z analizo HPLC in masne spektrometrije, kar zagotavlja čistost nad 99 %.
-          </p>
-
-          <h3 style={{
-            fontFamily: "var(--font-montserrat)", fontSize: "15px", fontWeight: 800,
-            textTransform: "uppercase", letterSpacing: "0.1em", color: "#fff", margin: "0 0 14px 0",
-          }}>
-            Raziskave in klinične študije
-          </h3>
-          <p style={{
-            fontFamily: "var(--font-opensans)", fontSize: "14px", lineHeight: 1.8,
-            color: "rgba(255,255,255,0.65)", maxWidth: "800px",
-          }}>
-            Vsi izdelki so namenjeni izključno za in-vitro raziskave in laboratorijsko uporabo. SloPeps ne podpira ali spodbuja uporabe peptidov v terapevtske ali klinične namene. Raziskovalci so spodbujeni k pregledu objavljene literature in spoštovanju vseh veljavnih predpisov v svoji jurisdikciji.
-          </p>
+          {/* Numbered shared info accordions */}
+          <div style={{ marginTop: "32px", maxWidth: "800px" }}>
+            {PRODUCT_INFO_SECTIONS.map((section, i) => (
+              <Accordion key={section.id} number={i + 1} title={tl[section.titleKey] as string}>
+                {tl[section.bodyKey] as string}
+              </Accordion>
+            ))}
+          </div>
         </div>
       )}
 
@@ -104,7 +105,7 @@ export function ProductTabs({ description, coaImages, coaDocs }: Props) {
                 }}>
                   <div>
                     <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
-                      Serija
+                      {tl.prodCoaSeries}
                     </p>
                     <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700, color: "#fff", margin: 0 }}>
                       {doc.batch_number ?? "—"}
@@ -112,17 +113,17 @@ export function ProductTabs({ description, coaImages, coaDocs }: Props) {
                   </div>
                   <div>
                     <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
-                      Datum testa
+                      {tl.prodCoaTestDate}
                     </p>
                     <p style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.8)", margin: 0 }}>
                       {doc.test_date
-                        ? new Date(doc.test_date).toLocaleDateString("sl-SI")
+                        ? new Date(doc.test_date).toLocaleDateString(lang === "en" ? "en-GB" : "sl-SI")
                         : "—"}
                     </p>
                   </div>
                   <div>
                     <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
-                      Status
+                      {tl.prodCoaStatus}
                     </p>
                     <span style={{
                       fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
@@ -145,7 +146,7 @@ export function ProductTabs({ description, coaImages, coaDocs }: Props) {
                         border: "1px solid #c9a84c", borderRadius: "4px", padding: "6px 12px",
                       }}
                     >
-                      Prenesi
+                      {tl.prodCoaDownload}
                     </a>
                   )}
                 </div>
@@ -159,7 +160,7 @@ export function ProductTabs({ description, coaImages, coaDocs }: Props) {
                 <img
                   key={i}
                   src={url}
-                  alt={`Certifikat analize ${i + 1}`}
+                  alt={`${tl.prodTabCoa} ${i + 1}`}
                   style={{
                     width: "100%", maxWidth: "900px", height: "auto",
                     border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px", display: "block",
@@ -169,7 +170,7 @@ export function ProductTabs({ description, coaImages, coaDocs }: Props) {
             </div>
           ) : (
             <p style={{ fontFamily: "var(--font-opensans)", fontSize: "15px", color: "#888", fontStyle: "italic" }}>
-              Certifikat analize ni na voljo za ta izdelek.
+              {tl.prodCoaNotAvailable}
             </p>
           )}
         </div>

@@ -23,6 +23,15 @@ export function ProductForm({ product }: Props) {
     coa_images: product?.coa_images ?? [],
     stock: product?.stock ?? 0,
     featured: product?.featured ?? false,
+    purity: product?.purity ?? null,
+    analysis_method: product?.analysis_method ?? null,
+    storage_temp: product?.storage_temp ?? null,
+    form: product?.form ?? null,
+    amount_mg: product?.amount_mg ?? null,
+    description_sl: product?.description_sl ?? null,
+    description_en: product?.description_en ?? null,
+    coa_url: product?.coa_url ?? null,
+    msds_url: product?.msds_url ?? null,
   });
 
   function set<K extends keyof FormData>(key: K, value: FormData[K]) {
@@ -112,6 +121,97 @@ export function ProductForm({ product }: Props) {
           placeholder="e.g. peptides, supplements"
           className={inputClass}
         />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">Purity</label>
+          <input
+            value={form.purity ?? ""}
+            onChange={(e) => set("purity", e.target.value || null)}
+            placeholder="e.g. >99%"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Amount</label>
+          <input
+            value={form.amount_mg ?? ""}
+            onChange={(e) => set("amount_mg", e.target.value || null)}
+            placeholder="e.g. 5 mg"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Analysis method</label>
+          <input
+            value={form.analysis_method ?? ""}
+            onChange={(e) => set("analysis_method", e.target.value || null)}
+            placeholder="e.g. HPLC, MS"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Storage temperature</label>
+          <input
+            value={form.storage_temp ?? ""}
+            onChange={(e) => set("storage_temp", e.target.value || null)}
+            placeholder="e.g. -20°C"
+            className={inputClass}
+          />
+        </div>
+        <div className="col-span-2">
+          <label className="block text-sm font-medium mb-1">Form</label>
+          <input
+            value={form.form ?? ""}
+            onChange={(e) => set("form", e.target.value || null)}
+            placeholder="e.g. Lyophilized powder"
+            className={inputClass}
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-1">Description (Slovenian)</label>
+        <textarea
+          rows={3}
+          value={form.description_sl ?? ""}
+          onChange={(e) => set("description_sl", e.target.value || null)}
+          placeholder="Per-product chemical composition text shown on the product page (SL)"
+          className={inputClass}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-1">Description (English)</label>
+        <textarea
+          rows={3}
+          value={form.description_en ?? ""}
+          onChange={(e) => set("description_en", e.target.value || null)}
+          placeholder="Per-product chemical composition text shown on the product page (EN)"
+          className={inputClass}
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">COA document URL</label>
+          <input
+            value={form.coa_url ?? ""}
+            onChange={(e) => set("coa_url", e.target.value || null)}
+            placeholder="https://…"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">MSDS document URL</label>
+          <input
+            value={form.msds_url ?? ""}
+            onChange={(e) => set("msds_url", e.target.value || null)}
+            placeholder="https://… (leave empty to hide the MSDS card)"
+            className={inputClass}
+          />
+        </div>
       </div>
 
       <div>

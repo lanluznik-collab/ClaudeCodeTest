@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCartStore } from "@/lib/cart-store";
+import { useLanguageStore } from "@/lib/language-store";
+import { translations } from "@/lib/i18n";
 import { Product } from "@/types";
 
 export function AddToCartButton({ product }: { product: Product }) {
   const addItem = useCartStore((s) => s.addItem);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const lang = useLanguageStore((s) => s.lang);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const tl = mounted ? translations[lang] : translations.sl;
 
   function handleAdd() {
     addItem({
@@ -36,7 +42,7 @@ export function AddToCartButton({ product }: { product: Product }) {
         textTransform: "uppercase", letterSpacing: "0.1em",
         cursor: "not-allowed",
       }}>
-        Ni na zalogi
+        {tl.cart.outOfStock}
       </button>
     );
   }
@@ -51,7 +57,7 @@ export function AddToCartButton({ product }: { product: Product }) {
           textTransform: "uppercase", letterSpacing: "0.1em",
           color: "rgba(255,255,255,0.55)",
         }}>
-          Količina
+          {tl.prodColQty}
         </span>
         <div style={{
           display: "flex", alignItems: "center",
@@ -96,7 +102,7 @@ export function AddToCartButton({ product }: { product: Product }) {
           fontFamily: "var(--font-opensans)",
           fontSize: "12px", color: "#aaa",
         }}>
-          {product.stock} v zalogi
+          {product.stock} {tl.prodUnitsInStock}
         </span>
       </div>
 
@@ -117,7 +123,7 @@ export function AddToCartButton({ product }: { product: Product }) {
           transition: "background-color 0.2s",
         }}
       >
-        {added ? "Dodano v košarico ✓" : "Dodaj v košarico"}
+        {added ? tl.prodAddedToCart : tl.cart.addToCart}
       </button>
     </div>
   );

@@ -10,6 +10,17 @@ export interface Product {
   stock: number;
   featured: boolean;
   created_at: string;
+  // Product detail page fields (nullable — page must hide rows/sections
+  // gracefully when unset rather than showing empty/placeholder values)
+  purity: string | null;
+  analysis_method: string | null;
+  storage_temp: string | null;
+  form: string | null;
+  amount_mg: string | null;
+  description_sl: string | null;
+  description_en: string | null;
+  coa_url: string | null;
+  msds_url: string | null;
 }
 
 export interface Order {
