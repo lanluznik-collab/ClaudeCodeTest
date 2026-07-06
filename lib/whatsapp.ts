@@ -1,4 +1,4 @@
-import { CartItem, Product } from "@/types";
+import { CartItem, Order, Product } from "@/types";
 import { SHIPPING, calculateShipping } from "@/lib/config/shipping";
 import { Lang } from "@/lib/language-store";
 
@@ -50,4 +50,26 @@ export function buildCartOrderURL(
       `Prosim potrdite in pošljite podatke za plačilo.`
   );
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+}
+
+// Used on the confirmation page for orders placed with the WhatsApp payment
+// method — the order is already priced and persisted server-side, so this
+// builds the handoff message from the final stored totals rather than
+// recomputing from a (by then cleared) cart.
+export function buildOrderWhatsAppURL(order: Order): string {
+  const lines = order.items
+    .map((i) => `• ${i.name} x${i.quantity} — ${(i.price * i.quantity).toFixed(2)} €`)
+    .join("\n");
+
+  const parts = [
+    `Pozdravljeni! Rad/a bi potrdil/a naročilo ${order.order_ref ?? ""}:`,
+    "",
+    lines,
+    "",
+    `Skupaj: ${order.total.toFixed(2)} €`,
+    "",
+    "Prosim potrdite in pošljite podatke za plačilo.",
+  ];
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(parts.join("\n"))}`;
 }

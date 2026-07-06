@@ -8,6 +8,7 @@ import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
 import { CartItem } from "@/types";
 import { formatPrice } from "@/lib/utils";
+import { getTieredUnitPrice, getDiscountPctForQty, getLineTotal } from "@/lib/pricing";
 import { X } from "lucide-react";
 
 export function CartLineItem({ item }: { item: CartItem }) {
@@ -16,6 +17,10 @@ export function CartLineItem({ item }: { item: CartItem }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const t = mounted ? translations[lang].cart : translations.sl.cart;
+
+  const discountPct = getDiscountPctForQty(item.quantity);
+  const unitPrice = getTieredUnitPrice(item.price, item.quantity);
+  const hasTierDiscount = discountPct > 0;
 
   return (
     <div style={{
@@ -61,8 +66,26 @@ export function CartLineItem({ item }: { item: CartItem }) {
           fontFamily: "var(--font-opensans)",
           fontSize: "13px", color: "rgba(255,255,255,0.4)",
           margin: "0 0 12px 0",
+          display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap",
         }}>
-          {formatPrice(item.price)} {t.perUnit}
+          {hasTierDiscount ? (
+            <>
+              <span style={{ textDecoration: "line-through", color: "rgba(255,255,255,0.3)" }}>
+                {formatPrice(item.price)}
+              </span>
+              <span style={{ color: "#4ade80", fontWeight: 700 }}>{formatPrice(unitPrice)}</span>
+              <span style={{
+                fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700,
+                color: "#4ade80", backgroundColor: "rgba(74,222,128,0.12)",
+                padding: "1px 6px", borderRadius: "100px",
+              }}>
+                −{discountPct}%
+              </span>
+              <span>{t.perUnit}</span>
+            </>
+          ) : (
+            <>{formatPrice(item.price)} {t.perUnit}</>
+          )}
         </p>
 
         {/* Qty controls */}
@@ -126,7 +149,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
           fontSize: "15px", fontWeight: 700,
           color: "#c9a84c", margin: 0,
         }}>
-          {formatPrice(item.price * item.quantity)}
+          {formatPrice(getLineTotal(item))}
         </p>
       </div>
     </div>

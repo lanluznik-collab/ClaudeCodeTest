@@ -25,13 +25,40 @@ export interface Product {
 
 export interface Order {
   id: string;
+  order_ref: string | null;
   items: CartItem[];
   total: number;
+  subtotal: number | null;
+  shipping_cost: number | null;
+  discount_code: string | null;
+  discount_amount: number;
+  cod_surcharge: number;
   customer_name: string | null;
   customer_email: string | null;
+  customer_phone: string | null;
   customer_address: string | null;
-  payment_method: "bank" | "whatsapp";
+  company_name: string | null;
+  vat_id: string | null;
+  consent_terms_at: string | null;
+  consent_ruo_at: string | null;
+  payment_method: "bank_transfer" | "cod" | "whatsapp";
   status: "pending_payment" | "pending" | "paid" | "shipped" | "delivered" | "cancelled";
+  language: "sl" | "en";
+  predracun_number: string | null;
+  predracun_pdf_path: string | null;
+  declaration_pdf_path: string | null;
+  confirmation_sent_at: string | null;
+  created_at: string;
+}
+
+export interface PromoCode {
+  id: string;
+  code: string;
+  type: "percent" | "fixed";
+  value: number;
+  active: boolean;
+  expires_at: string | null;
+  min_order: number | null;
   created_at: string;
 }
 
