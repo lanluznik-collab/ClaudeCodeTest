@@ -342,7 +342,7 @@ export function CartSidebar() {
 
             {/* View Cart button */}
             <Link
-              href="/cart"
+              href="/kosarica"
               onClick={closeCart}
               style={{
                 display: "block", textAlign: "center",
