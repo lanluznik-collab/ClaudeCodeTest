@@ -11,6 +11,13 @@ export default function ContactPage() {
   const tl = translations[lang];
 
   const [hovered, setHovered] = useState<number | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    await navigator.clipboard.writeText("info@slopeps.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const cardBase: React.CSSProperties = {
     background: "var(--white)",
@@ -120,15 +127,37 @@ export default function ContactPage() {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                 <p style={labelStyle}>{tl.contactEmailLbl}</p>
-                <a
-                  href="mailto:info@slopeps.com"
-                  style={{ ...valueStyle, color: "var(--primary)", textDecoration: "none" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary-dark)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--primary)")}
-                >
-                  info@slopeps.com
-                </a>
-                <p style={subStyle}>{tl.contactEmailSub}</p>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <a
+                    href="mailto:info@slopeps.com"
+                    style={{ ...valueStyle, color: "var(--primary)", textDecoration: "none" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary-dark)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--primary)")}
+                  >
+                    info@slopeps.com
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    title={tl.contactEmailCopy}
+                    aria-label={tl.contactEmailCopy}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: "2px",
+                      display: "flex",
+                      alignItems: "center",
+                      color: "var(--gray-400)",
+                      flexShrink: 0,
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--gray-400)")}
+                  >
+                    <i className={copied ? "ri-check-line" : "ri-file-copy-line"} style={{ fontSize: "15px" }} />
+                  </button>
+                </div>
+                <p style={subStyle}>{copied ? tl.contactEmailCopied : tl.contactEmailSub}</p>
               </div>
             </div>
 
