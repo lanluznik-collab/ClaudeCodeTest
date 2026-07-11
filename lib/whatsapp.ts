@@ -56,7 +56,9 @@ export function buildCartOrderURL(
 // method — the order is already priced and persisted server-side, so this
 // builds the handoff message from the final stored totals rather than
 // recomputing from a (by then cleared) cart.
-export function buildOrderWhatsAppURL(order: Order): string {
+export function buildOrderWhatsAppURL(
+  order: Pick<Order, "items" | "order_ref" | "total">
+): string {
   const lines = order.items
     .map((i) => `• ${i.name} x${i.quantity} — ${(i.price * i.quantity).toFixed(2)} €`)
     .join("\n");

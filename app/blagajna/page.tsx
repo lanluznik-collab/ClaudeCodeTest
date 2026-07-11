@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Truck, Banknote, CreditCard, MessageCircle } from "lucide-react";
@@ -69,10 +69,13 @@ export default function CheckoutPage() {
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
-  // Redirect back to cart if it's empty (e.g. direct link, page refresh
-  // after an order was already placed and the cart cleared).
+  // Redirect back to cart if it's empty (e.g. direct link, page refresh).
+  // Skipped right after a successful order, since clearCart() also drops
+  // items to 0 and would otherwise race this effect and stomp the
+  // navigation to the confirmation page.
+  const orderPlacedRef = useRef(false);
   useEffect(() => {
-    if (mounted && items.length === 0) router.replace("/kosarica");
+    if (mounted && items.length === 0 && !orderPlacedRef.current) router.replace("/kosarica");
   }, [mounted, items.length, router]);
 
   const subtotal = calculateCartSubtotal(items);
@@ -134,6 +137,7 @@ export default function CheckoutPage() {
         return;
       }
 
+      orderPlacedRef.current = true;
       clearCart();
       clearPromo();
       router.push(`/potrditev/${data.order_ref}`);
