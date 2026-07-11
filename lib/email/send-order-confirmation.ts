@@ -27,8 +27,6 @@ export async function sendOrderConfirmation({
 }: SendOrderConfirmationParams): Promise<void> {
   const resend = new Resend(process.env.RESEND_API_KEY);
   const lang = order.language === "en" ? "en" : "sl";
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
-  const logoUrl = `${siteUrl}/logo.png`;
 
   const attachments: Attachment[] = [{ filename: "izjava-kupca.pdf", content: declarationPdf }];
   if (predracunPdf) {
@@ -40,7 +38,7 @@ export async function sendOrderConfirmation({
     to: order.customer_email ?? "",
     bcc: COMPANY.adminEmail,
     subject: copySubject[lang](order.order_ref ?? ""),
-    react: OrderConfirmationEmail({ order, lang, logoUrl }),
+    react: OrderConfirmationEmail({ order, lang }),
     attachments,
   });
 

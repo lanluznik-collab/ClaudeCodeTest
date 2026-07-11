@@ -10,7 +10,6 @@ import {
   Heading,
   Text,
   Hr,
-  Img,
 } from "@react-email/components";
 import { Order } from "@/types";
 import { COMPANY } from "@/lib/config/company";
@@ -20,7 +19,6 @@ import { formatPrice } from "@/lib/utils";
 interface Props {
   order: Order;
   lang: "sl" | "en";
-  logoUrl: string;
 }
 
 const copy = {
@@ -99,7 +97,7 @@ const colors = {
   border: "#e5e5e0",
 };
 
-export function OrderConfirmationEmail({ order, lang, logoUrl }: Props) {
+export function OrderConfirmationEmail({ order, lang }: Props) {
   const t = copy[lang];
   const locale = lang === "en" ? "en-GB" : "sl-SI";
   const orderDate = new Date(order.created_at).toLocaleDateString(locale);
@@ -112,10 +110,6 @@ export function OrderConfirmationEmail({ order, lang, logoUrl }: Props) {
       <Preview>{t.preview(order.customer_name ?? "")}</Preview>
       <Body style={{ backgroundColor: colors.bg, fontFamily: "Helvetica, Arial, sans-serif", padding: "24px 0" }}>
         <Container style={{ backgroundColor: colors.card, maxWidth: 560, borderRadius: 6, overflow: "hidden" }}>
-          <Section style={{ backgroundColor: colors.dark, padding: "24px 32px" }}>
-            <Img src={logoUrl} alt="SloPeps" height={32} />
-          </Section>
-
           <Section style={{ padding: "28px 32px 8px" }}>
             <Heading style={{ fontSize: 20, color: colors.dark, margin: "0 0 8px" }}>
               {t.banner(order.customer_name ?? "")}
