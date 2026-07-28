@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { BlogPost } from "@/types";
-import { Upload, X, Pencil, Trash2, Plus } from "lucide-react";
+import { Upload, X, Pencil, Trash2 } from "lucide-react";
 
 const card: React.CSSProperties = {
   backgroundColor: "#fff", border: "1px solid #e5e5e5", borderRadius: "8px", padding: "24px",
@@ -42,16 +42,9 @@ const tdStyle: React.CSSProperties = {
   padding: "10px 12px", fontSize: "13px", color: "#333",
   borderBottom: "1px solid #f0f0f0", verticalAlign: "middle",
 };
-const sectionCard: React.CSSProperties = {
-  border: "1px solid #eee", borderRadius: "6px", padding: "16px",
-  backgroundColor: "#fafafa", marginBottom: "12px",
-};
-
-type BodySectionForm = { headSlo: string; headEng: string; textSlo: string; textEng: string };
 
 type BlogFormState = {
-  titleSlo: string;
-  titleEng: string;
+  title: string;
   slug: string;
   tag: string;
   tagIcon: string;
@@ -60,18 +53,15 @@ type BlogFormState = {
   coverImage: string;
   author: string;
   publishedAt: string;
-  introSlo: string;
-  introEng: string;
-  body: BodySectionForm[];
+  intro: string;
+  body: string;
 };
 
 const emptyForm = (): BlogFormState => ({
-  titleSlo: "", titleEng: "",
-  slug: "", tag: "", tagIcon: "", ctaProduct: "",
+  title: "", slug: "", tag: "", tagIcon: "", ctaProduct: "",
   readMinutes: "", coverImage: "", author: "",
   publishedAt: new Date().toISOString().slice(0, 10),
-  introSlo: "", introEng: "",
-  body: [],
+  intro: "", body: "",
 });
 
 function CoverImageUploader({ value, onChange }: { value: string; onChange: (url: string) => void }) {
@@ -151,14 +141,13 @@ export default function AdminBlogPage() {
     setForm(emptyForm());
     setFormError("");
     setShowForm(true);
-    setTimeout(() => document.getElementById("bf-title-slo")?.focus(), 50);
+    setTimeout(() => document.getElementById("bf-title")?.focus(), 50);
   }
 
   function openEdit(p: BlogPost) {
     setEditingId(p.id);
     setForm({
-      titleSlo: p.title?.slo ?? "",
-      titleEng: p.title?.eng ?? "",
+      title: p.title ?? "",
       slug: p.slug ?? "",
       tag: p.tag ?? "",
       tagIcon: p.tag_icon ?? "",
@@ -167,16 +156,12 @@ export default function AdminBlogPage() {
       coverImage: p.cover_image ?? "",
       author: p.author ?? "",
       publishedAt: new Date(p.published_at).toISOString().slice(0, 10),
-      introSlo: p.intro?.slo ?? "",
-      introEng: p.intro?.eng ?? "",
-      body: (p.body ?? []).map((s) => ({
-        headSlo: s.head?.slo ?? "", headEng: s.head?.eng ?? "",
-        textSlo: s.text?.slo ?? "", textEng: s.text?.eng ?? "",
-      })),
+      intro: p.intro ?? "",
+      body: p.body ?? "",
     });
     setFormError("");
     setShowForm(true);
-    setTimeout(() => document.getElementById("bf-title-slo")?.focus(), 50);
+    setTimeout(() => document.getElementById("bf-title")?.focus(), 50);
   }
 
   function cancelForm() {
@@ -190,41 +175,21 @@ export default function AdminBlogPage() {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
-  function addSection() {
-    setForm((f) => ({ ...f, body: [...f.body, { headSlo: "", headEng: "", textSlo: "", textEng: "" }] }));
-  }
-
-  function removeSection(index: number) {
-    setForm((f) => ({ ...f, body: f.body.filter((_, i) => i !== index) }));
-  }
-
-  function setSectionField(index: number, key: keyof BodySectionForm, value: string) {
-    setForm((f) => ({
-      ...f,
-      body: f.body.map((s, i) => (i === index ? { ...s, [key]: value } : s)),
-    }));
-  }
-
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     setFormError("");
 
-    const titleSlo = form.titleSlo.trim();
-    const introSlo = form.introSlo.trim();
-    if (!titleSlo) { setFormError("Naslov (SL) je obvezen."); return; }
-    if (!introSlo) { setFormError("Uvod (SL) je obvezen."); return; }
+    const title = form.title.trim();
+    const intro = form.intro.trim();
+    if (!title) { setFormError("Naslov je obvezen."); return; }
+    if (!intro) { setFormError("Uvod je obvezen."); return; }
 
     setSaving(true);
 
     const body = {
-      title: { slo: titleSlo, eng: form.titleEng.trim() || titleSlo },
-      intro: { slo: introSlo, eng: form.introEng.trim() || introSlo },
-      body: form.body
-        .filter((s) => s.headSlo.trim() || s.textSlo.trim())
-        .map((s) => ({
-          head: { slo: s.headSlo.trim(), eng: s.headEng.trim() || s.headSlo.trim() },
-          text: { slo: s.textSlo.trim(), eng: s.textEng.trim() || s.textSlo.trim() },
-        })),
+      title,
+      intro,
+      body: form.body,
       slug: form.slug.trim(),
       tag: form.tag.trim() || null,
       tag_icon: form.tagIcon.trim() || null,
@@ -280,19 +245,12 @@ export default function AdminBlogPage() {
             </h3>
             <form onSubmit={handleSave}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
-                <div>
-                  <label style={labelStyle} htmlFor="bf-title-slo">Naslov (SL) *</label>
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={labelStyle} htmlFor="bf-title">Naslov *</label>
                   <input
-                    id="bf-title-slo" required value={form.titleSlo}
-                    onChange={(e) => setField("titleSlo", e.target.value)}
+                    id="bf-title" required value={form.title}
+                    onChange={(e) => setField("title", e.target.value)}
                     style={inputStyle} placeholder="Naslov objave"
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Naslov (EN)</label>
-                  <input
-                    value={form.titleEng} onChange={(e) => setField("titleEng", e.target.value)}
-                    style={inputStyle} placeholder="Post title (privzeto = SL)"
                   />
                 </div>
 
@@ -359,87 +317,25 @@ export default function AdminBlogPage() {
                   />
                 </div>
 
-                <div>
-                  <label style={labelStyle}>Uvod (SL) *</label>
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={labelStyle}>Uvod *</label>
                   <textarea
-                    rows={3} value={form.introSlo}
-                    onChange={(e) => setField("introSlo", e.target.value)}
+                    rows={3} value={form.intro}
+                    onChange={(e) => setField("intro", e.target.value)}
                     style={{ ...inputStyle, resize: "vertical" }}
                     placeholder="Kratek uvod v objavo…"
                   />
                 </div>
-                <div>
-                  <label style={labelStyle}>Uvod (EN)</label>
+
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={labelStyle}>Vsebina (markdown)</label>
                   <textarea
-                    rows={3} value={form.introEng}
-                    onChange={(e) => setField("introEng", e.target.value)}
-                    style={{ ...inputStyle, resize: "vertical" }}
-                    placeholder="Intro text (privzeto = SL)"
+                    rows={16} value={form.body}
+                    onChange={(e) => setField("body", e.target.value)}
+                    style={{ ...inputStyle, resize: "vertical", fontFamily: "monospace" }}
+                    placeholder={"## Naslov odseka\n\nBesedilo odseka. Podprto: **krepko**, [povezave](https://...), sezname.\n\n## Viri\n\n1. ..."}
                   />
                 </div>
-              </div>
-
-              <div style={{ marginBottom: "16px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
-                  <label style={{ ...labelStyle, marginBottom: 0 }}>Vsebina (odseki)</label>
-                  <button type="button" onClick={addSection} style={{ ...btnSecondary, display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", padding: "6px 12px" }}>
-                    <Plus size={12} /> Dodaj odsek
-                  </button>
-                </div>
-
-                {form.body.length === 0 && (
-                  <p style={{ fontSize: "13px", color: "#999", fontStyle: "italic" }}>Ni odsekov. Dodaj enega zgoraj (neobvezno).</p>
-                )}
-
-                {form.body.map((section, i) => (
-                  <div key={i} style={sectionCard}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-                      <span style={{ fontSize: "12px", fontWeight: 700, color: "#888", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                        Odsek {i + 1}
-                      </span>
-                      <button type="button" onClick={() => removeSection(i)} style={btnDanger}>
-                        <Trash2 size={12} style={{ marginRight: "4px", verticalAlign: "middle" }} />
-                        Odstrani
-                      </button>
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                      <div>
-                        <label style={labelStyle}>Naslov odseka (SL)</label>
-                        <input
-                          value={section.headSlo}
-                          onChange={(e) => setSectionField(i, "headSlo", e.target.value)}
-                          style={inputStyle}
-                        />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Naslov odseka (EN)</label>
-                        <input
-                          value={section.headEng}
-                          onChange={(e) => setSectionField(i, "headEng", e.target.value)}
-                          style={inputStyle}
-                        />
-                      </div>
-                      <div style={{ gridColumn: "1 / -1" }}>
-                        <label style={labelStyle}>Besedilo (SL)</label>
-                        <textarea
-                          rows={3}
-                          value={section.textSlo}
-                          onChange={(e) => setSectionField(i, "textSlo", e.target.value)}
-                          style={{ ...inputStyle, resize: "vertical" }}
-                        />
-                      </div>
-                      <div style={{ gridColumn: "1 / -1" }}>
-                        <label style={labelStyle}>Besedilo (EN)</label>
-                        <textarea
-                          rows={3}
-                          value={section.textEng}
-                          onChange={(e) => setSectionField(i, "textEng", e.target.value)}
-                          style={{ ...inputStyle, resize: "vertical" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
 
               {formError && (
@@ -477,10 +373,10 @@ export default function AdminBlogPage() {
                   {posts.map((p) => (
                     <tr key={p.id} style={{ backgroundColor: "#fff" }}>
                       <td style={tdStyle}>
-                        <span style={{ fontWeight: 600 }}>{p.title?.slo}</span>
-                        {p.intro?.slo && (
+                        <span style={{ fontWeight: 600 }}>{p.title}</span>
+                        {p.intro && (
                           <p style={{ fontSize: "12px", color: "#888", margin: "2px 0 0 0" }}>
-                            {p.intro.slo.slice(0, 80)}{p.intro.slo.length > 80 ? "…" : ""}
+                            {p.intro.slice(0, 80)}{p.intro.length > 80 ? "…" : ""}
                           </p>
                         )}
                       </td>
@@ -497,7 +393,7 @@ export default function AdminBlogPage() {
                             <Pencil size={12} style={{ marginRight: "4px", verticalAlign: "middle" }} />
                             Uredi
                           </button>
-                          <button onClick={() => handleDelete(p.id, p.title?.slo ?? "")} style={btnDanger}>
+                          <button onClick={() => handleDelete(p.id, p.title ?? "")} style={btnDanger}>
                             <Trash2 size={12} style={{ marginRight: "4px", verticalAlign: "middle" }} />
                             Izbriši
                           </button>

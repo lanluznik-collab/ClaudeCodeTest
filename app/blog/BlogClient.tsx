@@ -1,61 +1,38 @@
-﻿"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import PageHero from "@/components/layout/PageHero";
-import { useLanguageStore } from "@/lib/language-store";
-import { translations } from "@/lib/i18n";
 import { BlogPost } from "@/types";
 
 const MONTHS_SLO = [
-  "januar","februar","marec","april","maj","junij",
-  "julij","avgust","september","oktober","november","december",
-];
-const MONTHS_ENG = [
-  "January","February","March","April","May","June",
-  "July","August","September","October","November","December",
+  "januar", "februar", "marec", "april", "maj", "junij",
+  "julij", "avgust", "september", "oktober", "november", "december",
 ];
 
-function formatDate(dateStr: string, isSlo: boolean): string {
+function formatDate(dateStr: string): string {
   const d = new Date(dateStr);
-  const day = d.getUTCDate();
-  const month = d.getUTCMonth();
-  const year = d.getUTCFullYear();
-  return isSlo
-    ? `${day}. ${MONTHS_SLO[month]} ${year}`
-    : `${MONTHS_ENG[month]} ${day}, ${year}`;
+  return `${d.getUTCDate()}. ${MONTHS_SLO[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
 const SIDEBAR_TAGS = [
-  { icon: "ri-first-aid-kit-line", tk: "blogTagRegen" },
-  { icon: "ri-leaf-line",          tk: "blogTagLong"  },
-  { icon: "ri-brain-line",         tk: "blogTagCog"   },
-  { icon: "ri-run-line",           tk: "blogTagMuscle"},
-  { icon: "ri-moon-line",          tk: "blogTagSleep" },
+  { icon: "ri-first-aid-kit-line", label: "Regeneracija" },
+  { icon: "ri-leaf-line", label: "Dolgoživost" },
+  { icon: "ri-brain-line", label: "Kognicija" },
+  { icon: "ri-run-line", label: "Mišice" },
+  { icon: "ri-moon-line", label: "Spanje" },
 ] as const;
-
-type TlKey = keyof typeof translations.sl;
 
 interface Props { posts: BlogPost[]; }
 
 export default function BlogClient({ posts }: Props) {
-  const [mounted, setMounted] = useState(false);
-  const lang = useLanguageStore((s) => s.lang);
-  useEffect(() => setMounted(true), []);
-
-  const tl  = mounted ? translations[lang] : translations.sl;
-  const isSlo = !mounted || lang === "sl";
-
   return (
     <>
       {/* Hero */}
       <PageHero
         breadcrumbItems={[
-          { label: tl.nav.home, href: "/" },
-          { label: tl.nav.blog },
+          { label: "DOMOV", href: "/" },
+          { label: "BLOG" },
         ]}
-        title={tl.blogHero}
-        subtitle={tl.blogHeroSub}
+        title="Novosti in raziskave"
+        subtitle="Pregled aktualnih ugotovitev s področja raziskav peptidov. Vsi članki so namenjeni izključno izobraževalnim namenom."
       />
 
       {/* Main layout */}
@@ -67,7 +44,7 @@ export default function BlogClient({ posts }: Props) {
             <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
               {posts.length === 0 && (
                 <p style={{ color: "var(--gray-400)", fontStyle: "italic" }}>
-                  {isSlo ? "Ni objavljenih člankov." : "No articles published yet."}
+                  Ni objavljenih člankov.
                 </p>
               )}
               {posts.map((post) => (
@@ -82,7 +59,6 @@ export default function BlogClient({ posts }: Props) {
                       src={post.cover_image ?? ""}
                       alt=""
                       className="blog-card-img"
-                      onError={(e) => { e.currentTarget.style.opacity = "0.1"; }}
                     />
 
                     {/* Tag pill top-left */}
@@ -111,20 +87,12 @@ export default function BlogClient({ posts }: Props) {
                       display: "flex", gap: "12px", flexWrap: "wrap",
                     }}>
                       {[
-                        {
-                          icon: "ri-calendar-line",
-                          text: formatDate(post.published_at, isSlo),
-                        },
+                        { icon: "ri-calendar-line", text: formatDate(post.published_at) },
                         post.read_minutes !== null && {
                           icon: "ri-time-line",
-                          text: isSlo
-                            ? `${post.read_minutes} min branja`
-                            : `${post.read_minutes} min read`,
+                          text: `${post.read_minutes} min branja`,
                         },
-                        post.author && {
-                          icon: "ri-user-line",
-                          text: post.author,
-                        },
+                        post.author && { icon: "ri-user-line", text: post.author },
                       ].filter(Boolean).map((pill, i) => {
                         if (!pill || typeof pill === "boolean") return null;
                         return (
@@ -156,42 +124,21 @@ export default function BlogClient({ posts }: Props) {
                       letterSpacing: "-0.3px", marginBottom: "12px",
                     }}>
                       <Link href={`/blog/${post.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
-                        {isSlo ? post.title.slo : post.title.eng}
+                        {post.title}
                       </Link>
                     </h2>
                     <p style={{
                       fontSize: "15px", color: "var(--gray-500)",
-                      lineHeight: 1.75, marginBottom: "24px",
+                      lineHeight: 1.75, marginBottom: 0,
                     }}>
-                      {isSlo ? post.intro.slo : post.intro.eng}
+                      {post.intro}
                     </p>
-
-                    {/* Body sections */}
-                    {Array.isArray(post.body) && post.body.length > 0 && (
-                      <div style={{
-                        display: "flex", flexDirection: "column", gap: "20px",
-                        paddingTop: "20px", borderTop: "1px solid var(--gray-100)",
-                      }}>
-                        {post.body.map((section, i) => (
-                          <div key={i}>
-                            <p className="blog-section-head">
-                              {isSlo ? section.head.slo : section.head.eng}
-                            </p>
-                            <p style={{
-                              fontSize: "14px", color: "var(--gray-600)", lineHeight: 1.75, margin: 0,
-                            }}>
-                              {isSlo ? section.text.slo : section.text.eng}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    )}
                   </div>
 
                   {/* Card footer */}
                   <div className="blog-card-footer">
                     <Link
-                      href="/shop"
+                      href={`/blog/${post.slug}`}
                       style={{
                         display: "inline-flex",
                         alignItems: "center",
@@ -206,8 +153,8 @@ export default function BlogClient({ posts }: Props) {
                         flexShrink: 0,
                       }}
                     >
-                      <i className="ri-flask-line" />
-                      {tl.blogArticleCta} {post.cta_product}
+                      <i className="ri-book-open-line" />
+                      Preberi članek
                     </Link>
                     <p
                       className="blog-card-footer-disc"
@@ -216,7 +163,7 @@ export default function BlogClient({ posts }: Props) {
                         maxWidth: "360px", lineHeight: 1.5, margin: 0,
                       }}
                     >
-                      {tl.blogArticleDisc}
+                      Za research namene. Ni odobreno za medicinsko uporabo.
                     </p>
                   </div>
                 </article>
@@ -239,17 +186,17 @@ export default function BlogClient({ posts }: Props) {
                     textTransform: "uppercase", letterSpacing: "0.8px",
                     color: "var(--gray-500)", marginBottom: "16px",
                   }}>
-                    {tl.blogSideCats}
+                    Kategorije
                   </h3>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "0" }}>
-                    {SIDEBAR_TAGS.map(({ icon, tk }) => (
+                    {SIDEBAR_TAGS.map(({ icon, label }) => (
                       <button
-                        key={tk}
+                        key={label}
                         className="blog-tag-pill"
                         style={{ margin: "0 6px 8px 0" }}
                       >
                         <i className={icon} />
-                        {tl[tk as TlKey] as string}
+                        {label}
                       </button>
                     ))}
                   </div>
@@ -270,13 +217,13 @@ export default function BlogClient({ posts }: Props) {
                   color: "var(--accent)", marginBottom: "10px",
                 }}>
                   <i className="ri-error-warning-line" />
-                  {tl.blogDisclaimerTitle}
+                  Opomba
                 </h3>
                 <p style={{
                   fontSize: "13px", color: "#6b7280",
                   lineHeight: 1.65, margin: 0,
                 }}>
-                  {tl.blogDisclaimerText}
+                  Vsi članki na tem blogu so namenjeni izključno izobraževalnim namenom. Peptidi, opisani v člankih, niso odobreni za medicinsko uporabo pri ljudeh ali živalih.
                 </p>
               </div>
 
@@ -291,17 +238,17 @@ export default function BlogClient({ posts }: Props) {
                   fontSize: "15px", fontWeight: 700, color: "white",
                   marginBottom: "8px",
                 }}>
-                  {tl.blogCtaTitle}
+                  Oglejte si produkte
                 </h3>
                 <p style={{
                   fontSize: "13px", color: "var(--gray-400)",
                   lineHeight: 1.6, marginBottom: "16px",
                 }}>
-                  {tl.blogCtaText}
+                  Vsi peptidi, opisani v člankih, so na voljo z laboratorijsko potrjeno čistostjo.
                 </p>
                 <Link href="/shop" className="blog-sidebar-cta-btn">
                   <i className="ri-store-2-line" />
-                  {tl.blogCtaBtn}
+                  Odpri trgovino
                 </Link>
               </div>
 

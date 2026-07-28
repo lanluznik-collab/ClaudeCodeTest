@@ -71,16 +71,6 @@ export interface CartItem {
   slug: string;
 }
 
-export interface LocalizedText {
-  slo: string;
-  eng: string;
-}
-
-export interface BlogBodySection {
-  head: LocalizedText;
-  text: LocalizedText;
-}
-
 export interface BlogPost {
   id: string;
   slug: string;
@@ -89,9 +79,9 @@ export interface BlogPost {
   published_at: string;
   read_minutes: number | null;
   cover_image: string | null;
-  title: LocalizedText;
-  intro: LocalizedText;
-  body: BlogBodySection[];
+  title: string;
+  intro: string;
+  body: string;
   cta_product: string | null;
   author: string | null;
   created_at: string;
