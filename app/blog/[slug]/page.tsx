@@ -1,7 +1,8 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import Link from "next/link";
 import { createServerClient } from "@/lib/supabase/server";
+import { BlogPost } from "@/types";
+import BlogPostClient from "./BlogPostClient";
 
 interface Props {
   params: { slug: string };
@@ -11,95 +12,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = createServerClient();
   const { data } = await supabase
     .from("blog_posts")
-    .select("title, excerpt")
+    .select("title, intro")
     .eq("slug", params.slug)
     .single();
   if (!data) return { title: "Objava ni najdena" };
-  return { title: data.title, description: data.excerpt ?? undefined };
+  return { title: data.title?.slo, description: data.intro?.slo ?? undefined };
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const supabase = createServerClient();
   const { data: post } = await supabase
     .from("blog_posts")
-    .select("*")
+    .select("id,slug,tag,tag_icon,published_at,read_minutes,cover_image,title,intro,body,cta_product,author")
     .eq("slug", params.slug)
     .single();
 
   if (!post) notFound();
 
-  return (
-    <div style={{ backgroundColor: "#0a0a0a", color: "#eeeeee", minHeight: "70vh" }}>
-      {/* Breadcrumb */}
-      <div style={{ backgroundColor: "#111111", borderBottom: "1px solid #2a2a2a" }}>
-        <div className="mx-auto px-4 md:px-8 py-3" style={{ maxWidth: "1200px" }}>
-          <p style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#999", margin: 0 }}>
-            <Link href="/" style={{ color: "#999", textDecoration: "none" }}>Domov</Link>
-            <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
-            <Link href="/blog" style={{ color: "#999", textDecoration: "none" }}>Blog</Link>
-            <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
-            <span style={{ color: "#ddd" }}>{post.title}</span>
-          </p>
-        </div>
-      </div>
-
-      {/* Article */}
-      <div style={{ maxWidth: "800px", margin: "0 auto", padding: "64px 24px 96px" }}>
-        {/* Meta */}
-        <p style={{
-          fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
-          letterSpacing: "0.18em", color: "#c9a84c", textTransform: "uppercase", marginBottom: "16px",
-        }}>
-          {new Date(post.published_at).toLocaleDateString("sl-SI")}
-          {post.author ? ` · ${post.author}` : ""}
-          {post.reading_time ? ` · ${post.reading_time} min branja` : ""}
-        </p>
-
-        <h1 style={{
-          fontFamily: "var(--font-montserrat)",
-          fontSize: "clamp(1.8rem,4vw,2.8rem)", fontWeight: 900,
-          color: "#fff", lineHeight: 1.2, margin: "0 0 32px 0",
-        }}>
-          {post.title}
-        </h1>
-
-        {post.cover_image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={post.cover_image}
-            alt={post.title}
-            style={{ width: "100%", borderRadius: "8px", marginBottom: "40px", border: "1px solid rgba(255,255,255,0.15)" }}
-          />
-        )}
-
-        {post.excerpt && (
-          <p style={{
-            fontFamily: "var(--font-opensans)", fontSize: "18px", lineHeight: 1.7,
-            color: "rgba(255,255,255,0.7)", fontStyle: "italic",
-            borderLeft: "3px solid #c9a84c", paddingLeft: "20px", marginBottom: "40px",
-          }}>
-            {post.excerpt}
-          </p>
-        )}
-
-        {post.content && (
-          <div style={{
-            fontFamily: "var(--font-opensans)", fontSize: "16px",
-            lineHeight: 1.9, color: "rgba(255,255,255,0.8)", whiteSpace: "pre-wrap",
-          }}>
-            {post.content}
-          </div>
-        )}
-
-        <div style={{ marginTop: "64px", paddingTop: "32px", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-          <Link href="/blog" style={{
-            fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700,
-            letterSpacing: "0.1em", color: "#c9a84c", textDecoration: "none", textTransform: "uppercase",
-          }}>
-            ← Nazaj na blog
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+  return <BlogPostClient post={post as BlogPost} />;
 }

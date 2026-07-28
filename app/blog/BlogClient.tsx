@@ -5,22 +5,7 @@ import Link from "next/link";
 import PageHero from "@/components/layout/PageHero";
 import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
-
-interface JsonField { slo: string; eng: string; }
-interface BodySection { head: JsonField; text: JsonField; }
-export interface BlogPostNew {
-  id: string;
-  slug: string;
-  tag: string | null;
-  tag_icon: string | null;
-  published_at: string;
-  read_minutes: number | null;
-  cover_image: string | null;
-  title: JsonField;
-  intro: JsonField;
-  body: BodySection[];
-  cta_product: string | null;
-}
+import { BlogPost } from "@/types";
 
 const MONTHS_SLO = [
   "januar","februar","marec","april","maj","junij",
@@ -51,7 +36,7 @@ const SIDEBAR_TAGS = [
 
 type TlKey = keyof typeof translations.sl;
 
-interface Props { posts: BlogPostNew[]; }
+interface Props { posts: BlogPost[]; }
 
 export default function BlogClient({ posts }: Props) {
   const [mounted, setMounted] = useState(false);
@@ -136,6 +121,10 @@ export default function BlogClient({ posts }: Props) {
                             ? `${post.read_minutes} min branja`
                             : `${post.read_minutes} min read`,
                         },
+                        post.author && {
+                          icon: "ri-user-line",
+                          text: post.author,
+                        },
                       ].filter(Boolean).map((pill, i) => {
                         if (!pill || typeof pill === "boolean") return null;
                         return (
@@ -166,7 +155,9 @@ export default function BlogClient({ posts }: Props) {
                       color: "var(--gray-900)", lineHeight: 1.3,
                       letterSpacing: "-0.3px", marginBottom: "12px",
                     }}>
-                      {isSlo ? post.title.slo : post.title.eng}
+                      <Link href={`/blog/${post.slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                        {isSlo ? post.title.slo : post.title.eng}
+                      </Link>
                     </h2>
                     <p style={{
                       fontSize: "15px", color: "var(--gray-500)",

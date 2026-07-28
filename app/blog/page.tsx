@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { createServerClient } from "@/lib/supabase/server";
-import BlogClient, { BlogPostNew } from "./BlogClient";
+import BlogClient from "./BlogClient";
+import { BlogPost } from "@/types";
 
 export const dynamic = "force-dynamic";
 
@@ -13,10 +14,10 @@ export default async function BlogPage() {
   const supabase = createServerClient();
   const { data } = await supabase
     .from("blog_posts")
-    .select("id,slug,tag,tag_icon,published_at,read_minutes,cover_image,title,intro,body,cta_product")
+    .select("id,slug,tag,tag_icon,published_at,read_minutes,cover_image,title,intro,body,cta_product,author")
     .order("published_at", { ascending: false });
 
-  const posts = (data ?? []) as BlogPostNew[];
+  const posts = (data ?? []) as BlogPost[];
 
   return <BlogClient posts={posts} />;
 }
