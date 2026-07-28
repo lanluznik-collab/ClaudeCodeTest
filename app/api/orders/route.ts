@@ -67,23 +67,59 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Potrebna sta oba obvezna soglasja" }, { status: 400 });
     }
 
+    // Quantities must be sane positive integers before they're used for
+    // pricing or stock checks — an unvalidated quantity here could drive
+    // negative line totals or bypass the stock check below.
+    const MAX_LINE_QTY = 999;
+    for (const item of items) {
+      if (!Number.isInteger(item.quantity) || item.quantity <= 0 || item.quantity > MAX_LINE_QTY) {
+        return NextResponse.json({ error: "Neveljavna količina izdelka" }, { status: 400 });
+      }
+    }
+
     const supabase = createServiceClient();
 
     // Re-price every line server-side against the real product record —
-    // never trust the client-supplied price. Falls back to the cart's
-    // price only if the product has since been removed, so an order can
-    // still be recorded rather than silently dropping the line.
+    // never trust the client-supplied price. Any productId not found in the
+    // DB (removed product, tampered request) rejects the whole order rather
+    // than falling back to the client-supplied price.
     const productIds = items.map((i) => i.productId);
     const { data: products } = await supabase
       .from("products")
-      .select("id, price")
+      .select("id, price, stock")
       .in("id", productIds);
 
-    const priceById = new Map((products ?? []).map((p) => [p.id, p.price as number]));
+    const productById = new Map(
+      (products ?? []).map((p) => [p.id, { price: p.price as number, stock: p.stock as number }])
+    );
+
+    for (const item of items) {
+      if (!productById.has(item.productId)) {
+        return NextResponse.json({ error: "Izdelek ni več na voljo" }, { status: 400 });
+      }
+    }
+
+    // Stock check — reject the order outright if any line asks for more
+    // than is currently on hand, so "Ni na zalogi" is enforced server-side
+    // and not just by the disabled Add to Cart button in the UI.
+    const insufficient = items.filter((item) => item.quantity > productById.get(item.productId)!.stock);
+    if (insufficient.length > 0) {
+      return NextResponse.json(
+        {
+          error: "Nekaterih izdelkov ni dovolj na zalogi",
+          items: insufficient.map((i) => ({
+            productId: i.productId,
+            requested: i.quantity,
+            available: productById.get(i.productId)!.stock,
+          })),
+        },
+        { status: 409 }
+      );
+    }
 
     let subtotal = 0;
     const pricedItems = items.map((item) => {
-      const realPrice = priceById.get(item.productId) ?? item.price;
+      const realPrice = productById.get(item.productId)!.price;
       const unitPrice = getTieredUnitPrice(realPrice, item.quantity);
       const lineTotal = unitPrice * item.quantity;
       subtotal += lineTotal;
@@ -147,6 +183,29 @@ export async function POST(req: NextRequest) {
 
       if (!error) {
         console.log("[orders] created:", order_ref, payment_method, total);
+
+        // Decrement stock now that the order is committed. Each call is its
+        // own atomic "subtract if enough stock" — see
+        // supabase/migrations/decrement_product_stock.sql. The check above
+        // already confirmed enough stock a moment ago, so a failure here
+        // only happens if a concurrent order raced this one for the last
+        // units; log it rather than fail the (already-placed) order.
+        for (const item of pricedItems) {
+          const { data: newStock, error: stockError } = await supabase.rpc(
+            "decrement_product_stock",
+            { p_product_id: item.productId, p_qty: item.quantity }
+          );
+          if (stockError || newStock === null) {
+            console.error(
+              "[orders] stock decrement failed for",
+              item.productId,
+              "qty",
+              item.quantity,
+              stockError?.message ?? "insufficient stock at decrement time"
+            );
+          }
+        }
+
         await finalizeOrderConfirmation(supabase, data as Order);
         return NextResponse.json({ order_ref });
       }
