@@ -89,12 +89,15 @@ const copy = {
 } as const;
 
 const colors = {
-  bg: "#f4f4f2",
-  card: "#ffffff",
-  dark: "#161616",
-  gold: "#c9a84c",
-  textMuted: "#666666",
-  border: "#e5e5e0",
+  bg: "#F4F8F7",
+  card: "#FFFFFF",
+  dark: "#14201F",
+  footerBg: "#062A2B",
+  accent: "#0F766E",
+  accentOnDark: "#2DD4BF",
+  accentTint: "#E6F7F5",
+  textMuted: "#5B6B6A",
+  border: "#E2ECEA",
 };
 
 export function OrderConfirmationEmail({ order, lang }: Props) {
@@ -194,12 +197,12 @@ export function OrderConfirmationEmail({ order, lang }: Props) {
             {order.discount_amount > 0 && (
               <Row>
                 <Column style={{ width: "70%" }}>
-                  <Text style={{ fontSize: 13, color: "#2e7d32", margin: "4px 0" }}>
+                  <Text style={{ fontSize: 13, color: "#16A34A", margin: "4px 0" }}>
                     {t.discount} {order.discount_code ? `(${order.discount_code})` : ""}
                   </Text>
                 </Column>
                 <Column style={{ width: "30%", textAlign: "right" }}>
-                  <Text style={{ fontSize: 13, color: "#2e7d32", margin: "4px 0" }}>
+                  <Text style={{ fontSize: 13, color: "#16A34A", margin: "4px 0" }}>
                     −{formatPrice(order.discount_amount)}
                   </Text>
                 </Column>
@@ -230,7 +233,7 @@ export function OrderConfirmationEmail({ order, lang }: Props) {
                 <Text style={{ fontSize: 15, fontWeight: 700, margin: "8px 0" }}>{t.total}</Text>
               </Column>
               <Column style={{ width: "30%", textAlign: "right" }}>
-                <Text style={{ fontSize: 15, fontWeight: 700, color: colors.gold, margin: "8px 0" }}>
+                <Text style={{ fontSize: 15, fontWeight: 700, color: colors.accent, margin: "8px 0" }}>
                   {formatPrice(order.total)}
                 </Text>
               </Column>
@@ -242,8 +245,8 @@ export function OrderConfirmationEmail({ order, lang }: Props) {
               <Section
                 style={{
                   padding: "16px 18px",
-                  backgroundColor: "#fbf6e8",
-                  border: `1px solid ${colors.gold}`,
+                  backgroundColor: colors.accentTint,
+                  border: `1px solid ${colors.accent}`,
                   borderRadius: 4,
                 }}
               >
@@ -272,7 +275,7 @@ export function OrderConfirmationEmail({ order, lang }: Props) {
                 style={{
                   padding: "16px 18px",
                   backgroundColor: "#f0f4f0",
-                  border: "1px solid #2e7d32",
+                  border: "1px solid #16A34A",
                   borderRadius: 4,
                 }}
               >
@@ -303,10 +306,10 @@ export function OrderConfirmationEmail({ order, lang }: Props) {
 
           <Hr style={{ borderColor: colors.border, margin: "24px 0 0" }} />
 
-          <Section style={{ backgroundColor: colors.dark, padding: "18px 32px" }}>
+          <Section style={{ backgroundColor: colors.footerBg, padding: "18px 32px" }}>
             <Text style={{ fontSize: 10, color: "#bbb", margin: "0 0 6px" }}>{t.footerLegal}</Text>
             <Text style={{ fontSize: 10, color: "#bbb", margin: "0 0 6px" }}>{t.ruo}</Text>
-            <Text style={{ fontSize: 10, color: colors.gold, margin: 0 }}>{t.contact}</Text>
+            <Text style={{ fontSize: 10, color: colors.accentOnDark, margin: 0 }}>{t.contact}</Text>
           </Section>
         </Container>
       </Body>

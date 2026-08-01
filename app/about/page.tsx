@@ -74,7 +74,7 @@ export default function AboutPage() {
                   dangerouslySetInnerHTML={{ __html: num }}
                   style={{
                     fontSize: "36px", fontWeight: 800,
-                    color: "#ffffff", letterSpacing: "-1px", lineHeight: 1,
+                    color: "var(--color-text)", letterSpacing: "-1px", lineHeight: 1,
                   }}
                 />
                 <p style={{ fontSize: "13px", color: "var(--gray-500)", marginTop: "4px", fontWeight: 500, margin: "4px 0 0 0" }}>
@@ -98,7 +98,7 @@ export default function AboutPage() {
               </div>
               <h2 style={{
                 fontSize: "clamp(26px, 3.5vw, 36px)", fontWeight: 800,
-                color: "#ffffff", letterSpacing: "-0.5px",
+                color: "var(--color-text)", letterSpacing: "-0.5px",
                 lineHeight: 1.25, marginBottom: "20px",
               }}>
                 {tl.storyTitle}
@@ -115,7 +115,7 @@ export default function AboutPage() {
             {/* Right: image card + floating badge */}
             <div style={{ position: "relative" }}>
               <div style={{
-                background: "linear-gradient(135deg, var(--gray-900), #1a2640)",
+                background: "linear-gradient(135deg, var(--color-brand-deep), var(--color-brand))",
                 borderRadius: "var(--radius-xl)",
                 overflow: "hidden",
                 aspectRatio: "4/3",
@@ -171,7 +171,7 @@ export default function AboutPage() {
             </div>
             <h2 style={{
               fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800,
-              color: "#ffffff", letterSpacing: "-0.5px", margin: 0,
+              color: "var(--color-text)", letterSpacing: "-0.5px", margin: 0,
             }}>
               {tl.valuesTitle}
             </h2>
@@ -189,14 +189,14 @@ export default function AboutPage() {
               <div key={tkTitle} className="about-value-card">
                 <div style={{
                   width: "56px", height: "56px",
-                  background: "rgba(201,168,76,.1)",
+                  background: "var(--color-accent-wash)",
                   borderRadius: "16px",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   marginBottom: "20px",
                 }}>
                   <i className={icon} style={{ fontSize: "26px", color: "var(--primary)" }} />
                 </div>
-                <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#ffffff", marginBottom: "10px" }}>
+                <h3 style={{ fontSize: "17px", fontWeight: 700, color: "var(--color-text)", marginBottom: "10px" }}>
                   {tl[tkTitle as TlKey] as string}
                 </h3>
                 <p style={{ fontSize: "14px", color: "var(--gray-500)", lineHeight: 1.7, margin: 0 }}>
@@ -218,7 +218,7 @@ export default function AboutPage() {
             </div>
             <h2 style={{
               fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800,
-              color: "#ffffff", letterSpacing: "-0.5px", margin: 0,
+              color: "var(--color-text)", letterSpacing: "-0.5px", margin: 0,
             }}>
               {tl.processTitle}
             </h2>
@@ -252,7 +252,7 @@ export default function AboutPage() {
             </div>
             <h2 style={{
               fontSize: "clamp(24px, 3.5vw, 34px)", fontWeight: 800,
-              color: "#ffffff", letterSpacing: "-0.5px", margin: 0,
+              color: "var(--color-text)", letterSpacing: "-0.5px", margin: 0,
             }}>
               {tl.certsTitle}
             </h2>
@@ -276,14 +276,14 @@ export default function AboutPage() {
 
       {/* ── 7. CTA STRIP ───────────────────────────────────────────────── */}
       <section style={{
-        background: "linear-gradient(135deg, var(--gray-900), #1a2640)",
+        background: "linear-gradient(135deg, var(--color-brand-deep), var(--color-brand))",
         padding: "56px 0",
         position: "relative",
         overflow: "hidden",
       }}>
         <div style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 60% 80% at 80% 50%, rgba(201,168,76,.15), transparent)",
+          background: "radial-gradient(ellipse 60% 80% at 80% 50%, rgba(45,212,191,.18), transparent)",
           pointerEvents: "none",
         }} />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
@@ -295,7 +295,7 @@ export default function AboutPage() {
               }}>
                 {tl.aboutCtaTitle}
               </h2>
-              <p style={{ fontSize: "15px", color: "var(--gray-400)", margin: "6px 0 0 0" }}>
+              <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.65)", margin: "6px 0 0 0" }}>
                 {tl.aboutCtaSub}
               </p>
             </div>

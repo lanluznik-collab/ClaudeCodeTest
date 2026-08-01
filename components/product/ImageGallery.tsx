@@ -18,8 +18,8 @@ export function ImageGallery({ images, name }: { images: string[]; name: string 
         position: "relative",
         width: "100%",
         aspectRatio: "1 / 1",
-        backgroundColor: "#f9f9f9",
-        border: "1px solid #e8e8e8",
+        backgroundColor: "var(--color-surface)",
+        border: "1px solid var(--color-border)",
         borderRadius: "4px",
         overflow: "hidden",
         display: "flex",
@@ -43,7 +43,7 @@ export function ImageGallery({ images, name }: { images: string[]; name: string 
             alignItems: "center",
             justifyContent: "center",
             gap: "12px",
-            color: "#ccc",
+            color: "var(--color-text-faint)",
           }}>
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
               <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -55,7 +55,7 @@ export function ImageGallery({ images, name }: { images: string[]; name: string 
               fontSize: "11px",
               textTransform: "uppercase",
               letterSpacing: "0.12em",
-              color: "#ccc",
+              color: "var(--color-text-faint)",
             }}>
               No Image
             </span>
@@ -77,8 +77,8 @@ export function ImageGallery({ images, name }: { images: string[]; name: string 
                 flexShrink: 0,
                 borderRadius: "4px",
                 overflow: "hidden",
-                border: i === selected ? "2px solid #c9a84c" : "2px solid #e8e8e8",
-                backgroundColor: "#f9f9f9",
+                border: i === selected ? "2px solid var(--color-accent-text)" : "2px solid var(--color-border)",
+                backgroundColor: "var(--color-surface)",
                 cursor: "pointer",
                 padding: 0,
                 transition: "border-color 0.2s",

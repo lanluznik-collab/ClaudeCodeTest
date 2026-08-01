@@ -39,7 +39,7 @@ export function Navbar() {
     return (
       <div style={{
         display: "flex", alignItems: "center",
-        border: "1px solid rgba(201,168,76,0.35)",
+        border: "1px solid var(--color-border)",
         borderRadius: "4px", overflow: "hidden",
       }}>
         {(["sl", "en"] as Lang[]).map((l) => (
@@ -47,13 +47,13 @@ export function Navbar() {
             key={l}
             onClick={() => setLang(l)}
             style={{
-              background: lang === l ? "#c9a84c" : "transparent",
+              background: lang === l ? "var(--color-accent)" : "transparent",
               border: "none", cursor: "pointer",
               fontFamily: "var(--font-montserrat)",
               fontSize,
               fontWeight: 700,
               letterSpacing: "0.06em",
-              color: lang === l ? "#000" : "rgba(255,255,255,0.55)",
+              color: lang === l ? "var(--color-on-accent)" : "var(--color-text-muted)",
               padding: size === "lg" ? "7px 16px" : "4px 9px",
               transition: "background 0.15s, color 0.15s",
               textTransform: "uppercase",
@@ -70,8 +70,8 @@ export function Navbar() {
     <header
       className="sticky top-0 z-50"
       style={{
-        backgroundColor: "#0a0a0a",
-        borderBottom: "1px solid rgba(201,168,76,0.18)",
+        backgroundColor: "var(--color-bg)",
+        borderBottom: "1px solid var(--color-border)",
       }}
     >
       <div
@@ -86,7 +86,7 @@ export function Navbar() {
             fontWeight: 900,
             fontSize: "20px",
             letterSpacing: "0.15em",
-            color: "#c9a84c",
+            color: "var(--color-brand)",
             textDecoration: "none",
           }}
         >
@@ -106,10 +106,10 @@ export function Navbar() {
                   fontSize: "11px",
                   fontWeight: 600,
                   letterSpacing: "0.14em",
-                  color: isActive ? "#c9a84c" : "rgba(255,255,255,0.7)",
+                  color: isActive ? "var(--color-accent-text)" : "var(--color-text-muted)",
                   textDecoration: "none",
                   paddingBottom: "4px",
-                  borderBottom: isActive ? "2px solid #c9a84c" : "2px solid transparent",
+                  borderBottom: isActive ? "2px solid var(--color-accent-text)" : "2px solid transparent",
                   transition: "color 0.2s, border-color 0.2s",
                   whiteSpace: "nowrap",
                 }}
@@ -136,7 +136,7 @@ export function Navbar() {
               background: "none",
               border: "none",
               cursor: "pointer",
-              color: "rgba(255,255,255,0.65)",
+              color: "var(--color-text-muted)",
               padding: "4px",
               display: "flex",
               alignItems: "center",
@@ -149,8 +149,8 @@ export function Navbar() {
                   position: "absolute",
                   top: "-6px",
                   right: "-6px",
-                  backgroundColor: "#c9a84c",
-                  color: "#000",
+                  backgroundColor: "var(--color-accent)",
+                  color: "var(--color-on-accent)",
                   fontSize: "10px",
                   fontWeight: 700,
                   fontFamily: "var(--font-montserrat)",
@@ -177,7 +177,7 @@ export function Navbar() {
             style={{
               background: "none",
               border: "none",
-              color: "rgba(255,255,255,0.8)",
+              color: "var(--color-text)",
               cursor: "pointer",
               padding: "4px",
             }}
@@ -191,8 +191,8 @@ export function Navbar() {
       {menuOpen && (
         <div
           style={{
-            backgroundColor: "#111111",
-            borderTop: "1px solid rgba(201,168,76,0.18)",
+            backgroundColor: "var(--color-bg)",
+            borderTop: "1px solid var(--color-border)",
           }}
         >
           {navLinks.map(({ label, href }) => {
@@ -208,11 +208,11 @@ export function Navbar() {
                   fontSize: "14px",
                   fontWeight: 600,
                   letterSpacing: "0.1em",
-                  color: isActive ? "#c9a84c" : "rgba(255,255,255,0.8)",
+                  color: isActive ? "var(--color-accent-text)" : "var(--color-text)",
                   textDecoration: "none",
                   padding: "16px 24px",
-                  borderLeft: isActive ? "3px solid #c9a84c" : "3px solid transparent",
-                  borderBottom: "1px solid rgba(255,255,255,0.05)",
+                  borderLeft: isActive ? "3px solid var(--color-accent-text)" : "3px solid transparent",
+                  borderBottom: "1px solid var(--color-border)",
                 }}
               >
                 {label}
@@ -223,7 +223,7 @@ export function Navbar() {
           {/* Language toggle in mobile menu */}
           <div style={{
             padding: "16px 24px",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
+            borderTop: "1px solid var(--color-border)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -231,7 +231,7 @@ export function Navbar() {
             <span style={{
               fontFamily: "var(--font-montserrat)",
               fontSize: "11px", fontWeight: 700,
-              letterSpacing: "0.1em", color: "rgba(255,255,255,0.4)",
+              letterSpacing: "0.1em", color: "var(--color-text-faint)",
               textTransform: "uppercase",
             }}>
               Jezik / Language

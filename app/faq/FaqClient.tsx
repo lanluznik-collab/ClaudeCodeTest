@@ -199,7 +199,7 @@ export default function FaqClient() {
                 <p style={{ fontSize: "14px", fontWeight: 700, color: "white", marginBottom: "6px" }}>
                   {tl.faqContactTitle}
                 </p>
-                <p style={{ fontSize: "13px", color: "var(--gray-400)", lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.65)", lineHeight: 1.6, margin: 0 }}>
                   {tl.faqContactText}
                 </p>
                 <a href="mailto:info@slopeps.com" className="faq-contact-email">

@@ -5,7 +5,7 @@ import { useToast } from "@/lib/stores/toast";
 const iconMap = {
   success: { cls: "ri-check-double-line", color: "var(--success)" },
   danger: { cls: "ri-heart-line", color: "var(--danger)" },
-  info: { cls: "ri-file-copy-line", color: "var(--primary)" },
+  info: { cls: "ri-file-copy-line", color: "var(--color-accent)" },
 };
 
 export default function Toast() {

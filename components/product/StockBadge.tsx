@@ -24,8 +24,8 @@ export function StockBadge({ inStock }: { inStock: boolean }) {
         textTransform: "uppercase",
         letterSpacing: "0.08em",
         marginBottom: "10px",
-        color: inStock ? "#4ade80" : "#f87171",
-        backgroundColor: inStock ? "rgba(74,222,128,0.12)" : "rgba(248,113,113,0.12)",
+        color: inStock ? "var(--color-success)" : "var(--color-danger)",
+        backgroundColor: inStock ? "rgba(22,163,74,0.12)" : "rgba(220,38,38,0.12)",
       }}
     >
       <span
@@ -33,7 +33,7 @@ export function StockBadge({ inStock }: { inStock: boolean }) {
           width: "6px",
           height: "6px",
           borderRadius: "50%",
-          backgroundColor: inStock ? "#4ade80" : "#f87171",
+          backgroundColor: inStock ? "var(--color-success)" : "var(--color-danger)",
         }}
       />
       {inStock ? tl.prodInStock : tl.prodOutOfStock}

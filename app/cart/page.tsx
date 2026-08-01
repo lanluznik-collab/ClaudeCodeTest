@@ -24,7 +24,7 @@ export default function CartPage() {
       }}>
         <p style={{
           fontFamily: "var(--font-opensans)",
-          fontSize: "16px", color: "rgba(255,255,255,0.45)",
+          fontSize: "16px", color: "var(--color-text-muted)",
           marginBottom: "28px",
         }}>
           {t.empty}
@@ -32,8 +32,8 @@ export default function CartPage() {
         <Link href="/shop" style={{
           display: "inline-block",
           padding: "14px 36px",
-          backgroundColor: "#c9a84c",
-          color: "#fff",
+          backgroundColor: "var(--color-accent)",
+          color: "var(--color-on-accent)",
           fontFamily: "var(--font-montserrat)",
           fontWeight: 700, fontSize: "13px",
           textTransform: "uppercase", letterSpacing: "0.1em",
@@ -52,7 +52,7 @@ export default function CartPage() {
         fontFamily: "var(--font-montserrat)",
         fontSize: "28px", fontWeight: 900,
         textTransform: "uppercase", letterSpacing: "0.06em",
-        color: "#c9a84c", marginBottom: "32px",
+        color: "var(--color-brand)", marginBottom: "32px",
       }}>
         {t.title}
       </h1>

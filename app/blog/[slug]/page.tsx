@@ -71,16 +71,16 @@ export default async function BlogPostPage({ params }: Props) {
   const referencesHeadingIds = allHeadings.slice(mainH2Count).map((h) => h.id);
 
   return (
-    <div style={{ backgroundColor: "#0a0a0a", color: "#eeeeee", minHeight: "70vh" }}>
+    <div style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)", minHeight: "70vh" }}>
       {/* Breadcrumb */}
-      <div style={{ backgroundColor: "#111111", borderBottom: "1px solid #2a2a2a" }}>
+      <div style={{ backgroundColor: "var(--color-surface)", borderBottom: "1px solid var(--color-border)" }}>
         <div className="mx-auto px-4 md:px-8 py-3" style={{ maxWidth: "1200px" }}>
-          <p style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#999", margin: 0 }}>
-            <Link href="/" style={{ color: "#999", textDecoration: "none" }}>Domov</Link>
-            <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
-            <Link href="/blog" style={{ color: "#999", textDecoration: "none" }}>Blog</Link>
-            <span style={{ margin: "0 8px", color: "#ccc" }}>/</span>
-            <span style={{ color: "#ddd" }}>{typedPost.title}</span>
+          <p style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)", margin: 0 }}>
+            <Link href="/" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>Domov</Link>
+            <span style={{ margin: "0 8px", color: "var(--color-text-faint)" }}>/</span>
+            <Link href="/blog" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>Blog</Link>
+            <span style={{ margin: "0 8px", color: "var(--color-text-faint)" }}>/</span>
+            <span style={{ color: "var(--color-text)" }}>{typedPost.title}</span>
           </p>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default async function BlogPostPage({ params }: Props) {
           {typedPost.tag && (
             <div style={{
               display: "inline-flex", alignItems: "center", gap: "6px",
-              background: "rgba(201,168,76,.12)", color: "#c9a84c",
+              background: "var(--color-accent-wash)", color: "var(--color-accent-text)",
               padding: "5px 14px", borderRadius: "100px",
               fontSize: "11px", fontWeight: 700, textTransform: "uppercase",
               letterSpacing: "0.08em", marginBottom: "18px",
@@ -104,7 +104,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           <p style={{
             fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
-            letterSpacing: "0.18em", color: "#999", textTransform: "uppercase", marginBottom: "16px",
+            letterSpacing: "0.18em", color: "var(--color-text-muted)", textTransform: "uppercase", marginBottom: "16px",
           }}>
             {formatDate(typedPost.published_at)}
             {typedPost.read_minutes ? ` · ${typedPost.read_minutes} min branja` : ""}
@@ -114,7 +114,7 @@ export default async function BlogPostPage({ params }: Props) {
           <h1 style={{
             fontFamily: "var(--font-montserrat)",
             fontSize: "clamp(1.8rem,4vw,2.8rem)", fontWeight: 900,
-            color: "#fff", lineHeight: 1.2, margin: "0 0 32px 0",
+            color: "var(--color-text)", lineHeight: 1.2, margin: "0 0 32px 0",
           }}>
             {typedPost.title}
           </h1>
@@ -124,7 +124,7 @@ export default async function BlogPostPage({ params }: Props) {
             <img
               src={typedPost.cover_image}
               alt={typedPost.title}
-              style={{ width: "100%", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.15)" }}
+              style={{ width: "100%", borderRadius: "8px", border: "1px solid var(--color-border)" }}
             />
           )}
         </div>
@@ -136,8 +136,8 @@ export default async function BlogPostPage({ params }: Props) {
               {typedPost.intro && (
                 <p style={{
                   fontFamily: "var(--font-opensans)", fontSize: "18px", lineHeight: 1.7,
-                  color: "rgba(255,255,255,0.7)", fontStyle: "italic",
-                  borderLeft: "3px solid #c9a84c", paddingLeft: "20px", marginBottom: "40px",
+                  color: "var(--color-text-muted)", fontStyle: "italic",
+                  borderLeft: "3px solid var(--color-accent-text)", paddingLeft: "20px", marginBottom: "40px",
                 }}>
                   {typedPost.intro}
                 </p>
@@ -168,8 +168,8 @@ export default async function BlogPostPage({ params }: Props) {
             {typedPost.intro && (
               <p style={{
                 fontFamily: "var(--font-opensans)", fontSize: "18px", lineHeight: 1.7,
-                color: "rgba(255,255,255,0.7)", fontStyle: "italic",
-                borderLeft: "3px solid #c9a84c", paddingLeft: "20px", marginBottom: "40px",
+                color: "var(--color-text-muted)", fontStyle: "italic",
+                borderLeft: "3px solid var(--color-accent-text)", paddingLeft: "20px", marginBottom: "40px",
               }}>
                 {typedPost.intro}
               </p>
@@ -190,8 +190,8 @@ export default async function BlogPostPage({ params }: Props) {
           <div style={{ marginTop: "72px" }}>
             <h2 style={{
               fontFamily: "var(--font-montserrat)", fontSize: "18px", fontWeight: 800,
-              textTransform: "uppercase", letterSpacing: "0.1em", color: "#fff",
-              margin: "0 0 32px 0", paddingBottom: "16px", borderBottom: "1px solid rgba(255,255,255,0.12)",
+              textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text)",
+              margin: "0 0 32px 0", paddingBottom: "16px", borderBottom: "1px solid var(--color-border)",
             }}>
               Sorodni produkti
             </h2>
@@ -204,7 +204,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* ── Prev / next ──────────────────────────────────────────────── */}
         {(prevPost || nextPost) && (
           <div style={{
-            marginTop: "64px", paddingTop: "32px", borderTop: "1px solid rgba(255,255,255,0.12)",
+            marginTop: "64px", paddingTop: "32px", borderTop: "1px solid var(--color-border)",
             display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px",
           }}>
             <div>
@@ -212,11 +212,11 @@ export default async function BlogPostPage({ params }: Props) {
                 <Link href={`/blog/${prevPost.slug}`} style={{ textDecoration: "none" }}>
                   <p style={{
                     fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
-                    letterSpacing: "0.1em", color: "#c9a84c", textTransform: "uppercase", margin: "0 0 6px 0",
+                    letterSpacing: "0.1em", color: "var(--color-accent-text)", textTransform: "uppercase", margin: "0 0 6px 0",
                   }}>
                     ← Prejšnji članek
                   </p>
-                  <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.8)", margin: 0 }}>{prevPost.title}</p>
+                  <p style={{ fontSize: "14px", color: "var(--color-text-muted)", margin: 0 }}>{prevPost.title}</p>
                 </Link>
               )}
             </div>
@@ -225,11 +225,11 @@ export default async function BlogPostPage({ params }: Props) {
                 <Link href={`/blog/${nextPost.slug}`} style={{ textDecoration: "none" }}>
                   <p style={{
                     fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
-                    letterSpacing: "0.1em", color: "#c9a84c", textTransform: "uppercase", margin: "0 0 6px 0",
+                    letterSpacing: "0.1em", color: "var(--color-accent-text)", textTransform: "uppercase", margin: "0 0 6px 0",
                   }}>
                     Naslednji članek →
                   </p>
-                  <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.8)", margin: 0 }}>{nextPost.title}</p>
+                  <p style={{ fontSize: "14px", color: "var(--color-text-muted)", margin: 0 }}>{nextPost.title}</p>
                 </Link>
               )}
             </div>
@@ -239,7 +239,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div style={{ marginTop: "48px" }}>
           <Link href="/blog" style={{
             fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700,
-            letterSpacing: "0.1em", color: "#c9a84c", textDecoration: "none", textTransform: "uppercase",
+            letterSpacing: "0.1em", color: "var(--color-accent-text)", textDecoration: "none", textTransform: "uppercase",
           }}>
             ← Blog
           </Link>
@@ -253,7 +253,7 @@ function ProductCtaBox({ product }: { product: string }) {
   return (
     <div style={{
       margin: "8px 0 40px", padding: "24px",
-      background: "linear-gradient(135deg, #1a1a1a, #1a2640)",
+      background: "linear-gradient(135deg, var(--color-brand-deep), var(--color-brand))",
       borderRadius: "8px", textAlign: "center",
     }}>
       <Link
@@ -261,8 +261,8 @@ function ProductCtaBox({ product }: { product: string }) {
         style={{
           display: "inline-flex", alignItems: "center", gap: "8px",
           padding: "12px 24px",
-          background: "linear-gradient(135deg, #c9a84c, #a8863a)",
-          color: "#000", borderRadius: "6px",
+          background: "linear-gradient(135deg, var(--color-accent), var(--color-accent-hover))",
+          color: "var(--color-on-accent)", borderRadius: "6px",
           fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.06em", textDecoration: "none",
         }}
@@ -281,20 +281,20 @@ function OpombaBox() {
   return (
     <div style={{
       marginTop: "16px", padding: "20px",
-      background: "rgba(255,255,255,0.04)",
-      border: "1px solid rgba(255,255,255,0.1)",
+      background: "rgba(199,122,10,0.06)",
+      border: "1px solid rgba(199,122,10,0.25)",
       borderRadius: "8px",
     }}>
       <h3 style={{
         display: "flex", alignItems: "center", gap: "6px",
         fontSize: "12px", fontWeight: 700,
         textTransform: "uppercase", letterSpacing: "0.08em",
-        color: "#c9a84c", margin: "0 0 10px 0",
+        color: "var(--color-warning)", margin: "0 0 10px 0",
       }}>
         <i className="ri-error-warning-line" />
         Opomba
       </h3>
-      <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)", lineHeight: 1.65, margin: 0 }}>
+      <p style={{ fontSize: "13px", color: "var(--color-text-muted)", lineHeight: 1.65, margin: 0 }}>
         Vsi članki na tem blogu so namenjeni izključno izobraževalnim namenom. Peptidi, opisani v člankih, niso odobreni za medicinsko uporabo pri ljudeh ali živalih.
       </p>
     </div>

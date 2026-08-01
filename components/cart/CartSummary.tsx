@@ -25,10 +25,10 @@ function generateOrderRef(): string {
 const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "10px 12px",
-  backgroundColor: "#1e1e1e",
-  border: "1px solid rgba(255,255,255,0.15)",
+  backgroundColor: "var(--color-bg)",
+  border: "1px solid var(--color-border)",
   borderRadius: "2px",
-  color: "#fff",
+  color: "var(--color-text)",
   fontFamily: "var(--font-opensans)",
   fontSize: "14px",
   outline: "none",
@@ -38,7 +38,7 @@ const inputStyle: React.CSSProperties = {
 const labelStyle: React.CSSProperties = {
   fontFamily: "var(--font-opensans)",
   fontSize: "12px",
-  color: "rgba(255,255,255,0.45)",
+  color: "var(--color-text-faint)",
   display: "block",
   marginBottom: "6px",
   textTransform: "uppercase",
@@ -118,8 +118,8 @@ export function CartSummary() {
   }
 
   const containerStyle: React.CSSProperties = {
-    backgroundColor: "#161616",
-    border: "1px solid rgba(201,168,76,0.15)",
+    backgroundColor: "var(--color-bg)",
+    border: "1px solid var(--color-border)",
     borderRadius: "6px",
     padding: "24px",
   };
@@ -142,7 +142,7 @@ export function CartSummary() {
           style={{
             background: "none",
             border: "none",
-            color: "rgba(255,255,255,0.45)",
+            color: "var(--color-text-faint)",
             fontFamily: "var(--font-opensans)",
             fontSize: "13px",
             cursor: "pointer",
@@ -160,7 +160,7 @@ export function CartSummary() {
           fontFamily: "var(--font-montserrat)",
           fontSize: "14px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#fff", margin: "0 0 20px 0",
+          color: "var(--color-text)", margin: "0 0 20px 0",
         }}>
           {tc.bankTransfer}
         </h2>
@@ -169,30 +169,30 @@ export function CartSummary() {
         <div style={{ marginBottom: "20px" }}>
           {items.map((item) => (
             <div key={item.productId} style={{ ...infoRowStyle, marginBottom: "6px" }}>
-              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>
-                {item.name} <span style={{ color: "rgba(255,255,255,0.35)" }}>×{item.quantity}</span>
+              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)" }}>
+                {item.name} <span style={{ color: "var(--color-text-faint)" }}>×{item.quantity}</span>
               </span>
-              <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 600, color: "#fff", whiteSpace: "nowrap" }}>
+              <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 600, color: "var(--color-text)", whiteSpace: "nowrap" }}>
                 {formatPrice(item.price * item.quantity)}
               </span>
             </div>
           ))}
           <div style={{ ...infoRowStyle, marginBottom: "6px", marginTop: "10px" }}>
-            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>{t.shipping}</span>
-            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: freeShipping ? "#4ade80" : "#fff" }}>
+            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)" }}>{t.shipping}</span>
+            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: freeShipping ? "var(--color-success)" : "var(--color-text)" }}>
               {freeShipping ? t.freeShipping : formatPrice(SHIPPING.price)}
             </span>
           </div>
           <div style={{
-            borderTop: "1px solid rgba(255,255,255,0.1)",
+            borderTop: "1px solid var(--color-border)",
             paddingTop: "10px",
             ...infoRowStyle,
             marginBottom: "0",
           }}>
-            <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#fff" }}>
+            <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-text)" }}>
               {t.total}
             </span>
-            <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "18px", fontWeight: 800, color: "#c9a84c" }}>
+            <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "18px", fontWeight: 800, color: "var(--color-accent-text)" }}>
               {formatPrice(total)}
             </span>
           </div>
@@ -200,13 +200,13 @@ export function CartSummary() {
 
         {/* Bank details */}
         <div style={{
-          backgroundColor: "rgba(201,168,76,0.06)",
-          border: "1px solid rgba(201,168,76,0.2)",
+          backgroundColor: "var(--color-accent-wash)",
+          border: "1px solid rgba(45,212,191,0.3)",
           borderRadius: "4px",
           padding: "14px 16px",
           marginBottom: "20px",
         }}>
-          <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#c9a84c", margin: "0 0 12px 0" }}>
+          <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-accent-text)", margin: "0 0 12px 0" }}>
             {tc.transferDetails}
           </p>
           {[
@@ -217,8 +217,8 @@ export function CartSummary() {
             [tc.amount, formatPrice(total)],
           ].map(([label, value]) => (
             <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
-              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>{label}</span>
-              <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700, color: "#fff", textAlign: "right" }}>{value}</span>
+              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "12px", color: "var(--color-text-muted)" }}>{label}</span>
+              <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700, color: "var(--color-text)", textAlign: "right" }}>{value}</span>
             </div>
           ))}
         </div>
@@ -263,7 +263,7 @@ export function CartSummary() {
             <p style={{
               fontFamily: "var(--font-opensans)",
               fontSize: "13px",
-              color: "#f87171",
+              color: "var(--color-danger)",
               margin: "0 0 14px 0",
               lineHeight: 1.5,
             }}>
@@ -277,8 +277,8 @@ export function CartSummary() {
             style={{
               width: "100%",
               padding: "16px",
-              backgroundColor: loading ? "#a07830" : "#c9a84c",
-              color: "#000",
+              backgroundColor: loading ? "var(--color-accent-hover)" : "var(--color-accent)",
+              color: "var(--color-on-accent)",
               border: "none",
               borderRadius: "2px",
               fontFamily: "var(--font-montserrat)",
@@ -307,34 +307,34 @@ export function CartSummary() {
         fontFamily: "var(--font-montserrat)",
         fontSize: "14px", fontWeight: 700,
         textTransform: "uppercase", letterSpacing: "0.1em",
-        color: "#fff", margin: "0 0 20px 0",
+        color: "var(--color-text)", margin: "0 0 20px 0",
       }}>
         {tc.orderSummary}
       </h2>
 
       {/* Subtotal */}
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
-        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "var(--color-text-muted)" }}>
           {t.subtotal}
         </span>
-        <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700, color: "#fff" }}>
+        <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700, color: "var(--color-text)" }}>
           {formatPrice(sub)}
         </span>
       </div>
 
       {/* Shipping */}
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "var(--color-text-muted)" }}>
           {t.shipping}
         </span>
-        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: freeShipping ? "#4ade80" : "#fff" }}>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: freeShipping ? "var(--color-success)" : "var(--color-text)" }}>
           {freeShipping ? t.freeShipping : formatPrice(SHIPPING.price)}
         </span>
       </div>
       {!freeShipping && (
         <p style={{
           fontFamily: "var(--font-opensans)",
-          fontSize: "12px", color: "rgba(255,255,255,0.35)",
+          fontSize: "12px", color: "var(--color-text-faint)",
           margin: "0 0 14px 0", textAlign: "right",
         }}>
           {t.freeShippingNote}
@@ -344,7 +344,7 @@ export function CartSummary() {
 
       {/* Total */}
       <div style={{
-        borderTop: "1px solid rgba(255,255,255,0.1)",
+        borderTop: "1px solid var(--color-border)",
         paddingTop: "16px",
         display: "flex",
         justifyContent: "space-between",
@@ -354,14 +354,14 @@ export function CartSummary() {
           fontFamily: "var(--font-montserrat)",
           fontSize: "14px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.08em",
-          color: "#fff",
+          color: "var(--color-text)",
         }}>
           {t.total}
         </span>
         <span style={{
           fontFamily: "var(--font-montserrat)",
           fontSize: "20px", fontWeight: 800,
-          color: "#c9a84c",
+          color: "var(--color-accent-text)",
         }}>
           {formatPrice(total)}
         </span>
@@ -374,8 +374,8 @@ export function CartSummary() {
         style={{
           width: "100%",
           padding: "16px",
-          backgroundColor: "#c9a84c",
-          color: "#000",
+          backgroundColor: "var(--color-accent)",
+          color: "var(--color-on-accent)",
           border: "none",
           borderRadius: "2px",
           fontFamily: "var(--font-montserrat)",

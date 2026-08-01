@@ -53,8 +53,8 @@ export default function ConfirmationPage() {
   }
 
   const sectionStyle: React.CSSProperties = {
-    backgroundColor: "#161616",
-    border: "1px solid rgba(201,168,76,0.15)",
+    backgroundColor: "var(--color-surface)",
+    border: "1px solid var(--color-border)",
     borderRadius: "6px",
     padding: "24px",
     marginBottom: "20px",
@@ -66,25 +66,25 @@ export default function ConfirmationPage() {
     alignItems: "center",
     gap: "12px",
     padding: "8px 0",
-    borderBottom: "1px solid rgba(255,255,255,0.06)",
+    borderBottom: "1px solid var(--color-border)",
   };
 
   return (
-    <div style={{ backgroundColor: "#0a0a0a", minHeight: "60vh" }}>
+    <div style={{ backgroundColor: "var(--color-bg)", minHeight: "60vh" }}>
       <StepIndicator current={3} />
 
       <div className="mx-auto px-4 md:px-6 pb-16" style={{ maxWidth: "560px", textAlign: "center" }}>
         {!mounted || (!order && !notFound) ? null : notFound ? (
-          <p style={{ fontFamily: "var(--font-opensans)", fontSize: "15px", color: "rgba(255,255,255,0.6)", padding: "60px 0" }}>
+          <p style={{ fontFamily: "var(--font-opensans)", fontSize: "15px", color: "var(--color-text-muted)", padding: "60px 0" }}>
             {tc.orderNotFound}
           </p>
         ) : order ? (
           <>
             <div style={{
               width: "64px", height: "64px", borderRadius: "50%",
-              backgroundColor: "rgba(201,168,76,0.12)", border: "2px solid #c9a84c",
+              backgroundColor: "var(--color-accent-wash)", border: "2px solid var(--color-accent-text)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              margin: "0 auto 28px", fontSize: "28px",
+              margin: "0 auto 28px", fontSize: "28px", color: "var(--color-accent-text)",
             }}>
               ✓
             </div>
@@ -92,18 +92,18 @@ export default function ConfirmationPage() {
             <h1 style={{
               fontFamily: "var(--font-montserrat)", fontSize: "24px", fontWeight: 900,
               textTransform: "uppercase", letterSpacing: "0.06em",
-              color: "#c9a84c", marginBottom: "16px",
+              color: "var(--color-brand)", marginBottom: "16px",
             }}>
               {tc.confirmationTitle}
             </h1>
 
             <div style={sectionStyle}>
               <div style={rowStyle}>
-                <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>
+                <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)" }}>
                   {tc.orderNumberLabel}
                 </span>
                 <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "#c9a84c" }}>
+                  <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "var(--color-accent-text)" }}>
                     {order.order_ref}
                   </span>
                   <button
@@ -112,7 +112,7 @@ export default function ConfirmationPage() {
                     style={{
                       background: "none", border: "none", cursor: "pointer", padding: "2px",
                       fontFamily: "var(--font-opensans)", fontSize: "11px",
-                      color: "rgba(255,255,255,0.4)", textDecoration: "underline",
+                      color: "var(--color-text-muted)", textDecoration: "underline",
                     }}
                   >
                     {copied ? tc.copiedBtn : tc.copyBtn}
@@ -122,10 +122,10 @@ export default function ConfirmationPage() {
 
               {order.items.map((item) => (
                 <div key={item.productId} style={rowStyle}>
-                  <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.7)" }}>
+                  <span style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "var(--color-text-muted)" }}>
                     {item.name} × {item.quantity}
                   </span>
-                  <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", color: "#fff" }}>
+                  <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", color: "var(--color-text)" }}>
                     {formatPrice(item.price * item.quantity)}
                   </span>
                 </div>
@@ -134,11 +134,11 @@ export default function ConfirmationPage() {
               <div style={{ ...rowStyle, borderBottom: "none", paddingTop: "16px" }}>
                 <span style={{
                   fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700,
-                  textTransform: "uppercase", letterSpacing: "0.06em", color: "#fff",
+                  textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--color-text)",
                 }}>
                   {t.cart.total}
                 </span>
-                <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "18px", fontWeight: 800, color: "#c9a84c" }}>
+                <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "18px", fontWeight: 800, color: "var(--color-accent-text)" }}>
                   {formatPrice(order.total)}
                 </span>
               </div>
@@ -146,12 +146,12 @@ export default function ConfirmationPage() {
 
             {order.payment_method === "bank_transfer" && (
               <div style={sectionStyle}>
-                <p style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.6)", marginBottom: "18px" }}>
+                <p style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "var(--color-text-muted)", marginBottom: "18px" }}>
                   {tc.thankYouBody}
                 </p>
                 <p style={{
                   fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
-                  textTransform: "uppercase", letterSpacing: "0.1em", color: "#c9a84c", margin: "0 0 12px 0",
+                  textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-accent-text)", margin: "0 0 12px 0",
                 }}>
                   {tc.transferDetails}
                 </p>
@@ -163,10 +163,10 @@ export default function ConfirmationPage() {
                   [tc.amount, formatPrice(order.total)],
                 ].map(([label, value]) => (
                   <div key={label} style={rowStyle}>
-                    <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>
+                    <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)" }}>
                       {label}
                     </span>
-                    <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "#fff" }}>
+                    <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "var(--color-text)" }}>
                       {value}
                     </span>
                   </div>
@@ -176,7 +176,7 @@ export default function ConfirmationPage() {
 
             {order.payment_method === "cod" && (
               <div style={sectionStyle}>
-                <p style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.6)" }}>
+                <p style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "var(--color-text-muted)" }}>
                   {tc.codNotice}
                 </p>
               </div>
@@ -184,7 +184,7 @@ export default function ConfirmationPage() {
 
             {order.payment_method === "whatsapp" && (
               <div style={sectionStyle}>
-                <p style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.5)", marginBottom: "16px" }}>
+                <p style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)", marginBottom: "16px" }}>
                   {tc.whatsappContinueSub}
                 </p>
                 <a
@@ -193,7 +193,7 @@ export default function ConfirmationPage() {
                   rel="noopener noreferrer"
                   style={{
                     display: "inline-block", width: "100%", boxSizing: "border-box",
-                    padding: "14px", backgroundColor: "#c9a84c", color: "#000",
+                    padding: "14px", backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)",
                     fontFamily: "var(--font-montserrat)", fontWeight: 800, fontSize: "13px",
                     textTransform: "uppercase", letterSpacing: "0.1em",
                     textDecoration: "none", borderRadius: "2px",
@@ -206,15 +206,15 @@ export default function ConfirmationPage() {
 
             <p style={{
               fontFamily: "var(--font-opensans)", fontSize: "13px",
-              color: "rgba(255,255,255,0.35)", lineHeight: 1.6, marginBottom: "36px",
+              color: "var(--color-text-faint)", lineHeight: 1.6, marginBottom: "36px",
             }}>
               {tc.confirmationEmailNote}
             </p>
 
             <Link href="/shop" style={{
               display: "inline-block", padding: "14px 36px",
-              backgroundColor: "transparent", border: "1px solid rgba(201,168,76,0.4)",
-              color: "#c9a84c", fontFamily: "var(--font-montserrat)",
+              backgroundColor: "transparent", border: "1px solid var(--color-accent-text)",
+              color: "var(--color-accent-text)", fontFamily: "var(--font-montserrat)",
               fontWeight: 700, fontSize: "13px",
               textTransform: "uppercase", letterSpacing: "0.1em",
               textDecoration: "none", borderRadius: "2px",

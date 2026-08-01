@@ -101,7 +101,7 @@ export default function CoaClient({ docs, uniqueProducts }: Props) {
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section
         style={{
-          background: "linear-gradient(135deg, var(--gray-900), #1a2640)",
+          background: "linear-gradient(135deg, var(--color-brand-deep), var(--color-brand))",
           padding: "56px 0 48px",
           position: "relative",
           overflow: "hidden",
@@ -113,7 +113,7 @@ export default function CoaClient({ docs, uniqueProducts }: Props) {
           <div style={{
             display: "inline-flex", gap: "6px", alignItems: "center",
             fontSize: "11px", fontWeight: 700, textTransform: "uppercase",
-            letterSpacing: "2px", color: "var(--primary)", marginBottom: "12px",
+            letterSpacing: "2px", color: "var(--color-accent)", marginBottom: "12px",
           }}>
             <i className="ri-file-text-line" />
             {tl.coaHeroLabel}
@@ -129,7 +129,7 @@ export default function CoaClient({ docs, uniqueProducts }: Props) {
 
           {/* Description */}
           <p style={{
-            fontSize: "15px", color: "var(--gray-400)",
+            fontSize: "15px", color: "rgba(255,255,255,0.65)",
             maxWidth: "560px", lineHeight: 1.7, margin: "0 0 20px 0",
           }}>
             {tl.coaHeroDesc}
@@ -138,12 +138,12 @@ export default function CoaClient({ docs, uniqueProducts }: Props) {
           {/* Breadcrumb */}
           <nav style={{
             display: "flex", alignItems: "center", gap: "2px",
-            fontSize: "13px", color: "var(--gray-400)",
+            fontSize: "13px", color: "rgba(255,255,255,0.55)",
           }}>
             <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>
               {tl.nav.home}
             </Link>
-            <i className="ri-arrow-right-s-line" style={{ fontSize: "12px", color: "var(--gray-600)" }} />
+            <i className="ri-arrow-right-s-line" style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)" }} />
             <span style={{ color: "white", fontWeight: 600 }}>COA Vault</span>
           </nav>
         </div>

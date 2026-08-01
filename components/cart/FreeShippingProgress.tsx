@@ -22,7 +22,7 @@ export function FreeShippingProgress({ subtotal }: { subtotal: number }) {
         style={{
           fontFamily: "var(--font-opensans)",
           fontSize: "13px",
-          color: unlocked ? "#4ade80" : "rgba(255,255,255,0.65)",
+          color: unlocked ? "var(--color-success)" : "var(--color-text-muted)",
           margin: "0 0 8px 0",
         }}
       >
@@ -30,7 +30,7 @@ export function FreeShippingProgress({ subtotal }: { subtotal: number }) {
           tc.freeShippingUnlocked
         ) : (
           <>
-            {tc.freeShippingProgressPrefix} <strong style={{ color: "#c9a84c" }}>{formatPrice(remaining)}</strong>{" "}
+            {tc.freeShippingProgressPrefix} <strong style={{ color: "var(--color-accent-text)" }}>{formatPrice(remaining)}</strong>{" "}
             {tc.freeShippingProgressSuffix}
           </>
         )}
@@ -39,7 +39,7 @@ export function FreeShippingProgress({ subtotal }: { subtotal: number }) {
         style={{
           height: "6px",
           borderRadius: "3px",
-          backgroundColor: "rgba(255,255,255,0.1)",
+          backgroundColor: "var(--color-border)",
           overflow: "hidden",
         }}
       >
@@ -48,7 +48,7 @@ export function FreeShippingProgress({ subtotal }: { subtotal: number }) {
             height: "100%",
             width: `${pct}%`,
             borderRadius: "3px",
-            backgroundColor: unlocked ? "#4ade80" : "#c9a84c",
+            backgroundColor: unlocked ? "var(--color-success)" : "var(--color-accent)",
             transition: "width 0.3s ease",
           }}
         />

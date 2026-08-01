@@ -42,7 +42,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
   const t = mounted ? translations[lang].home.featured : translations.sl.home.featured;
 
   return (
-    <section style={{ backgroundColor: "#fff", padding: "64px 0 80px", position: "relative" }}>
+    <section style={{ backgroundColor: "var(--color-bg)", padding: "64px 0 80px", position: "relative" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
         {/* Header row */}
         <div style={{
@@ -54,7 +54,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
               fontFamily: "var(--font-montserrat)",
               fontSize: "11px", fontWeight: 700,
               textTransform: "uppercase", letterSpacing: "0.25em",
-              color: "#c9a84c", marginBottom: "8px",
+              color: "var(--color-accent-text)", marginBottom: "8px",
             }}>
               {t.eyebrow}
             </p>
@@ -62,7 +62,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
               fontFamily: "var(--font-montserrat)",
               fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)",
               fontWeight: 800, textTransform: "uppercase",
-              letterSpacing: "0.04em", color: "#111", margin: 0,
+              letterSpacing: "0.04em", color: "var(--color-text)", margin: 0,
             }}>
               {t.title}
             </h2>
@@ -77,13 +77,13 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
                 style={{
                   width: "38px", height: "38px",
                   borderRadius: "50%",
-                  backgroundColor: canScrollLeft ? "#111" : "#f0f0f0",
+                  backgroundColor: canScrollLeft ? "var(--color-brand)" : "var(--color-surface-2)",
                   border: "none", cursor: canScrollLeft ? "pointer" : "default",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   transition: "background 0.2s",
                 }}
               >
-                <ChevronLeft size={18} color={canScrollLeft ? "#fff" : "#ccc"} />
+                <ChevronLeft size={18} color={canScrollLeft ? "#fff" : "var(--color-text-faint)"} />
               </button>
               <button
                 onClick={() => scroll(1)}
@@ -91,13 +91,13 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
                 style={{
                   width: "38px", height: "38px",
                   borderRadius: "50%",
-                  backgroundColor: canScrollRight ? "#111" : "#f0f0f0",
+                  backgroundColor: canScrollRight ? "var(--color-brand)" : "var(--color-surface-2)",
                   border: "none", cursor: canScrollRight ? "pointer" : "default",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   transition: "background 0.2s",
                 }}
               >
-                <ChevronRight size={18} color={canScrollRight ? "#fff" : "#ccc"} />
+                <ChevronRight size={18} color={canScrollRight ? "#fff" : "var(--color-text-faint)"} />
               </button>
             </div>
 
@@ -105,8 +105,8 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
               fontFamily: "var(--font-montserrat)",
               fontSize: "12px", fontWeight: 700,
               textTransform: "uppercase", letterSpacing: "0.1em",
-              color: "#c9a84c", textDecoration: "none",
-              borderBottom: "2px solid #c9a84c", paddingBottom: "2px",
+              color: "var(--color-accent-text)", textDecoration: "none",
+              borderBottom: "2px solid var(--color-accent-text)", paddingBottom: "2px",
             }}>
               {t.viewAll}
             </Link>
@@ -137,7 +137,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
                 width: "clamp(200px, 22vw, 260px)",
               }}
             >
-              <ProductCard product={product} disableLink={isMobile} lightBg />
+              <ProductCard product={product} disableLink={isMobile} />
             </div>
           ))}
         </div>

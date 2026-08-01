@@ -238,7 +238,7 @@ function WishlistCard({ item, viewMode, tl, onRemove }: CardProps) {
               cursor: "pointer",
               transition: "background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
               transform: hovering ? "translateY(-2px)" : "translateY(0)",
-              boxShadow: hovering ? "0 8px 24px rgba(201,168,76,.35)" : "none",
+              boxShadow: hovering ? "0 8px 24px var(--color-accent-glow)" : "none",
             }}
           >
             <i className={justAdded ? "ri-check-line" : "ri-shopping-cart-line"} style={{ fontSize: 18 }} />
@@ -393,16 +393,16 @@ export default function WishlistPage() {
                   border: "1.5px solid transparent",
                   background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
                   color: "white",
-                  boxShadow: "0 4px 12px rgba(201,168,76,.25)",
+                  boxShadow: "0 4px 12px var(--color-accent-glow)",
                   cursor: "pointer", transition: "all 0.2s ease",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-1px)";
-                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(201,168,76,.35)";
+                  e.currentTarget.style.boxShadow = "0 8px 20px var(--color-accent-glow)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(201,168,76,.25)";
+                  e.currentTarget.style.boxShadow = "0 4px 12px var(--color-accent-glow)";
                 }}
               >
                 <i className="ri-shopping-cart-line" />
@@ -553,7 +553,7 @@ export default function WishlistPage() {
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
-                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 8px 24px rgba(201,168,76,.35)";
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 8px 24px var(--color-accent-glow)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";

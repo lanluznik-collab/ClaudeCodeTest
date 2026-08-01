@@ -27,13 +27,13 @@ export function CartLineItem({ item }: { item: CartItem }) {
       display: "flex",
       gap: "16px",
       padding: "20px 0",
-      borderBottom: "1px solid rgba(255,255,255,0.08)",
+      borderBottom: "1px solid var(--color-border)",
     }}>
       {/* Thumbnail */}
       <Link href={`/shop/${item.slug}`}>
         <div style={{
           width: "80px", height: "80px",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "var(--color-surface)",
           borderRadius: "4px",
           overflow: "hidden",
           flexShrink: 0,
@@ -56,7 +56,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
             fontFamily: "var(--font-montserrat)",
             fontSize: "14px", fontWeight: 700,
             textTransform: "uppercase", letterSpacing: "0.04em",
-            color: "#fff", margin: "0 0 4px 0",
+            color: "var(--color-text)", margin: "0 0 4px 0",
             overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
           }}>
             {item.name}
@@ -64,19 +64,19 @@ export function CartLineItem({ item }: { item: CartItem }) {
         </Link>
         <p style={{
           fontFamily: "var(--font-opensans)",
-          fontSize: "13px", color: "rgba(255,255,255,0.4)",
+          fontSize: "13px", color: "var(--color-text-muted)",
           margin: "0 0 12px 0",
           display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap",
         }}>
           {hasTierDiscount ? (
             <>
-              <span style={{ textDecoration: "line-through", color: "rgba(255,255,255,0.3)" }}>
+              <span style={{ textDecoration: "line-through", color: "var(--color-text-faint)" }}>
                 {formatPrice(item.price)}
               </span>
-              <span style={{ color: "#4ade80", fontWeight: 700 }}>{formatPrice(unitPrice)}</span>
+              <span style={{ color: "var(--color-success)", fontWeight: 700 }}>{formatPrice(unitPrice)}</span>
               <span style={{
                 fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700,
-                color: "#4ade80", backgroundColor: "rgba(74,222,128,0.12)",
+                color: "var(--color-success)", backgroundColor: "rgba(74,222,128,0.12)",
                 padding: "1px 6px", borderRadius: "100px",
               }}>
                 −{discountPct}%
@@ -91,7 +91,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
         {/* Qty controls */}
         <div style={{
           display: "inline-flex", alignItems: "center",
-          border: "1px solid rgba(255,255,255,0.15)",
+          border: "1px solid var(--color-border)",
           borderRadius: "4px", overflow: "hidden",
         }}>
           <button
@@ -99,7 +99,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
             style={{
               width: "32px", height: "32px",
               background: "none", border: "none",
-              color: "rgba(255,255,255,0.5)", fontSize: "16px",
+              color: "var(--color-text-muted)", fontSize: "16px",
               cursor: "pointer", display: "flex",
               alignItems: "center", justifyContent: "center",
             }}
@@ -110,7 +110,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
             padding: "0 12px",
             fontFamily: "var(--font-montserrat)",
             fontSize: "13px", fontWeight: 700,
-            color: "#fff", minWidth: "28px",
+            color: "var(--color-text)", minWidth: "28px",
             textAlign: "center",
           }}>
             {item.quantity}
@@ -120,7 +120,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
             style={{
               width: "32px", height: "32px",
               background: "none", border: "none",
-              color: "rgba(255,255,255,0.5)", fontSize: "16px",
+              color: "var(--color-text-muted)", fontSize: "16px",
               cursor: "pointer", display: "flex",
               alignItems: "center", justifyContent: "center",
             }}
@@ -136,18 +136,18 @@ export function CartLineItem({ item }: { item: CartItem }) {
           onClick={() => removeItem(item.productId)}
           style={{
             background: "none", border: "none",
-            color: "rgba(255,255,255,0.25)", cursor: "pointer",
+            color: "var(--color-text-faint)", cursor: "pointer",
             padding: "2px", display: "flex",
             transition: "color 0.2s",
           }}
-          className="hover:text-white"
+          className="hover:text-[var(--color-danger)]"
         >
           <X size={16} />
         </button>
         <p style={{
           fontFamily: "var(--font-montserrat)",
           fontSize: "15px", fontWeight: 700,
-          color: "#c9a84c", margin: 0,
+          color: "var(--color-accent-text)", margin: 0,
         }}>
           {formatPrice(getLineTotal(item))}
         </p>

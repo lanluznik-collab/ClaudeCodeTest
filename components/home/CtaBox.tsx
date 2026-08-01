@@ -13,28 +13,28 @@ export function CtaBox({ hasBlogPosts = true }: { hasBlogPosts?: boolean }) {
   const t = mounted ? translations[lang].home.cta : translations.sl.home.cta;
 
   return (
-    <section style={{ backgroundColor: "#111111", padding: "72px 24px 80px" }}>
+    <section style={{ backgroundColor: "var(--color-surface)", padding: "72px 24px 80px" }}>
       <div style={{
         maxWidth: "760px", margin: "0 auto", textAlign: "center",
-        backgroundColor: "#0a0a0a",
+        backgroundColor: "var(--color-brand-deep)",
         borderRadius: "12px",
         padding: "56px 40px",
-        border: "1px solid rgba(201,168,76,0.2)",
+        border: "1px solid rgba(45,212,191,0.25)",
         position: "relative",
         overflow: "hidden",
       }}>
-        {/* Gold accent line top */}
+        {/* Mint accent line top */}
         <div style={{
           position: "absolute", top: 0, left: "10%", right: "10%",
           height: "2px",
-          background: "linear-gradient(90deg, transparent, #c9a84c, transparent)",
+          background: "linear-gradient(90deg, transparent, var(--color-accent), transparent)",
         }} />
 
         <p style={{
           fontFamily: "var(--font-montserrat)",
           fontSize: "11px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.22em",
-          color: "#c9a84c", marginBottom: "16px",
+          color: "var(--color-accent)", marginBottom: "16px",
         }}>
           SloPeps
         </p>
@@ -64,8 +64,8 @@ export function CtaBox({ hasBlogPosts = true }: { hasBlogPosts?: boolean }) {
             style={{
               display: "inline-block",
               padding: "14px 32px",
-              backgroundColor: "#c9a84c",
-              color: "#000",
+              backgroundColor: "var(--color-accent)",
+              color: "var(--color-on-accent)",
               fontFamily: "var(--font-montserrat)",
               fontWeight: 800, fontSize: "13px",
               textTransform: "uppercase", letterSpacing: "0.1em",

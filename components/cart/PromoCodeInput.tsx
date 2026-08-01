@@ -52,10 +52,10 @@ export function PromoCodeInput({ subtotal }: { subtotal: number }) {
   const inputStyle: React.CSSProperties = {
     flex: 1,
     padding: "10px 12px",
-    backgroundColor: "#1e1e1e",
-    border: "1px solid rgba(255,255,255,0.15)",
+    backgroundColor: "var(--color-bg)",
+    border: "1px solid var(--color-border)",
     borderRadius: "2px",
-    color: "#fff",
+    color: "var(--color-text)",
     fontFamily: "var(--font-opensans)",
     fontSize: "13px",
     outline: "none",
@@ -75,7 +75,7 @@ export function PromoCodeInput({ subtotal }: { subtotal: number }) {
           marginBottom: "16px",
         }}
       >
-        <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700, color: "#4ade80" }}>
+        <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700, color: "var(--color-success)" }}>
           {tc.promoCodeApplied}: {promo.code}
         </span>
         <button
@@ -83,7 +83,7 @@ export function PromoCodeInput({ subtotal }: { subtotal: number }) {
           style={{
             background: "none",
             border: "none",
-            color: "rgba(255,255,255,0.5)",
+            color: "var(--color-text-muted)",
             fontFamily: "var(--font-opensans)",
             fontSize: "12px",
             cursor: "pointer",
@@ -102,7 +102,7 @@ export function PromoCodeInput({ subtotal }: { subtotal: number }) {
         style={{
           fontFamily: "var(--font-opensans)",
           fontSize: "12px",
-          color: "rgba(255,255,255,0.45)",
+          color: "var(--color-text-faint)",
           display: "block",
           marginBottom: "6px",
         }}
@@ -123,9 +123,9 @@ export function PromoCodeInput({ subtotal }: { subtotal: number }) {
           style={{
             padding: "10px 16px",
             backgroundColor: "transparent",
-            border: "1px solid #c9a84c",
+            border: "1px solid var(--color-accent-text)",
             borderRadius: "2px",
-            color: "#c9a84c",
+            color: "var(--color-accent-text)",
             fontFamily: "var(--font-montserrat)",
             fontSize: "12px",
             fontWeight: 700,
@@ -140,7 +140,7 @@ export function PromoCodeInput({ subtotal }: { subtotal: number }) {
         </button>
       </div>
       {error && (
-        <p style={{ fontFamily: "var(--font-opensans)", fontSize: "12px", color: "#f87171", margin: "8px 0 0 0" }}>
+        <p style={{ fontFamily: "var(--font-opensans)", fontSize: "12px", color: "var(--color-danger)", margin: "8px 0 0 0" }}>
           {error}
         </p>
       )}

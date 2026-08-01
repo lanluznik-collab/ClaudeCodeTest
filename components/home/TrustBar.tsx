@@ -17,7 +17,7 @@ export function TrustBar() {
     : translations.sl.home.trust;
 
   return (
-    <section style={{ backgroundColor: "#161616" }}>
+    <section style={{ backgroundColor: "var(--color-surface)" }}>
       <div
         style={{ maxWidth: "1200px", margin: "0 auto" }}
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
@@ -30,8 +30,8 @@ export function TrustBar() {
               style={{
                 display: "flex", flexDirection: "column", alignItems: "center",
                 textAlign: "center", padding: "28px 16px",
-                borderRight: i < items.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                borderRight: i < items.length - 1 ? "1px solid var(--color-border)" : "none",
+                borderBottom: "1px solid var(--color-border)",
               }}
               className={[
                 // Remove right border on last of each row for cleaner look
@@ -42,25 +42,25 @@ export function TrustBar() {
             >
               <div style={{
                 width: "44px", height: "44px",
-                backgroundColor: "rgba(201,168,76,0.08)",
+                backgroundColor: "var(--color-accent-wash)",
                 borderRadius: "50%",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 marginBottom: "12px",
                 flexShrink: 0,
               }}>
-                <Icon size={20} color="#c9a84c" strokeWidth={1.5} />
+                <Icon size={20} color="var(--color-accent-text)" strokeWidth={1.5} />
               </div>
               <h3 style={{
                 fontFamily: "var(--font-montserrat)",
                 fontSize: "12px", fontWeight: 700,
                 textTransform: "uppercase", letterSpacing: "0.08em",
-                color: "#fff", margin: "0 0 6px 0",
+                color: "var(--color-text)", margin: "0 0 6px 0",
               }}>
                 {label}
               </h3>
               <p style={{
                 fontFamily: "var(--font-opensans)",
-                fontSize: "11px", color: "rgba(255,255,255,0.4)",
+                fontSize: "11px", color: "var(--color-text-muted)",
                 lineHeight: 1.55, margin: 0,
               }}>
                 {sub}

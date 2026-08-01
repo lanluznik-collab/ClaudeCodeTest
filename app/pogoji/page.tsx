@@ -1,11 +1,11 @@
-const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3C/svg%3E")`;
+const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3C/svg%3E")`;
 
 export default function PogojiPage() {
   return (
     <>
-      {/* Dark hero */}
+      {/* Petrol hero */}
       <section style={{
-        backgroundColor: "#0a0a0a",
+        backgroundColor: "var(--color-brand-deep)",
         position: "relative",
         overflow: "hidden",
         minHeight: "220px",
@@ -28,7 +28,7 @@ export default function PogojiPage() {
             fontFamily: "var(--font-montserrat)",
             fontSize: "11px", fontWeight: 700,
             textTransform: "uppercase", letterSpacing: "0.25em",
-            color: "#c9a84c", marginBottom: "12px",
+            color: "var(--color-accent)", marginBottom: "12px",
           }}>
             Pravne informacije
           </p>
@@ -38,7 +38,7 @@ export default function PogojiPage() {
             fontWeight: 900,
             textTransform: "uppercase",
             letterSpacing: "0.06em",
-            color: "#c9a84c",
+            color: "#fff",
             margin: 0,
           }}>
             Pogoji poslovanja
@@ -46,24 +46,25 @@ export default function PogojiPage() {
         </div>
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: "80px",
-          backgroundColor: "#111111",
+          backgroundColor: "var(--color-bg)",
           clipPath: "polygon(0 100%, 100% 0%, 100% 100%)",
         }} />
       </section>
 
       {/* Content */}
-      <section style={{ backgroundColor: "#111111", color: "#eeeeee", padding: "64px 0 80px" }}>
+      <section style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)", padding: "64px 0 80px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
 
+          {/* RUO caution notice — warning tint, not brand */}
           <div style={{
-            backgroundColor: "#1a1a08",
-            border: "1px solid rgba(201,168,76,0.3)",
+            backgroundColor: "rgba(199,122,10,0.08)",
+            border: "1px solid rgba(199,122,10,0.3)",
             borderRadius: "6px",
             padding: "20px 24px",
             marginBottom: "40px",
             fontFamily: "var(--font-opensans)",
             fontSize: "14px",
-            color: "#7a6020",
+            color: "#92400E",
             lineHeight: 1.7,
           }}>
             <strong>Pomembno:</strong> Vsi izdelki SloPeps so namenjeni izključno za in-vitro raziskave in laboratorijsko uporabo. Niso namenjeni za človeško ali živalsko porabo. Z nakupom potrjujete, da ste to razumeli in da boste izdelke uporabili skladno s tem namenom.
@@ -99,13 +100,13 @@ export default function PogojiPage() {
           </Section>
 
           <Section title="5. Vračila in povračila">
-            <p><strong>Naročila, ki niso bila odposlana:</strong> Odpoved naročila in polno povračilo sta možna v roku 30 dni od oddaje naročila, pod pogojem, da naročilo še ni bilo odposlano. Kontaktirajte nas na <a href="mailto:info@slopeps.com" style={{ color: "#c9a84c" }}>info@slopeps.com</a>.</p>
+            <p><strong>Naročila, ki niso bila odposlana:</strong> Odpoved naročila in polno povračilo sta možna v roku 30 dni od oddaje naročila, pod pogojem, da naročilo še ni bilo odposlano. Kontaktirajte nas na <a href="mailto:info@slopeps.com" style={{ color: "var(--color-accent-text)" }}>info@slopeps.com</a>.</p>
             <p><strong>Naročila, ki so bila odposlana:</strong> Ko je naročilo enkrat odposlano, povračila žal niso možna. To je posledica narave naših izdelkov (biološki materiali z zahtevami glede shranjevanja), ki ne dovoljuje ponovne prodaje.</p>
             <p><strong>Poškodovane ali napačne pošiljke:</strong> V primeru napake pri pošiljki ali poškodbe med dostavo nas prosimo kontaktirajte v roku 48 ur od prejema s fotografijami poškodb. V tem primeru bomo zagotovili zamenjavo ali povračilo.</p>
           </Section>
 
           <Section title="6. Dostava">
-            <p>Informacije o dostavi so na voljo na naši <a href="/dostava" style={{ color: "#c9a84c" }}>strani o dostavi</a>. SloPeps ni odgovoren za zamude pri dostavi, ki so posledica dejanj prevoznika ali zunanjih okoliščin (carine, višja sila ipd.).</p>
+            <p>Informacije o dostavi so na voljo na naši <a href="/dostava" style={{ color: "var(--color-accent-text)" }}>strani o dostavi</a>. SloPeps ni odgovoren za zamude pri dostavi, ki so posledica dejanj prevoznika ali zunanjih okoliščin (carine, višja sila ipd.).</p>
           </Section>
 
           <Section title="7. Omejitev odgovornosti">
@@ -113,7 +114,7 @@ export default function PogojiPage() {
           </Section>
 
           <Section title="8. Varstvo osebnih podatkov">
-            <p>Obdelava osebnih podatkov poteka skladno z našo <a href="/zasebnost" style={{ color: "#c9a84c" }}>Politiko zasebnosti</a>.</p>
+            <p>Obdelava osebnih podatkov poteka skladno z našo <a href="/zasebnost" style={{ color: "var(--color-accent-text)" }}>Politiko zasebnosti</a>.</p>
           </Section>
 
           <Section title="9. Reševanje sporov">
@@ -136,16 +137,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 style={{
         fontFamily: "var(--font-montserrat)",
         fontSize: "17px", fontWeight: 800,
-        color: "#fff", marginBottom: "14px",
+        color: "var(--color-text)", marginBottom: "14px",
         paddingBottom: "10px",
-        borderBottom: "1px solid rgba(255,255,255,0.12)",
+        borderBottom: "1px solid var(--color-border)",
       }}>
         {title}
       </h2>
       <div style={{
         fontFamily: "var(--font-opensans)",
         fontSize: "15px", lineHeight: 1.8,
-        color: "rgba(255,255,255,0.75)",
+        color: "var(--color-text-muted)",
       }}>
         {children}
       </div>

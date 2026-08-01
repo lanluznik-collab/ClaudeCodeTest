@@ -52,7 +52,7 @@ export default function BlogClient({ posts }: Props) {
                   {/* Image area */}
                   <div style={{
                     position: "relative", height: "260px", overflow: "hidden",
-                    background: "linear-gradient(135deg, var(--gray-900), #1a2640)",
+                    background: "linear-gradient(135deg, var(--color-brand-deep), var(--color-brand))",
                   }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -65,7 +65,7 @@ export default function BlogClient({ posts }: Props) {
                     {post.tag && (
                       <div style={{
                         position: "absolute", top: 16, left: 16,
-                        background: "rgba(201,168,76,.9)",
+                        background: "var(--color-brand)",
                         backdropFilter: "blur(6px)",
                         color: "white",
                         padding: "5px 12px",
@@ -203,10 +203,10 @@ export default function BlogClient({ posts }: Props) {
                 </div>
               )}
 
-              {/* Card 2: Disclaimer */}
+              {/* Card 2: Disclaimer — warning tint, not brand */}
               <div style={{
-                background: "#e5e7eb",
-                border: "1px solid #c9cfe0",
+                background: "rgba(199,122,10,0.06)",
+                border: "1px solid rgba(199,122,10,0.25)",
                 borderRadius: "var(--radius-lg)",
                 padding: "20px",
               }}>
@@ -214,13 +214,13 @@ export default function BlogClient({ posts }: Props) {
                   display: "flex", alignItems: "center", gap: "6px",
                   fontSize: "12px", fontWeight: 700,
                   textTransform: "uppercase", letterSpacing: "0.8px",
-                  color: "var(--accent)", marginBottom: "10px",
+                  color: "var(--color-warning)", marginBottom: "10px",
                 }}>
                   <i className="ri-error-warning-line" />
                   Opomba
                 </h3>
                 <p style={{
-                  fontSize: "13px", color: "#6b7280",
+                  fontSize: "13px", color: "var(--color-text-muted)",
                   lineHeight: 1.65, margin: 0,
                 }}>
                   Vsi članki na tem blogu so namenjeni izključno izobraževalnim namenom. Peptidi, opisani v člankih, niso odobreni za medicinsko uporabo pri ljudeh ali živalih.
@@ -241,7 +241,7 @@ export default function BlogClient({ posts }: Props) {
                   Oglejte si produkte
                 </h3>
                 <p style={{
-                  fontSize: "13px", color: "var(--gray-400)",
+                  fontSize: "13px", color: "rgba(255,255,255,0.65)",
                   lineHeight: 1.6, marginBottom: "16px",
                 }}>
                   Vsi peptidi, opisani v člankih, so na voljo z laboratorijsko potrjeno čistostjo.

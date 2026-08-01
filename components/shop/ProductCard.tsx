@@ -15,10 +15,9 @@ interface Props {
   product: Product;
   onQuickView?: (p: Product) => void;
   disableLink?: boolean;
-  lightBg?: boolean;
 }
 
-export function ProductCard({ product, onQuickView, disableLink, lightBg }: Props) {
+export function ProductCard({ product, onQuickView, disableLink }: Props) {
   const [hovering, setHovering] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
@@ -66,7 +65,7 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
         <div style={{
           position: "relative",
           aspectRatio: "1 / 1",
-          backgroundColor: "#f5f5f5",
+          backgroundColor: "var(--color-surface)",
           overflow: "hidden",
           marginBottom: "14px",
         }}>
@@ -86,11 +85,11 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
             <div style={{
               width: "100%", height: "100%",
               display: "flex", alignItems: "center", justifyContent: "center",
-              backgroundColor: "#1a1a1a",
+              backgroundColor: "var(--color-surface-2)",
             }}>
               <span style={{
                 fontFamily: "var(--font-montserrat)", fontSize: "11px",
-                fontWeight: 800, letterSpacing: "0.12em", color: "#c9a84c",
+                fontWeight: 800, letterSpacing: "0.12em", color: "var(--color-accent-text)",
               }}>
                 SLOPEPS
               </span>
@@ -101,7 +100,7 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
           {product.stock === 0 && (
             <span style={{
               position: "absolute", top: "10px", left: "10px",
-              backgroundColor: "#e53935", color: "#fff",
+              backgroundColor: "var(--color-danger)", color: "#fff",
               fontSize: "10px", fontWeight: 700,
               fontFamily: "var(--font-montserrat)",
               textTransform: "uppercase", letterSpacing: "0.06em",
@@ -127,15 +126,15 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
                 style={{
                   width: "40px", height: "40px",
                   borderRadius: "50%",
-                  backgroundColor: "#fff",
+                  backgroundColor: "var(--color-bg)",
                   border: "none", cursor: "pointer",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   transition: "background 0.15s",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#c9a84c")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#fff")}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-accent)")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--color-bg)")}
               >
-                <Eye size={16} color="#111" />
+                <Eye size={16} color="var(--color-text)" />
               </button>
             )}
             {product.stock > 0 && (
@@ -145,13 +144,13 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
                 style={{
                   width: "40px", height: "40px",
                   borderRadius: "50%",
-                  backgroundColor: justAdded ? "#4ade80" : "#c9a84c",
+                  backgroundColor: justAdded ? "var(--color-success)" : "var(--color-accent)",
                   border: "none", cursor: "pointer",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   transition: "background 0.15s",
                 }}
               >
-                <ShoppingCart size={16} color="#000" />
+                <ShoppingCart size={16} color="var(--color-on-accent)" />
               </button>
             )}
           </div>
@@ -161,7 +160,7 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
         {product.category && (
           <p style={{
             fontFamily: "var(--font-opensans)", fontSize: "11px",
-            color: lightBg ? "#999" : "rgba(255,255,255,0.45)",
+            color: "var(--color-text-faint)",
             textTransform: "uppercase",
             letterSpacing: "0.08em", margin: "0 0 4px 0",
           }}>
@@ -171,11 +170,11 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
 
         <h2 style={{
           fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700,
-          color: lightBg ? "#111" : "rgba(255,255,255,0.92)",
+          color: "var(--color-text)",
           margin: "0 0 6px 0", lineHeight: 1.4,
           textTransform: "uppercase", letterSpacing: "0.04em",
           transition: "color 0.2s",
-          ...(hovering ? { color: "#c9a84c" } : {}),
+          ...(hovering ? { color: "var(--color-accent-text)" } : {}),
         }}>
           {product.name}
         </h2>
@@ -183,7 +182,7 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
         <span style={{
           display: "block",
           fontFamily: "var(--font-montserrat)", fontSize: "15px",
-          fontWeight: 700, color: "#c9a84c",
+          fontWeight: 700, color: "var(--color-accent-text)",
         }}>
           {formatPrice(product.price)}
         </span>
@@ -197,24 +196,24 @@ export function ProductCard({ product, onQuickView, disableLink, lightBg }: Prop
           marginTop: "10px", width: "100%",
           padding: "8px 0",
           backgroundColor: "transparent",
-          border: `1px solid ${product.stock === 0 ? "#ddd" : "#c9a84c"}`,
+          border: `1px solid ${product.stock === 0 ? "var(--color-border)" : "var(--color-accent-text)"}`,
           borderRadius: "3px",
           fontFamily: "var(--font-montserrat)",
           fontSize: "11px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.1em",
-          color: justAdded ? "#4ade80" : product.stock === 0 ? "#bbb" : "#c9a84c",
+          color: justAdded ? "var(--color-success)" : product.stock === 0 ? "var(--color-text-faint)" : "var(--color-accent-text)",
           cursor: product.stock === 0 ? "not-allowed" : "pointer",
           transition: "all 0.15s",
         }}
         onMouseEnter={(e) => {
           if (product.stock > 0) {
-            e.currentTarget.style.backgroundColor = "#c9a84c";
-            e.currentTarget.style.color = "#000";
+            e.currentTarget.style.backgroundColor = "var(--color-accent)";
+            e.currentTarget.style.color = "var(--color-on-accent)";
           }
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.backgroundColor = "transparent";
-          e.currentTarget.style.color = justAdded ? "#4ade80" : product.stock === 0 ? "#bbb" : "#c9a84c";
+          e.currentTarget.style.color = justAdded ? "var(--color-success)" : product.stock === 0 ? "var(--color-text-faint)" : "var(--color-accent-text)";
         }}
       >
         {justAdded ? t.added : product.stock === 0 ? t.outOfStock : t.addToCart}
