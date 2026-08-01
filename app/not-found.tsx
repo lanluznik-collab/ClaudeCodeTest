@@ -7,10 +7,7 @@ export default function NotFound() {
       <p className="mb-8" style={{ color: "var(--color-text-muted)" }}>This page doesn't exist.</p>
       <Link
         href="/"
-        className="inline-block px-8 py-3 rounded-full text-sm font-medium transition-colors"
-        style={{ backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)" }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-accent-hover)")}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--color-accent)")}
+        className="inline-block px-8 py-3 rounded-full text-sm font-medium transition-colors bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-on-accent)]"
       >
         Go home
       </Link>
