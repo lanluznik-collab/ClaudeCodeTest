@@ -4,7 +4,7 @@ import { ProductGrid } from "@/components/shop/ProductGrid";
 
 export function FeaturedProducts({ products }: { products: Product[] }) {
   return (
-    <section style={{ backgroundColor: "#fff", padding: "64px 0 80px" }}>
+    <section style={{ backgroundColor: "var(--color-bg)", padding: "64px 0 80px" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "48px" }}>
           <div>
@@ -12,7 +12,7 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
               fontFamily: "var(--font-montserrat)",
               fontSize: "11px", fontWeight: 700,
               textTransform: "uppercase", letterSpacing: "0.25em",
-              color: "#c9a84c", marginBottom: "10px",
+              color: "var(--color-accent-text)", marginBottom: "10px",
             }}>
               Naša ponudba
             </p>
@@ -20,7 +20,7 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
               fontFamily: "var(--font-montserrat)",
               fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
               fontWeight: 800, textTransform: "uppercase",
-              letterSpacing: "0.04em", color: "#111", margin: 0,
+              letterSpacing: "0.04em", color: "var(--color-text)", margin: 0,
             }}>
               Peptidi za prodajo
             </h2>
@@ -29,8 +29,8 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
             fontFamily: "var(--font-montserrat)",
             fontSize: "12px", fontWeight: 700,
             textTransform: "uppercase", letterSpacing: "0.12em",
-            color: "#c9a84c", textDecoration: "none",
-            borderBottom: "2px solid #c9a84c", paddingBottom: "2px",
+            color: "var(--color-accent-text)", textDecoration: "none",
+            borderBottom: "2px solid var(--color-accent-text)", paddingBottom: "2px",
           }}>
             Oglej si vse →
           </Link>

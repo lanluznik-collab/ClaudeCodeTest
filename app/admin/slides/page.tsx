@@ -357,7 +357,7 @@ export default function SlidesAdminPage() {
 
       {/* Add / Edit form */}
       {showForm && (
-        <div style={{ ...card, borderLeft: "3px solid #c9a84c" }}>
+        <div style={{ ...card, borderLeft: "3px solid var(--color-accent-text)" }}>
           <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#111", margin: "0 0 20px 0" }}>
             {editingId ? "Edit Slide" : "Add New Slide"}
           </h3>
@@ -443,7 +443,7 @@ export default function SlidesAdminPage() {
                   type="checkbox"
                   checked={form.is_active}
                   onChange={(e) => setField("is_active", e.target.checked)}
-                  style={{ width: "16px", height: "16px", accentColor: "#c9a84c" }}
+                  style={{ width: "16px", height: "16px", accentColor: "var(--color-accent-text)" }}
                 />
                 <label htmlFor="slide-active" style={{ fontSize: "13px", color: "#333", cursor: "pointer" }}>
                   Active (visible on site)

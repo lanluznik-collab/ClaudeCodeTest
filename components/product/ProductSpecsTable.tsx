@@ -30,7 +30,7 @@ export function ProductSpecsTable({ product }: { product: Product }) {
           fontWeight: 800,
           textTransform: "uppercase",
           letterSpacing: "0.1em",
-          color: "#fff",
+          color: "var(--color-text)",
           margin: "0 0 16px 0",
         }}
       >
@@ -38,7 +38,7 @@ export function ProductSpecsTable({ product }: { product: Product }) {
       </h3>
       <div
         style={{
-          border: "1px solid rgba(201,168,76,0.25)",
+          border: "1px solid var(--color-border)",
           borderRadius: "6px",
           overflow: "hidden",
           maxWidth: "560px",
@@ -50,8 +50,8 @@ export function ProductSpecsTable({ product }: { product: Product }) {
             style={{
               display: "grid",
               gridTemplateColumns: "180px 1fr",
-              borderBottom: i < rows.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none",
-              backgroundColor: i % 2 === 0 ? "rgba(201,168,76,0.04)" : "transparent",
+              borderBottom: i < rows.length - 1 ? "1px solid var(--color-border)" : "none",
+              backgroundColor: i % 2 === 0 ? "var(--color-surface)" : "transparent",
             }}
           >
             <span
@@ -61,7 +61,7 @@ export function ProductSpecsTable({ product }: { product: Product }) {
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.06em",
-                color: "#c9a84c",
+                color: "var(--color-accent-text)",
                 padding: "12px 16px",
               }}
             >
@@ -71,7 +71,7 @@ export function ProductSpecsTable({ product }: { product: Product }) {
               style={{
                 fontFamily: "var(--font-opensans)",
                 fontSize: "14px",
-                color: "rgba(255,255,255,0.85)",
+                color: "var(--color-text)",
                 padding: "12px 16px",
               }}
             >

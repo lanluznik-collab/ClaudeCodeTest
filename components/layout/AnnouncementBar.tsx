@@ -33,8 +33,8 @@ export function AnnouncementBar() {
     <div
       role="banner"
       style={{
-        backgroundColor: "#c9a84c",
-        color: "#000",
+        backgroundColor: "var(--color-accent)",
+        color: "var(--color-on-accent)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -72,7 +72,7 @@ export function AnnouncementBar() {
           background: "none",
           border: "none",
           cursor: "pointer",
-          color: "rgba(0,0,0,0.5)",
+          color: "rgba(6,50,48,0.5)",
           fontSize: "16px",
           lineHeight: 1,
           padding: "4px",

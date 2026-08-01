@@ -35,7 +35,7 @@ export default function ContactPage() {
     width: "48px",
     height: "48px",
     borderRadius: "12px",
-    background: "rgba(201,168,76,0.10)",
+    background: "var(--color-accent-wash)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

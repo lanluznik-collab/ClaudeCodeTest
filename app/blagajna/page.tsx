@@ -152,16 +152,16 @@ export default function CheckoutPage() {
   const labelStyle: React.CSSProperties = {
     fontFamily: "var(--font-opensans)",
     fontSize: "12px",
-    color: "rgba(255,255,255,0.55)",
+    color: "var(--color-text-muted)",
     display: "block",
     marginBottom: "6px",
   };
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "10px 12px",
-    backgroundColor: "#1e1e1e",
+    backgroundColor: "var(--color-bg)",
     borderRadius: "2px",
-    color: "#fff",
+    color: "var(--color-text)",
     fontFamily: "var(--font-opensans)",
     fontSize: "14px",
     outline: "none",
@@ -170,12 +170,12 @@ export default function CheckoutPage() {
   const errorTextStyle: React.CSSProperties = {
     fontFamily: "var(--font-opensans)",
     fontSize: "12px",
-    color: "#f87171",
+    color: "var(--color-danger)",
     margin: "6px 0 0 0",
   };
   const sectionStyle: React.CSSProperties = {
-    backgroundColor: "#161616",
-    border: "1px solid rgba(201,168,76,0.15)",
+    backgroundColor: "var(--color-bg)",
+    border: "1px solid var(--color-border)",
     borderRadius: "6px",
     padding: "24px",
     marginBottom: "20px",
@@ -184,18 +184,18 @@ export default function CheckoutPage() {
     fontFamily: "var(--font-montserrat)",
     fontSize: "14px", fontWeight: 700,
     textTransform: "uppercase", letterSpacing: "0.08em",
-    color: "#fff", margin: "0 0 18px 0",
+    color: "var(--color-text)", margin: "0 0 18px 0",
     display: "flex", alignItems: "center", gap: "8px",
   };
 
   function borderFor(field: keyof FormState): string {
-    return errors[field] ? "1px solid #f87171" : "1px solid rgba(255,255,255,0.15)";
+    return errors[field] ? "1px solid var(--color-danger)" : "1px solid var(--color-border)";
   }
 
   if (!mounted || items.length === 0) return null;
 
   return (
-    <div style={{ backgroundColor: "#0a0a0a", minHeight: "60vh" }}>
+    <div style={{ backgroundColor: "var(--color-surface)", minHeight: "60vh" }}>
       <StepIndicator current={2} />
 
       <div className="mx-auto px-4 md:px-6 pb-16" style={{ maxWidth: "1100px" }}>
@@ -203,7 +203,7 @@ export default function CheckoutPage() {
           fontFamily: "var(--font-montserrat)",
           fontSize: "28px", fontWeight: 900,
           textTransform: "uppercase", letterSpacing: "0.06em",
-          color: "#c9a84c", marginBottom: "32px",
+          color: "var(--color-brand)", marginBottom: "32px",
         }}>
           {tc.checkoutTitle}
         </h1>
@@ -305,9 +305,9 @@ export default function CheckoutPage() {
                   type="checkbox"
                   checked={form.wantInvoice}
                   onChange={(e) => set("wantInvoice", e.target.checked)}
-                  style={{ accentColor: "#c9a84c", width: "16px", height: "16px" }}
+                  style={{ accentColor: "var(--color-accent-text)", width: "16px", height: "16px" }}
                 />
-                <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.75)" }}>
+                <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text)" }}>
                   {tc.wantCompanyInvoice}
                 </span>
               </label>
@@ -342,25 +342,25 @@ export default function CheckoutPage() {
 
             {/* Shipping method */}
             <div style={sectionStyle}>
-              <p style={sectionTitleStyle}><Truck size={16} color="#c9a84c" /> {tc.shippingMethodTitle}</p>
+              <p style={sectionTitleStyle}><Truck size={16} color="var(--color-accent-text)" /> {tc.shippingMethodTitle}</p>
               <label style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",
                 gap: "12px", padding: "14px", borderRadius: "4px",
-                border: "1px solid #c9a84c", backgroundColor: "rgba(201,168,76,0.08)",
+                border: "1px solid var(--color-accent-text)", backgroundColor: "var(--color-accent-wash)",
                 cursor: "default",
               }}>
                 <span style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <input type="radio" checked readOnly style={{ accentColor: "#c9a84c", width: "16px", height: "16px" }} />
+                  <input type="radio" checked readOnly style={{ accentColor: "var(--color-accent-text)", width: "16px", height: "16px" }} />
                   <span>
-                    <span style={{ display: "block", fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "#fff" }}>
+                    <span style={{ display: "block", fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "var(--color-text)" }}>
                       {tc.shippingCarrier}
                     </span>
-                    <span style={{ display: "block", fontFamily: "var(--font-opensans)", fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>
+                    <span style={{ display: "block", fontFamily: "var(--font-opensans)", fontSize: "12px", color: "var(--color-text-muted)" }}>
                       {SHIPPING.deliveryTime[lang]} · {SHIPPING.region[lang]}
                     </span>
                   </span>
                 </span>
-                <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: shippingCost === 0 ? "#4ade80" : "#fff" }}>
+                <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: shippingCost === 0 ? "var(--color-success)" : "var(--color-text)" }}>
                   {shippingCost === 0 ? t.cart.freeShipping : formatPrice(SHIPPING.price)}
                 </span>
               </label>
@@ -368,7 +368,7 @@ export default function CheckoutPage() {
 
             {/* Payment method */}
             <div style={sectionStyle}>
-              <p style={sectionTitleStyle}><CreditCard size={16} color="#c9a84c" /> {tc.paymentMethodTitle}</p>
+              <p style={sectionTitleStyle}><CreditCard size={16} color="var(--color-accent-text)" /> {tc.paymentMethodTitle}</p>
               {[
                 { id: PAYMENT_METHODS.bankTransfer.id, icon: Banknote, title: tc.paymentBank, sub: tc.paymentBankSub, surcharge: 0 },
                 { id: PAYMENT_METHODS.cod.id, icon: Truck, title: tc.paymentCod, sub: tc.paymentCodSub, surcharge: PAYMENT_METHODS.cod.surcharge },
@@ -381,8 +381,8 @@ export default function CheckoutPage() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       gap: "12px", padding: "14px", borderRadius: "4px",
-                      border: active ? "1px solid #c9a84c" : "1px solid rgba(255,255,255,0.12)",
-                      backgroundColor: active ? "rgba(201,168,76,0.08)" : "transparent",
+                      border: active ? "1px solid var(--color-accent-text)" : "1px solid var(--color-border)",
+                      backgroundColor: active ? "var(--color-accent-wash)" : "transparent",
                       cursor: "pointer", marginBottom: "10px",
                     }}
                   >
@@ -392,20 +392,20 @@ export default function CheckoutPage() {
                         name="paymentMethod"
                         checked={active}
                         onChange={() => set("paymentMethod", method.id)}
-                        style={{ accentColor: "#c9a84c", width: "16px", height: "16px" }}
+                        style={{ accentColor: "var(--color-accent-text)", width: "16px", height: "16px" }}
                       />
-                      <method.icon size={18} color={active ? "#c9a84c" : "rgba(255,255,255,0.5)"} />
+                      <method.icon size={18} color={active ? "var(--color-accent-text)" : "var(--color-text-muted)"} />
                       <span>
-                        <span style={{ display: "block", fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "#fff" }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "var(--color-text)" }}>
                           {method.title}
                         </span>
-                        <span style={{ display: "block", fontFamily: "var(--font-opensans)", fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-opensans)", fontSize: "12px", color: "var(--color-text-muted)" }}>
                           {method.sub}
                         </span>
                       </span>
                     </span>
                     {method.surcharge > 0 && (
-                      <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700, color: "#c9a84c", whiteSpace: "nowrap" }}>
+                      <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "12px", fontWeight: 700, color: "var(--color-accent-text)", whiteSpace: "nowrap" }}>
                         + {formatPrice(method.surcharge)}
                       </span>
                     )}
@@ -421,13 +421,13 @@ export default function CheckoutPage() {
                   type="checkbox"
                   checked={form.consentTerms}
                   onChange={(e) => set("consentTerms", e.target.checked)}
-                  style={{ accentColor: "#c9a84c", width: "16px", height: "16px", marginTop: "2px", flexShrink: 0 }}
+                  style={{ accentColor: "var(--color-accent-text)", width: "16px", height: "16px", marginTop: "2px", flexShrink: 0 }}
                 />
-                <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.75)", lineHeight: 1.6 }}>
+                <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text)", lineHeight: 1.6 }}>
                   {tc.consentTermsPre}{" "}
-                  <Link href="/pogoji" target="_blank" style={{ color: "#c9a84c" }}>{tc.consentTermsLink1}</Link>{" "}
+                  <Link href="/pogoji" target="_blank" style={{ color: "var(--color-accent-text)" }}>{tc.consentTermsLink1}</Link>{" "}
                   {tc.consentTermsMid}{" "}
-                  <Link href="/zasebnost" target="_blank" style={{ color: "#c9a84c" }}>{tc.consentTermsLink2}</Link>
+                  <Link href="/zasebnost" target="_blank" style={{ color: "var(--color-accent-text)" }}>{tc.consentTermsLink2}</Link>
                   {tc.consentTermsPost}
                 </span>
               </label>
@@ -438,9 +438,9 @@ export default function CheckoutPage() {
                   type="checkbox"
                   checked={form.consentRuo}
                   onChange={(e) => set("consentRuo", e.target.checked)}
-                  style={{ accentColor: "#c9a84c", width: "16px", height: "16px", marginTop: "2px", flexShrink: 0 }}
+                  style={{ accentColor: "var(--color-accent-text)", width: "16px", height: "16px", marginTop: "2px", flexShrink: 0 }}
                 />
-                <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.75)", lineHeight: 1.6 }}>
+                <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text)", lineHeight: 1.6 }}>
                   {tc.consentRuo}
                 </span>
               </label>

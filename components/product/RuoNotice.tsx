@@ -16,8 +16,8 @@ export function RuoNotice() {
         display: "flex",
         gap: "12px",
         alignItems: "flex-start",
-        backgroundColor: "rgba(201,168,76,0.08)",
-        border: "1px solid rgba(201,168,76,0.3)",
+        backgroundColor: "rgba(199,122,10,0.08)",
+        border: "1px solid rgba(199,122,10,0.3)",
         borderRadius: "6px",
         padding: "14px 16px",
         marginTop: "20px",
@@ -28,7 +28,7 @@ export function RuoNotice() {
         height="20"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="#c9a84c"
+        stroke="var(--color-warning)"
         strokeWidth="2"
         style={{ flexShrink: 0, marginTop: "1px" }}
       >
@@ -44,7 +44,7 @@ export function RuoNotice() {
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.08em",
-            color: "#c9a84c",
+            color: "var(--color-warning)",
             margin: "0 0 4px 0",
           }}
         >
@@ -55,7 +55,7 @@ export function RuoNotice() {
             fontFamily: "var(--font-opensans)",
             fontSize: "13px",
             lineHeight: 1.6,
-            color: "rgba(255,255,255,0.75)",
+            color: "var(--color-text-muted)",
             margin: 0,
           }}
         >

@@ -94,7 +94,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
           zIndex: 301,
           width: "min(860px, calc(100vw - 32px))",
           maxHeight: "calc(100vh - 48px)",
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "var(--color-bg)",
           borderRadius: "8px",
           overflow: "auto",
           display: "grid",
@@ -104,7 +104,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
         className="quick-view-modal"
       >
         {/* Image side */}
-        <div style={{ backgroundColor: "#f5f5f5", position: "relative", minHeight: "360px" }}>
+        <div style={{ backgroundColor: "var(--color-surface)", position: "relative", minHeight: "360px" }}>
           {product.images[0] ? (
             <Image
               src={product.images[0]}
@@ -116,11 +116,11 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
             <div style={{
               position: "absolute", inset: 0,
               display: "flex", alignItems: "center", justifyContent: "center",
-              backgroundColor: "#1a1a1a",
+              backgroundColor: "var(--color-surface-2)",
             }}>
               <span style={{
                 fontFamily: "var(--font-montserrat)", fontSize: "13px",
-                fontWeight: 800, letterSpacing: "0.12em", color: "#c9a84c",
+                fontWeight: 800, letterSpacing: "0.12em", color: "var(--color-accent-text)",
               }}>SLOPEPS</span>
             </div>
           )}
@@ -134,7 +134,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
             style={{
               position: "absolute", top: "16px", right: "16px",
               background: "none", border: "none", cursor: "pointer",
-              color: "#aaa", display: "flex", padding: "4px",
+              color: "var(--color-text-faint)", display: "flex", padding: "4px",
             }}
           >
             <X size={20} />
@@ -144,7 +144,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
             <p style={{
               fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700,
               textTransform: "uppercase", letterSpacing: "0.18em",
-              color: "#c9a84c", margin: "0 0 10px 0",
+              color: "var(--color-accent-text)", margin: "0 0 10px 0",
             }}>
               {product.category}
             </p>
@@ -153,7 +153,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
           <h2 style={{
             fontFamily: "var(--font-montserrat)",
             fontSize: "clamp(1.1rem, 2vw, 1.6rem)",
-            fontWeight: 900, color: "#fff",
+            fontWeight: 900, color: "var(--color-text)",
             margin: "0 0 10px 0", lineHeight: 1.2,
           }}>
             {product.name}
@@ -162,7 +162,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
           <p style={{
             fontFamily: "var(--font-montserrat)",
             fontSize: "22px", fontWeight: 800,
-            color: "#c9a84c", margin: "0 0 16px 0",
+            color: "var(--color-accent-text)", margin: "0 0 16px 0",
           }}>
             {formatPrice(product.price)}
           </p>
@@ -170,7 +170,7 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
           {product.description && (
             <p style={{
               fontFamily: "var(--font-opensans)", fontSize: "13px",
-              lineHeight: 1.7, color: "rgba(255,255,255,0.7)", margin: "0 0 20px 0",
+              lineHeight: 1.7, color: "var(--color-text-muted)", margin: "0 0 20px 0",
             }}>
               {product.description.slice(0, 220)}
               {product.description.length > 220 ? "…" : ""}
@@ -181,27 +181,27 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
             display: "flex", alignItems: "center",
             gap: "10px", marginBottom: "16px",
             padding: "14px 0",
-            borderTop: "1px solid rgba(255,255,255,0.12)",
-            borderBottom: "1px solid rgba(255,255,255,0.12)",
+            borderTop: "1px solid var(--color-border)",
+            borderBottom: "1px solid var(--color-border)",
           }}>
-            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>
+            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)" }}>
               Qty:
             </span>
             <div style={{
               display: "inline-flex", alignItems: "center",
-              border: "1px solid rgba(255,255,255,0.2)", borderRadius: "4px", overflow: "hidden",
+              border: "1px solid var(--color-border)", borderRadius: "4px", overflow: "hidden",
             }}>
               <button
                 onClick={() => setQty((q) => Math.max(1, q - 1))}
                 style={{
                   width: "34px", height: "34px", background: "none",
-                  border: "none", cursor: "pointer", fontSize: "16px", color: "rgba(255,255,255,0.7)",
+                  border: "none", cursor: "pointer", fontSize: "16px", color: "var(--color-text-muted)",
                 }}
               >−</button>
               <span style={{
                 padding: "0 14px",
                 fontFamily: "var(--font-montserrat)",
-                fontSize: "14px", fontWeight: 700, color: "#fff",
+                fontSize: "14px", fontWeight: 700, color: "var(--color-text)",
                 minWidth: "32px", textAlign: "center",
               }}>{qty}</span>
               <button
@@ -210,13 +210,13 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
                 style={{
                   width: "34px", height: "34px", background: "none",
                   border: "none", cursor: qty < product.stock ? "pointer" : "not-allowed",
-                  fontSize: "16px", color: "rgba(255,255,255,0.7)",
+                  fontSize: "16px", color: "var(--color-text-muted)",
                 }}
               >+</button>
             </div>
             <span style={{
               fontFamily: "var(--font-opensans)", fontSize: "12px",
-              color: product.stock > 0 ? "#4ade80" : "#f87171",
+              color: product.stock > 0 ? "var(--color-success)" : "var(--color-danger)",
             }}>
               {product.stock > 0 ? `${product.stock} na zalogi` : tQv.outOfStock}
             </span>
@@ -227,8 +227,8 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
             disabled={product.stock === 0}
             style={{
               padding: "14px",
-              backgroundColor: justAdded ? "#4ade80" : product.stock === 0 ? "#f0f0f0" : "#c9a84c",
-              color: product.stock === 0 ? "#bbb" : "#000",
+              backgroundColor: justAdded ? "var(--color-success)" : product.stock === 0 ? "var(--color-surface-2)" : "var(--color-accent)",
+              color: product.stock === 0 ? "var(--color-text-faint)" : "var(--color-on-accent)",
               border: "none",
               borderRadius: "3px",
               fontFamily: "var(--font-montserrat)",
@@ -249,12 +249,12 @@ function QuickViewModal({ product, onClose, tCart, tQv }: {
               display: "block", textAlign: "center",
               padding: "12px",
               backgroundColor: "transparent",
-              border: "1px solid rgba(255,255,255,0.25)",
+              border: "1px solid var(--color-border)",
               borderRadius: "3px",
               fontFamily: "var(--font-montserrat)",
               fontWeight: 700, fontSize: "12px",
               textTransform: "uppercase", letterSpacing: "0.08em",
-              color: "rgba(255,255,255,0.85)", textDecoration: "none",
+              color: "var(--color-text)", textDecoration: "none",
             }}
           >
             {tQv.viewFull}
@@ -305,12 +305,12 @@ function ProductListRow({ product, onQuickView, tCart }: {
       gap: "20px",
       alignItems: "center",
       padding: "16px 0",
-      borderBottom: "1px solid rgba(255,255,255,0.1)",
+      borderBottom: "1px solid var(--color-border)",
     }}>
       <Link href={`/shop/${product.slug}`} style={{ display: "block", flexShrink: 0 }}>
         <div style={{
           width: "90px", height: "90px",
-          backgroundColor: "#f5f5f5",
+          backgroundColor: "var(--color-surface)",
           borderRadius: "4px", overflow: "hidden",
         }}>
           {product.images[0] ? (
@@ -323,10 +323,10 @@ function ProductListRow({ product, onQuickView, tCart }: {
           ) : (
             <div style={{
               width: "100%", height: "100%",
-              backgroundColor: "#1a1a1a",
+              backgroundColor: "var(--color-surface-2)",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
-              <span style={{ fontSize: "9px", color: "#c9a84c", fontFamily: "var(--font-montserrat)", fontWeight: 800 }}>SLP</span>
+              <span style={{ fontSize: "9px", color: "var(--color-accent-text)", fontFamily: "var(--font-montserrat)", fontWeight: 800 }}>SLP</span>
             </div>
           )}
         </div>
@@ -337,20 +337,20 @@ function ProductListRow({ product, onQuickView, tCart }: {
           <p style={{
             fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700,
             textTransform: "uppercase", letterSpacing: "0.12em",
-            color: "#c9a84c", margin: "0 0 4px 0",
+            color: "var(--color-accent-text)", margin: "0 0 4px 0",
           }}>{product.category}</p>
         )}
         <Link href={`/shop/${product.slug}`} style={{ textDecoration: "none" }}>
           <h3 style={{
             fontFamily: "var(--font-montserrat)", fontSize: "15px", fontWeight: 700,
-            color: "#fff", margin: "0 0 6px 0",
+            color: "var(--color-text)", margin: "0 0 6px 0",
             textTransform: "uppercase", letterSpacing: "0.04em",
           }}>{product.name}</h3>
         </Link>
         {product.description && (
           <p style={{
             fontFamily: "var(--font-opensans)", fontSize: "13px",
-            color: "rgba(255,255,255,0.55)", margin: 0, lineHeight: 1.5,
+            color: "var(--color-text-muted)", margin: 0, lineHeight: 1.5,
           }}>
             {product.description.slice(0, 100)}{product.description.length > 100 ? "…" : ""}
           </p>
@@ -360,7 +360,7 @@ function ProductListRow({ product, onQuickView, tCart }: {
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }}>
         <span style={{
           fontFamily: "var(--font-montserrat)", fontSize: "18px", fontWeight: 800,
-          color: "#c9a84c",
+          color: "var(--color-accent-text)",
         }}>{formatPrice(product.price)}</span>
 
         <div style={{ display: "flex", gap: "8px" }}>
@@ -369,11 +369,11 @@ function ProductListRow({ product, onQuickView, tCart }: {
             title="Hitri ogled"
             style={{
               width: "36px", height: "36px", borderRadius: "50%",
-              backgroundColor: "#f5f5f5", border: "1px solid #eee",
+              backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)",
               cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
             }}
           >
-            <Eye size={15} color="#555" />
+            <Eye size={15} color="var(--color-text-muted)" />
           </button>
 
           <button
@@ -381,8 +381,8 @@ function ProductListRow({ product, onQuickView, tCart }: {
             disabled={product.stock === 0}
             style={{
               padding: "8px 16px",
-              backgroundColor: justAdded ? "#4ade80" : product.stock === 0 ? "#f0f0f0" : "#c9a84c",
-              color: product.stock === 0 ? "#bbb" : "#000",
+              backgroundColor: justAdded ? "var(--color-success)" : product.stock === 0 ? "var(--color-surface-2)" : "var(--color-accent)",
+              color: product.stock === 0 ? "var(--color-text-faint)" : "var(--color-on-accent)",
               border: "none", borderRadius: "3px", cursor: product.stock === 0 ? "not-allowed" : "pointer",
               fontFamily: "var(--font-montserrat)", fontSize: "11px",
               fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em",
@@ -445,9 +445,9 @@ export function ShopClient({ products, categories }: Props) {
   const inputBase: React.CSSProperties = {
     fontFamily: "var(--font-opensans)",
     fontSize: "13px",
-    color: "#eeeeee",
-    backgroundColor: "#1a1a1a",
-    border: "1px solid #2a2a2a",
+    color: "var(--color-text)",
+    backgroundColor: "var(--color-bg)",
+    border: "1px solid var(--color-border)",
     borderRadius: "4px",
     padding: "8px 12px",
     cursor: "pointer",
@@ -463,12 +463,12 @@ export function ShopClient({ products, categories }: Props) {
         minHeight: "260px",
         display: "flex",
         alignItems: "center",
-        background: "linear-gradient(160deg, #0a1628 0%, #0f2744 55%, #1a3a6b 100%)",
+        background: "linear-gradient(160deg, var(--color-brand-deep) 0%, var(--color-brand) 55%, var(--color-brand-soft) 100%)",
       }}>
         {/* Radial corner glow */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 55% 90% at 95% 10%, rgba(56,189,248,0.13) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse 55% 90% at 95% 10%, rgba(45,212,191,0.16) 0%, transparent 65%)",
           pointerEvents: "none",
         }} />
 
@@ -483,12 +483,12 @@ export function ShopClient({ products, categories }: Props) {
             <Link href="/" style={{
               fontFamily: "var(--font-opensans)",
               fontSize: "13px",
-              color: "rgba(148,163,184,0.75)",
+              color: "rgba(255,255,255,0.65)",
               textDecoration: "none",
             }}>
               Domov
             </Link>
-            <span style={{ color: "rgba(148,163,184,0.35)", fontSize: "15px" }}>›</span>
+            <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "15px" }}>›</span>
             <span style={{
               fontFamily: "var(--font-opensans)",
               fontSize: "13px", fontWeight: 600,
@@ -516,7 +516,7 @@ export function ShopClient({ products, categories }: Props) {
           <p style={{
             fontFamily: "var(--font-opensans)",
             fontSize: "15px",
-            color: "rgba(148,163,184,0.85)",
+            color: "rgba(255,255,255,0.7)",
             lineHeight: 1.65,
             margin: "0 0 28px 0",
             maxWidth: "560px",
@@ -556,8 +556,8 @@ export function ShopClient({ products, categories }: Props) {
         position: "sticky",
         top: "64px",
         zIndex: 40,
-        backgroundColor: "#111111",
-        borderBottom: "1px solid #2a2a2a",
+        backgroundColor: "var(--color-bg)",
+        borderBottom: "1px solid var(--color-border)",
         boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
       }}>
         <div style={{
@@ -570,7 +570,7 @@ export function ShopClient({ products, categories }: Props) {
           <div style={{ position: "relative", flex: "1 1 180px", minWidth: "140px" }}>
             <Search size={14} style={{
               position: "absolute", left: "10px", top: "50%",
-              transform: "translateY(-50%)", color: "#aaa", pointerEvents: "none",
+              transform: "translateY(-50%)", color: "var(--color-text-faint)", pointerEvents: "none",
             }} />
             <input
               type="text"
@@ -592,7 +592,7 @@ export function ShopClient({ products, categories }: Props) {
                   position: "absolute", right: "8px", top: "50%",
                   transform: "translateY(-50%)",
                   background: "none", border: "none", cursor: "pointer",
-                  color: "#aaa", display: "flex",
+                  color: "var(--color-text-faint)", display: "flex",
                 }}
               >
                 <X size={14} />
@@ -626,21 +626,21 @@ export function ShopClient({ products, categories }: Props) {
           {/* In-stock */}
           <label style={{
             display: "flex", alignItems: "center", gap: "6px",
-            fontFamily: "var(--font-opensans)", fontSize: "13px", color: "#eeeeee",
+            fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text)",
             cursor: "pointer", userSelect: "none", whiteSpace: "nowrap",
           }}>
             <input
               type="checkbox"
               checked={inStock}
               onChange={(e) => setInStock(e.target.checked)}
-              style={{ accentColor: "#c9a84c", width: "14px", height: "14px" }}
+              style={{ accentColor: "var(--color-accent-text)", width: "14px", height: "14px" }}
             />
             {t.inStock}
           </label>
 
           {/* Sort */}
           <div style={{ display: "flex", alignItems: "center", gap: "6px", marginLeft: "auto" }}>
-            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "12px", color: "#888", whiteSpace: "nowrap" }}>
+            <span style={{ fontFamily: "var(--font-opensans)", fontSize: "12px", color: "var(--color-text-muted)", whiteSpace: "nowrap" }}>
               {t.sort}:
             </span>
             <select
@@ -655,45 +655,45 @@ export function ShopClient({ products, categories }: Props) {
           </div>
 
           {/* View toggle */}
-          <div style={{ display: "flex", border: "1px solid #2a2a2a", borderRadius: "4px", overflow: "hidden" }}>
+          <div style={{ display: "flex", border: "1px solid var(--color-border)", borderRadius: "4px", overflow: "hidden" }}>
             <button
               onClick={() => setView("grid")}
               title={t.grid}
               style={{
                 width: "36px", height: "36px",
-                backgroundColor: view === "grid" ? "#c9a84c" : "#1a1a1a",
+                backgroundColor: view === "grid" ? "var(--color-accent)" : "var(--color-surface)",
                 border: "none", cursor: "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "background 0.15s",
               }}
             >
-              <Grid3X3 size={15} color={view === "grid" ? "#0a0a0a" : "#888"} />
+              <Grid3X3 size={15} color={view === "grid" ? "var(--color-on-accent)" : "var(--color-text-muted)"} />
             </button>
             <button
               onClick={() => setView("list")}
               title={t.list}
               style={{
                 width: "36px", height: "36px",
-                backgroundColor: view === "list" ? "#c9a84c" : "#1a1a1a",
-                border: "none", borderLeft: "1px solid #2a2a2a", cursor: "pointer",
+                backgroundColor: view === "list" ? "var(--color-accent)" : "var(--color-surface)",
+                border: "none", borderLeft: "1px solid var(--color-border)", cursor: "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "background 0.15s",
               }}
             >
-              <List size={15} color={view === "list" ? "#0a0a0a" : "#888"} />
+              <List size={15} color={view === "list" ? "var(--color-on-accent)" : "var(--color-text-muted)"} />
             </button>
           </div>
         </div>
 
         {/* Results count bar */}
         <div style={{
-          borderTop: "1px solid #2a2a2a",
+          borderTop: "1px solid var(--color-border)",
           padding: "6px 24px",
           maxWidth: "1200px", margin: "0 auto",
         }}>
           <p style={{
             fontFamily: "var(--font-opensans)", fontSize: "12px",
-            color: "#999", margin: 0,
+            color: "var(--color-text-muted)", margin: 0,
           }}>
             {filtered.length} {t.results}
             {(search || category || price || inStock) && (
@@ -701,7 +701,7 @@ export function ShopClient({ products, categories }: Props) {
                 onClick={() => { setSearch(""); setCategory(""); setPrice(""); setInStock(false); }}
                 style={{
                   background: "none", border: "none", cursor: "pointer",
-                  color: "#c9a84c", fontSize: "12px",
+                  color: "var(--color-accent-text)", fontSize: "12px",
                   fontFamily: "var(--font-montserrat)", fontWeight: 700,
                   marginLeft: "12px",
                 }}
@@ -714,13 +714,13 @@ export function ShopClient({ products, categories }: Props) {
       </div>
 
       {/* ─── Products ─── */}
-      <section style={{ backgroundColor: "#0a0a0a", padding: "40px 0 96px" }}>
+      <section style={{ backgroundColor: "var(--color-bg)", padding: "40px 0 96px" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
           {filtered.length === 0 ? (
             <div style={{ textAlign: "center", padding: "80px 0" }}>
               <p style={{
                 fontFamily: "var(--font-opensans)", fontSize: "16px",
-                color: "#aaa", margin: "0 0 20px 0",
+                color: "var(--color-text-muted)", margin: "0 0 20px 0",
               }}>
                 {t.noResults}
               </p>
@@ -729,8 +729,8 @@ export function ShopClient({ products, categories }: Props) {
                   onClick={() => { setSearch(""); setCategory(""); setPrice(""); setInStock(false); }}
                   style={{
                     padding: "10px 24px",
-                    backgroundColor: "#c9a84c",
-                    color: "#000",
+                    backgroundColor: "var(--color-accent)",
+                    color: "var(--color-on-accent)",
                     border: "none", borderRadius: "3px", cursor: "pointer",
                     fontFamily: "var(--font-montserrat)", fontSize: "12px",
                     fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em",

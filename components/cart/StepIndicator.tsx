@@ -47,9 +47,9 @@ export function StepIndicator({ current }: { current: FunnelStep }) {
                   fontSize: "12px",
                   fontWeight: 800,
                   flexShrink: 0,
-                  backgroundColor: done || active ? "#c9a84c" : "transparent",
-                  color: done || active ? "#000" : "rgba(255,255,255,0.4)",
-                  border: done || active ? "none" : "1px solid rgba(255,255,255,0.25)",
+                  backgroundColor: done || active ? "var(--color-accent)" : "transparent",
+                  color: done || active ? "var(--color-on-accent)" : "var(--color-text-faint)",
+                  border: done || active ? "none" : "1px solid var(--color-border)",
                 }}
               >
                 {done ? "✓" : step.n}
@@ -61,7 +61,7 @@ export function StepIndicator({ current }: { current: FunnelStep }) {
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
-                  color: active ? "#c9a84c" : done ? "#fff" : "rgba(255,255,255,0.4)",
+                  color: active ? "var(--color-accent-text)" : done ? "var(--color-text)" : "var(--color-text-faint)",
                 }}
               >
                 {step.label}
@@ -72,7 +72,7 @@ export function StepIndicator({ current }: { current: FunnelStep }) {
                 style={{
                   width: "32px",
                   height: "1px",
-                  backgroundColor: done ? "#c9a84c" : "rgba(255,255,255,0.2)",
+                  backgroundColor: done ? "var(--color-accent)" : "var(--color-border)",
                 }}
               />
             )}

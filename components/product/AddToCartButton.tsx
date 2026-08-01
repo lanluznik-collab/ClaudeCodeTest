@@ -33,8 +33,8 @@ export function AddToCartButton({ product }: { product: Product }) {
       <button disabled style={{
         width: "100%",
         padding: "15px",
-        backgroundColor: "#eee",
-        color: "#aaa",
+        backgroundColor: "var(--color-surface-2)",
+        color: "var(--color-text-faint)",
         border: "none",
         borderRadius: "2px",
         fontFamily: "var(--font-montserrat)",
@@ -55,13 +55,13 @@ export function AddToCartButton({ product }: { product: Product }) {
           fontFamily: "var(--font-montserrat)",
           fontSize: "11px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "rgba(255,255,255,0.55)",
+          color: "var(--color-text-muted)",
         }}>
           {tl.prodColQty}
         </span>
         <div style={{
           display: "flex", alignItems: "center",
-          border: "1px solid rgba(255,255,255,0.2)", borderRadius: "4px",
+          border: "1px solid var(--color-border)", borderRadius: "4px",
           overflow: "hidden",
         }}>
           <button
@@ -69,7 +69,7 @@ export function AddToCartButton({ product }: { product: Product }) {
             style={{
               width: "36px", height: "36px",
               background: "none", border: "none",
-              color: "rgba(255,255,255,0.7)", fontSize: "18px",
+              color: "var(--color-text-muted)", fontSize: "18px",
               cursor: "pointer", display: "flex",
               alignItems: "center", justifyContent: "center",
             }}
@@ -80,7 +80,7 @@ export function AddToCartButton({ product }: { product: Product }) {
             padding: "0 14px",
             fontFamily: "var(--font-montserrat)",
             fontSize: "14px", fontWeight: 700,
-            color: "#fff", minWidth: "32px",
+            color: "var(--color-text)", minWidth: "32px",
             textAlign: "center",
           }}>
             {qty}
@@ -90,7 +90,7 @@ export function AddToCartButton({ product }: { product: Product }) {
             style={{
               width: "36px", height: "36px",
               background: "none", border: "none",
-              color: "rgba(255,255,255,0.7)", fontSize: "18px",
+              color: "var(--color-text-muted)", fontSize: "18px",
               cursor: "pointer", display: "flex",
               alignItems: "center", justifyContent: "center",
             }}
@@ -100,7 +100,7 @@ export function AddToCartButton({ product }: { product: Product }) {
         </div>
         <span style={{
           fontFamily: "var(--font-opensans)",
-          fontSize: "12px", color: "#aaa",
+          fontSize: "12px", color: "var(--color-text-muted)",
         }}>
           {product.stock} {tl.prodUnitsInStock}
         </span>
@@ -112,8 +112,8 @@ export function AddToCartButton({ product }: { product: Product }) {
         style={{
           width: "100%",
           padding: "15px",
-          backgroundColor: added ? "#888" : "#c9a84c",
-          color: added ? "#fff" : "#000",
+          backgroundColor: added ? "var(--color-success)" : "var(--color-accent)",
+          color: added ? "#fff" : "var(--color-on-accent)",
           border: "none",
           borderRadius: "2px",
           fontFamily: "var(--font-montserrat)",

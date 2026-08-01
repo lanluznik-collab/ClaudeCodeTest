@@ -5,47 +5,79 @@
 :root {
   --font-montserrat: 'Montserrat', Verdana, sans-serif;
   --font-opensans: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-  --color-gold: #c9a84c;
-  --color-gold-light: rgb(231, 210, 147);
-  --color-gold-dark: rgb(183, 135, 66);
-  --color-accent: #c9a84c;
-  --color-hero-bg: #0a0a0a;
 
-  /* Design system — Phase 3 (black & gold) */
-  --primary: #c9a84c;
-  --primary-dark: #a8872d;
-  --primary-light: #2a2208;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --warning: #f59e0b;
+  /* ─── Design system — modern biotech (teal/petrol) ─────────────────────── */
 
-  --white: #1a1a1a;
-  --gray-50:  #111111;
-  --gray-100: #1a1a1a;
-  --gray-200: #2a2a2a;
-  --gray-300: #3a3a3a;
-  --gray-400: #888888;
-  --gray-500: #aaaaaa;
-  --gray-600: #cccccc;
-  --gray-700: #dddddd;
-  --gray-800: #eeeeee;
-  --gray-900: #0a0a0a;
+  /* Brand — dark petrol surfaces (headers, footer, brand blocks) */
+  --color-brand:      #0B3B3C;
+  --color-brand-deep: #062A2B;
+  --color-brand-soft: #0F4F4A;
+
+  /* Accent — mint, reserved for CTAs/highlights (~10% of the UI) */
+  --color-accent:       #2DD4BF;
+  --color-accent-hover: #14B8A6;
+  --color-accent-text:  #0F766E; /* WCAG-safe teal for accent text/links on white */
+  --color-on-accent:    #063230; /* dark text placed ON mint fills */
+
+  /* Soft alpha washes derived from accent, for hover tints / glows / focus rings */
+  --color-accent-wash:       rgba(45, 212, 191, .10);
+  --color-accent-focus-ring: rgba(45, 212, 191, .25);
+  --color-accent-glow:       rgba(20, 184, 166, .35);
+  --color-brand-wash:        rgba(11, 59, 60, .06);
+
+  /* Neutrals / surfaces (~60% of the UI) */
+  --color-bg:        #FFFFFF;
+  --color-surface:   #F4F8F7;
+  --color-surface-2: #EAF2F0;
+  --color-border:    #E2ECEA;
+
+  /* Text */
+  --color-text:       #14201F;
+  --color-text-muted: #5B6B6A;
+  --color-text-faint: #8A9998;
+
+  /* Status — kept conventional, not tealified */
+  --color-success: #16A34A;
+  --color-warning: #C77A0A;
+  --color-danger:  #DC2626;
+
+  /* Legacy aliases — keep older component code (which reads var(--primary) etc.)
+     working against the new palette without a full rename pass. */
+  --primary:       var(--color-accent-text);
+  --primary-dark:  var(--color-brand);
+  --primary-light: var(--color-accent-wash);
+  --success: var(--color-success);
+  --danger:  var(--color-danger);
+  --warning: var(--color-warning);
+
+  --white:    var(--color-bg);
+  --gray-50:  var(--color-surface);
+  --gray-100: var(--color-surface-2);
+  --gray-200: var(--color-border);
+  --gray-300: #C9D6D4;
+  --gray-400: var(--color-text-faint);
+  --gray-500: var(--color-text-muted);
+  --gray-600: #46514F;
+  --gray-700: #303938;
+  --gray-800: #1C2423;
+  --gray-900: var(--color-text);
 
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  --accent: #6366f1;
-  --accent-light: #eef2ff;
+  --accent: var(--color-accent-text);
+  --accent-light: var(--color-accent-wash);
 
   --transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 
-  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.08);
-  --shadow-xl: 0 20px 48px rgba(0,0,0,.18), 0 8px 16px rgba(0,0,0,.10);
+  --shadow-sm: 0 1px 3px rgba(11,59,60,.08), 0 1px 2px rgba(11,59,60,.05);
+  --shadow-md: 0 4px 12px rgba(11,59,60,.10), 0 2px 4px rgba(11,59,60,.06);
+  --shadow-lg: 0 8px 24px rgba(11,59,60,.12), 0 4px 8px rgba(11,59,60,.08);
+  --shadow-xl: 0 20px 48px rgba(11,59,60,.18), 0 8px 16px rgba(11,59,60,.10);
 
+  /* Decorative, non-brand — wishlist heart, unrelated to the teal system */
   --heart: #f43f5e;
   --heart-light: #fff1f2;
   --danger-light: #fef2f2;
@@ -68,14 +100,13 @@ body {
 
 body {
   font-family: var(--font-opensans);
-  background: #0a0a0a;
-  color: #eeeeee;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
-/* Exact gradient from corepeptides.com source */
 .hero-headline {
-  background: -webkit-linear-gradient(50deg, rgba(231,210,147,1) 40%, rgba(183,135,66,1) 60%);
-  background: linear-gradient(50deg, rgba(231,210,147,1) 40%, rgba(183,135,66,1) 60%);
+  background: -webkit-linear-gradient(50deg, var(--color-brand) 30%, var(--color-accent-hover) 75%);
+  background: linear-gradient(50deg, var(--color-brand) 30%, var(--color-accent-hover) 75%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -84,11 +115,11 @@ body {
   text-transform: uppercase;
 }
 
-/* Buy button — transparent with gold border, green on hover */
+/* Primary buy CTA — mint fill, dark text, darker mint on hover */
 .hero-cta {
-  background-color: transparent !important;
-  border: 2px solid #c9a84c;
-  color: #c9a84c;
+  background-color: var(--color-accent) !important;
+  border: 2px solid var(--color-accent);
+  color: var(--color-on-accent);
   font-family: var(--font-montserrat);
   font-weight: 700;
   text-transform: uppercase;
@@ -101,9 +132,9 @@ body {
 }
 
 .hero-cta:hover {
-  background-color: #74d184 !important;
-  border-color: #74d184;
-  color: #fff !important;
+  background-color: var(--color-accent-hover) !important;
+  border-color: var(--color-accent-hover);
+  color: var(--color-on-accent) !important;
 }
 
 /* Montserrat headings site-wide */
@@ -117,12 +148,12 @@ h1, h2, h3, h4 {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 80% at 10% 50%, rgba(201,168,76,.2), transparent),
-    radial-gradient(ellipse 50% 60% at 90% 20%, rgba(99,102,241,.15), transparent);
+    radial-gradient(ellipse 70% 80% at 10% 50%, rgba(45,212,191,.15), transparent),
+    radial-gradient(ellipse 50% 60% at 90% 20%, rgba(15,79,74,.4), transparent);
   pointer-events: none;
 }
-.page-hero-title em       { color: var(--primary); font-style: normal; }
-.page-hero-breadcrumb a:hover { color: var(--primary); }
+.page-hero-title em       { color: var(--color-accent); font-style: normal; }
+.page-hero-breadcrumb a:hover { color: var(--color-accent); }
 
 /* ─── COA Vault ─────────────────────────────────────────────────────────── */
 .coa-hero-glow {
@@ -131,7 +162,7 @@ h1, h2, h3, h4 {
   right: -5%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(201,168,76,.12), transparent 70%);
+  background: radial-gradient(circle, rgba(45,212,191,.14), transparent 70%);
   pointer-events: none;
 }
 .coa-dl-btn {
@@ -147,13 +178,13 @@ h1, h2, h3, h4 {
   text-decoration: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.coa-dl-btn:hover            { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(201,168,76,.35); }
+.coa-dl-btn:hover            { transform: translateY(-1px); box-shadow: 0 4px 12px var(--color-accent-glow); }
 .coa-row:hover td            { background: var(--gray-50); }
 .coa-product-link:hover      { color: var(--primary-dark) !important; text-decoration: underline !important; }
 .coa-field:focus {
   border-color: var(--primary) !important;
   background: var(--white) !important;
-  box-shadow: 0 0 0 3px rgba(201,168,76,.15);
+  box-shadow: 0 0 0 3px var(--color-accent-focus-ring);
 }
 @media (max-width: 1024px) { .coa-col-size                  { display: none !important; } }
 @media (max-width: 768px)  { .coa-col-date, .coa-col-status { display: none !important; } }
@@ -235,7 +266,7 @@ h1, h2, h3, h4 {
   background: var(--primary);
   color: white;
   border-color: var(--primary);
-  box-shadow: 0 4px 16px rgba(201,168,76,.35);
+  box-shadow: 0 4px 16px var(--color-accent-glow);
 }
 
 .about-certs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
@@ -249,7 +280,7 @@ h1, h2, h3, h4 {
   text-align: center;
   transition: border-color .2s ease, background .2s ease;
 }
-.about-cert-card:hover { border-color: var(--primary); background: rgba(201,168,76,.06); }
+.about-cert-card:hover { border-color: var(--primary); background: var(--color-accent-wash); }
 
 .about-cta-inner {
   display: flex;
@@ -270,11 +301,11 @@ h1, h2, h3, h4 {
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(201,168,76,.35);
+  box-shadow: 0 4px 15px var(--color-accent-glow);
   transition: transform .2s ease, box-shadow .2s ease;
   white-space: nowrap;
 }
-.about-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,.45); }
+.about-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--color-accent-glow); }
 
 /* ─── Blog page ─────────────────────────────────────────────────────────── */
 .blog-grid {
@@ -376,7 +407,7 @@ h1, h2, h3, h4 {
   transition: border-color .15s ease, color .15s ease, background .15s ease;
 }
 .blog-tag-pill:hover {
-  background: rgba(201,168,76,.08);
+  background: var(--color-accent-wash);
   border-color: var(--primary);
   color: var(--primary);
 }
@@ -423,20 +454,20 @@ html { scroll-behavior: smooth; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.45);
+  color: var(--color-text-faint);
   margin: 0 0 14px 0;
 }
 .blog-toc-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border-left: 1px solid rgba(255,255,255,0.12);
+  border-left: 1px solid var(--color-border);
   padding-left: 16px;
 }
 .blog-toc-link {
   font-family: var(--font-opensans);
   font-size: 13px;
-  color: rgba(255,255,255,0.6);
+  color: var(--color-text-muted);
   text-decoration: none;
   line-height: 1.4;
   display: block;
@@ -447,7 +478,7 @@ html { scroll-behavior: smooth; }
   font-family: var(--font-montserrat);
   font-size: 22px;
   font-weight: 800;
-  color: #fff;
+  color: var(--color-text);
   margin: 40px 0 16px 0;
   scroll-margin-top: 100px;
 }
@@ -456,7 +487,7 @@ html { scroll-behavior: smooth; }
   font-family: var(--font-montserrat);
   font-size: 17px;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-text);
   margin: 28px 0 12px 0;
   scroll-margin-top: 100px;
 }
@@ -464,12 +495,12 @@ html { scroll-behavior: smooth; }
   font-family: var(--font-opensans);
   font-size: 16px;
   line-height: 1.9;
-  color: rgba(255,255,255,0.8);
+  color: var(--color-text);
   margin: 0 0 20px 0;
 }
 .blog-article-body a { color: var(--primary); text-decoration: underline; }
 .blog-article-body a:hover { color: var(--primary-dark); }
-.blog-article-body strong { color: #fff; font-weight: 700; }
+.blog-article-body strong { color: var(--color-text); font-weight: 700; }
 .blog-article-body ul, .blog-article-body ol {
   margin: 0 0 20px 0;
   padding-left: 24px;
@@ -484,17 +515,17 @@ html { scroll-behavior: smooth; }
   font-family: var(--font-opensans);
   font-size: 16px;
   line-height: 1.8;
-  color: rgba(255,255,255,0.8);
+  color: var(--color-text);
 }
 .blog-article-body blockquote {
   border-left: 3px solid var(--primary);
   padding-left: 20px;
   margin: 0 0 20px 0;
   font-style: italic;
-  color: rgba(255,255,255,0.7);
+  color: var(--color-text-muted);
 }
 .blog-article-body code {
-  background: rgba(255,255,255,0.08);
+  background: var(--color-surface-2);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 14px;
@@ -538,7 +569,7 @@ html { scroll-behavior: smooth; }
 }
 .faq-search-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(201,168,76,.15);
+  box-shadow: 0 0 0 3px var(--color-accent-focus-ring);
 }
 .faq-search-input::placeholder { color: var(--gray-400); }
 .faq-search-clear {
@@ -591,7 +622,7 @@ html { scroll-behavior: smooth; }
 .faq-toggle-btn:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(201,168,76,.06);
+  background: var(--color-accent-wash);
 }
 
 .faq-category {
@@ -624,7 +655,7 @@ html { scroll-behavior: smooth; }
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 .faq-item:hover { border-color: var(--gray-300); }
-.faq-item.open  { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(201,168,76,.08); }
+.faq-item.open  { border-color: var(--primary); box-shadow: 0 0 0 3px var(--color-accent-wash); }
 
 .faq-question {
   width: 100%;
@@ -670,7 +701,7 @@ html { scroll-behavior: smooth; }
   line-height: 1.75;
 }
 .faq-answer mark {
-  background: rgba(201,168,76,.2);
+  background: rgba(45,212,191,.3);
   color: var(--primary-dark);
   border-radius: 2px;
   padding: 0 1px;
@@ -739,10 +770,10 @@ html { scroll-behavior: smooth; }
   font-family: var(--font-opensans);
 }
 .faq-cat-link i { font-size: 15px; color: var(--primary); }
-.faq-cat-link:hover { background: rgba(201,168,76,.08); color: var(--primary-dark); }
+.faq-cat-link:hover { background: var(--color-accent-wash); color: var(--primary-dark); }
 
 .faq-contact-card {
-  background: linear-gradient(135deg, var(--gray-900), #1a2640);
+  background: linear-gradient(135deg, var(--color-brand-deep), var(--color-brand));
   border-radius: var(--radius-lg);
   padding: 20px;
 }

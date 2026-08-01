@@ -15,12 +15,11 @@ interface Props {
 
 type TabKey = "opis" | "coa";
 
-// Light, saturated variants so status text stays readable on the dark
-// product page background even at low badge-background opacity.
+// WCAG-safe on the light product page background at low badge-background opacity.
 const statusColor: Record<string, string> = {
-  Aktualni: "#4ade80",
-  Zastarel:  "#f87171",
-  Pregled:   "#fbbf24",
+  Aktualni: "#16A34A",
+  Zastarel:  "#DC2626",
+  Pregled:   "#C77A0A",
 };
 
 export function ProductTabs({ product, coaImages, coaDocs }: Props) {
@@ -38,10 +37,10 @@ export function ProductTabs({ product, coaImages, coaDocs }: Props) {
   ];
 
   return (
-    <div style={{ marginTop: "72px", borderTop: "2px solid rgba(255,255,255,0.1)", paddingTop: "52px" }}>
+    <div style={{ marginTop: "72px", borderTop: "2px solid var(--color-border)", paddingTop: "52px" }}>
 
       {/* Tab bar */}
-      <div style={{ borderBottom: "2px solid rgba(255,255,255,0.12)", marginBottom: "36px", display: "flex", gap: "0" }}>
+      <div style={{ borderBottom: "2px solid var(--color-border)", marginBottom: "36px", display: "flex", gap: "0" }}>
         {tabs.map(({ key, label }) => (
           <button
             key={key}
@@ -50,9 +49,9 @@ export function ProductTabs({ product, coaImages, coaDocs }: Props) {
               background: "none", border: "none", cursor: "pointer",
               fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700,
               textTransform: "uppercase", letterSpacing: "0.12em",
-              color: active === key ? "#fff" : "rgba(255,255,255,0.5)",
+              color: active === key ? "var(--color-text)" : "var(--color-text-muted)",
               paddingBottom: "14px", marginBottom: "-2px", marginRight: "32px",
-              borderBottom: active === key ? "2px solid #c9a84c" : "2px solid transparent",
+              borderBottom: active === key ? "2px solid var(--color-accent-text)" : "2px solid transparent",
               transition: "color 0.2s, border-color 0.2s",
             }}
           >
@@ -68,13 +67,13 @@ export function ProductTabs({ product, coaImages, coaDocs }: Props) {
             <>
               <h3 style={{
                 fontFamily: "var(--font-montserrat)", fontSize: "15px", fontWeight: 800,
-                textTransform: "uppercase", letterSpacing: "0.1em", color: "#fff", margin: "0 0 14px 0",
+                textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text)", margin: "0 0 14px 0",
               }}>
                 {tl.prodCompositionTitle}
               </h3>
               <p style={{
                 fontFamily: "var(--font-opensans)", fontSize: "15px", lineHeight: 1.85,
-                color: "rgba(255,255,255,0.75)", maxWidth: "800px", marginBottom: "16px",
+                color: "var(--color-text-muted)", maxWidth: "800px", marginBottom: "16px",
               }}>
                 {description}
               </p>
@@ -100,34 +99,34 @@ export function ProductTabs({ product, coaImages, coaDocs }: Props) {
             <div style={{ display: "flex", flexDirection: "column", gap: "16px", maxWidth: "800px" }}>
               {coaDocs.map((doc) => (
                 <div key={doc.id} style={{
-                  border: "1px solid rgba(255,255,255,0.15)", borderRadius: "8px", padding: "20px",
+                  border: "1px solid var(--color-border)", borderRadius: "8px", padding: "20px",
                   display: "grid", gridTemplateColumns: "1fr 1fr 1fr auto", gap: "16px", alignItems: "center",
                 }}>
                   <div>
-                    <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
+                    <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "var(--color-text-muted)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
                       {tl.prodCoaSeries}
                     </p>
-                    <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700, color: "#fff", margin: 0 }}>
+                    <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "14px", fontWeight: 700, color: "var(--color-text)", margin: 0 }}>
                       {doc.batch_number ?? "—"}
                     </p>
                   </div>
                   <div>
-                    <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
+                    <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "var(--color-text-muted)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
                       {tl.prodCoaTestDate}
                     </p>
-                    <p style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "rgba(255,255,255,0.8)", margin: 0 }}>
+                    <p style={{ fontFamily: "var(--font-opensans)", fontSize: "14px", color: "var(--color-text)", margin: 0 }}>
                       {doc.test_date
                         ? new Date(doc.test_date).toLocaleDateString(lang === "en" ? "en-GB" : "sl-SI")
                         : "—"}
                     </p>
                   </div>
                   <div>
-                    <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
+                    <p style={{ fontFamily: "var(--font-montserrat)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", color: "var(--color-text-muted)", textTransform: "uppercase", margin: "0 0 4px 0" }}>
                       {tl.prodCoaStatus}
                     </p>
                     <span style={{
                       fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
-                      color: statusColor[doc.status] ?? "#999",
+                      color: statusColor[doc.status] ?? "var(--color-text-muted)",
                       backgroundColor: `${statusColor[doc.status] ?? "#999"}14`,
                       padding: "2px 10px", borderRadius: "100px",
                     }}>
@@ -141,9 +140,9 @@ export function ProductTabs({ product, coaImages, coaDocs }: Props) {
                       rel="noopener noreferrer"
                       style={{
                         fontFamily: "var(--font-montserrat)", fontSize: "11px", fontWeight: 700,
-                        letterSpacing: "0.08em", color: "#c9a84c", textTransform: "uppercase",
+                        letterSpacing: "0.08em", color: "var(--color-accent-text)", textTransform: "uppercase",
                         textDecoration: "none", whiteSpace: "nowrap",
-                        border: "1px solid #c9a84c", borderRadius: "4px", padding: "6px 12px",
+                        border: "1px solid var(--color-accent-text)", borderRadius: "4px", padding: "6px 12px",
                       }}
                     >
                       {tl.prodCoaDownload}
@@ -163,13 +162,13 @@ export function ProductTabs({ product, coaImages, coaDocs }: Props) {
                   alt={`${tl.prodTabCoa} ${i + 1}`}
                   style={{
                     width: "100%", maxWidth: "900px", height: "auto",
-                    border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px", display: "block",
+                    border: "1px solid var(--color-border)", borderRadius: "4px", display: "block",
                   }}
                 />
               ))}
             </div>
           ) : (
-            <p style={{ fontFamily: "var(--font-opensans)", fontSize: "15px", color: "#888", fontStyle: "italic" }}>
+            <p style={{ fontFamily: "var(--font-opensans)", fontSize: "15px", color: "var(--color-text-muted)", fontStyle: "italic" }}>
               {tl.prodCoaNotAvailable}
             </p>
           )}

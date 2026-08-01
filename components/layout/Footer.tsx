@@ -14,7 +14,7 @@ export function Footer() {
   const links = mounted ? translations[lang].links : translations.sl.links;
 
   return (
-    <footer style={{ backgroundColor: "#0a0a0a", borderTop: "1px solid rgba(201,168,76,0.15)" }}>
+    <footer style={{ backgroundColor: "var(--color-brand-deep)", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
       <div
         className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 md:gap-16 footer-main-grid"
         style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px 40px" }}
@@ -24,7 +24,7 @@ export function Footer() {
           <p className="footer-logo" style={{
             fontFamily: "var(--font-montserrat)",
             fontWeight: 900, fontSize: "22px",
-            letterSpacing: "0.15em", color: "#c9a84c",
+            letterSpacing: "0.15em", color: "#fff",
             margin: "0 0 20px 0",
           }}>
             SLOPEPS
@@ -32,7 +32,7 @@ export function Footer() {
           <p className="footer-disclaimer" style={{
             fontFamily: "var(--font-opensans)",
             fontSize: "13px", fontStyle: "italic",
-            color: "#c9a84c", lineHeight: 1.75, margin: "0 0 14px 0",
+            color: "var(--color-accent)", lineHeight: 1.75, margin: "0 0 14px 0",
           }}>
             {t.disclaimer}
           </p>
@@ -66,7 +66,7 @@ export function Footer() {
           <ul className="footer-links-list" style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
             {links.map(({ label, href }) => (
               <li key={href}>
-                <Link href={href} className="footer-link hover:text-[#c9a84c]" style={{
+                <Link href={href} className="footer-link hover:text-[var(--color-accent)]" style={{
                   fontFamily: "var(--font-opensans)",
                   fontSize: "13px", color: "rgba(255,255,255,0.5)",
                   textDecoration: "none", transition: "color 0.2s",

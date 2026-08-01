@@ -17,7 +17,7 @@ export default function CartPage() {
   const t = mounted ? translations[lang].cart : translations.sl.cart;
 
   return (
-    <div style={{ backgroundColor: "#0a0a0a", minHeight: "60vh" }}>
+    <div style={{ backgroundColor: "var(--color-surface)", minHeight: "60vh" }}>
       <StepIndicator current={1} />
 
       {items.length === 0 ? (
@@ -28,7 +28,7 @@ export default function CartPage() {
         }}>
           <p style={{
             fontFamily: "var(--font-opensans)",
-            fontSize: "16px", color: "rgba(255,255,255,0.45)",
+            fontSize: "16px", color: "var(--color-text-muted)",
             marginBottom: "28px",
           }}>
             {t.empty}
@@ -36,8 +36,8 @@ export default function CartPage() {
           <Link href="/shop" style={{
             display: "inline-block",
             padding: "14px 36px",
-            backgroundColor: "#c9a84c",
-            color: "#fff",
+            backgroundColor: "var(--color-accent)",
+            color: "var(--color-on-accent)",
             fontFamily: "var(--font-montserrat)",
             fontWeight: 700, fontSize: "13px",
             textTransform: "uppercase", letterSpacing: "0.1em",
@@ -53,7 +53,7 @@ export default function CartPage() {
             fontFamily: "var(--font-montserrat)",
             fontSize: "28px", fontWeight: 900,
             textTransform: "uppercase", letterSpacing: "0.06em",
-            color: "#c9a84c", marginBottom: "32px",
+            color: "var(--color-brand)", marginBottom: "32px",
           }}>
             {t.title}
           </h1>
@@ -68,7 +68,7 @@ export default function CartPage() {
                   fontFamily: "var(--font-montserrat)",
                   fontSize: "12px", fontWeight: 700,
                   textTransform: "uppercase", letterSpacing: "0.08em",
-                  color: "rgba(255,255,255,0.5)", textDecoration: "none",
+                  color: "var(--color-text-muted)", textDecoration: "none",
                 }}>
                   ← {t.continueShopping}
                 </Link>

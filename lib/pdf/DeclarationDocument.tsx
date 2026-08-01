@@ -9,15 +9,15 @@ const styles = StyleSheet.create({
     fontFamily: "NotoSans",
     fontSize: 9,
     padding: 40,
-    color: "#1a1a1a",
+    color: "#14201F",
     lineHeight: 1.4,
   },
   title: { fontSize: 15, fontWeight: "bold", textAlign: "center", marginBottom: 4 },
-  goldLine: { height: 2, backgroundColor: "#c9a84c", marginBottom: 16, width: 80, alignSelf: "center" },
+  goldLine: { height: 2, backgroundColor: "#14B8A6", marginBottom: 16, width: 80, alignSelf: "center" },
   metaRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 16 },
   pending: {
     fontSize: 7,
-    color: "#b00",
+    color: "#DC2626",
     fontWeight: "bold",
     marginBottom: 10,
     textTransform: "uppercase",
@@ -25,10 +25,10 @@ const styles = StyleSheet.create({
   paragraph: { marginBottom: 10 },
   itemBlock: { marginBottom: 8 },
   itemSl: { marginBottom: 1 },
-  itemEn: { color: "#555" },
+  itemEn: { color: "#5B6B6A" },
   sigRow: { flexDirection: "row", justifyContent: "space-between", marginTop: 50 },
-  sigLine: { borderTopWidth: 1, borderTopColor: "#333", width: 180, paddingTop: 4 },
-  sigLabel: { fontSize: 7, color: "#555" },
+  sigLine: { borderTopWidth: 1, borderTopColor: "#14201F", width: 180, paddingTop: 4 },
+  sigLabel: { fontSize: 7, color: "#5B6B6A" },
 });
 
 interface DeclarationDocumentProps {

@@ -39,7 +39,7 @@ export function AdminNav() {
             fontWeight: 900,
             fontSize: "14px",
             letterSpacing: "0.12em",
-            color: "#c9a84c",
+            color: "var(--color-accent-text)",
             marginRight: "16px",
           }}>
             SLOPEPS

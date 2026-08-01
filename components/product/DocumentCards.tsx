@@ -24,17 +24,17 @@ function DocumentCard({
         alignItems: "center",
         gap: "12px",
         padding: "14px 16px",
-        border: "1px solid rgba(201,168,76,0.25)",
+        border: "1px solid var(--color-border)",
         borderRadius: "6px",
         textDecoration: "none",
         transition: "border-color 0.2s, background-color 0.2s",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "#c9a84c";
-        e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.06)";
+        e.currentTarget.style.borderColor = "var(--color-accent-text)";
+        e.currentTarget.style.backgroundColor = "var(--color-accent-wash)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(201,168,76,0.25)";
+        e.currentTarget.style.borderColor = "var(--color-border)";
         e.currentTarget.style.backgroundColor = "transparent";
       }}
     >
@@ -44,11 +44,11 @@ function DocumentCard({
           width: "36px",
           height: "36px",
           borderRadius: "4px",
-          backgroundColor: "rgba(201,168,76,0.12)",
+          backgroundColor: "var(--color-accent-wash)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#c9a84c",
+          color: "var(--color-accent-text)",
         }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -62,7 +62,7 @@ function DocumentCard({
             fontFamily: "var(--font-montserrat)",
             fontSize: "13px",
             fontWeight: 700,
-            color: "#fff",
+            color: "var(--color-text)",
             margin: "0 0 2px 0",
           }}
         >
@@ -72,7 +72,7 @@ function DocumentCard({
           style={{
             fontFamily: "var(--font-opensans)",
             fontSize: "12px",
-            color: "#c9a84c",
+            color: "var(--color-accent-text)",
             margin: 0,
           }}
         >

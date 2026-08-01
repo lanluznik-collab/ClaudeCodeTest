@@ -26,8 +26,8 @@ export function CategoryFilter({ categories }: { categories: string[] }) {
         className={cn(
           "px-4 py-1.5 rounded-full text-sm border transition-colors",
           current === ""
-            ? "bg-black text-white border-black"
-            : "border-gray-200 text-gray-600 hover:border-gray-400"
+            ? "bg-[var(--color-brand)] text-white border-[var(--color-brand)]"
+            : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-faint)]"
         )}
       >
         All
@@ -39,8 +39,8 @@ export function CategoryFilter({ categories }: { categories: string[] }) {
           className={cn(
             "px-4 py-1.5 rounded-full text-sm border transition-colors capitalize",
             current === cat
-              ? "bg-black text-white border-black"
-              : "border-gray-200 text-gray-600 hover:border-gray-400"
+              ? "bg-[var(--color-brand)] text-white border-[var(--color-brand)]"
+              : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-faint)]"
           )}
         >
           {cat}

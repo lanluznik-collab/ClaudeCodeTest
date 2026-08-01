@@ -43,11 +43,12 @@ export default function SuccessPage() {
       <div style={{
         width: "64px", height: "64px",
         borderRadius: "50%",
-        backgroundColor: "rgba(201,168,76,0.12)",
-        border: "2px solid #c9a84c",
+        backgroundColor: "var(--color-accent-wash)",
+        border: "2px solid var(--color-accent-text)",
         display: "flex", alignItems: "center", justifyContent: "center",
         margin: "0 auto 28px",
         fontSize: "28px",
+        color: "var(--color-accent-text)",
       }}>
         ✓
       </div>
@@ -56,14 +57,14 @@ export default function SuccessPage() {
         fontFamily: "var(--font-montserrat)",
         fontSize: "24px", fontWeight: 900,
         textTransform: "uppercase", letterSpacing: "0.06em",
-        color: "#c9a84c", marginBottom: "16px",
+        color: "var(--color-brand)", marginBottom: "16px",
       }}>
         {tc.thankYou}
       </h1>
 
       <p style={{
         fontFamily: "var(--font-opensans)",
-        fontSize: "15px", color: "rgba(255,255,255,0.6)",
+        fontSize: "15px", color: "var(--color-text-muted)",
         lineHeight: 1.7, marginBottom: "36px",
       }}>
         {tc.thankYouBody}
@@ -71,8 +72,8 @@ export default function SuccessPage() {
 
       {/* Bank details box */}
       <div style={{
-        backgroundColor: "#161616",
-        border: "1px solid rgba(201,168,76,0.25)",
+        backgroundColor: "var(--color-surface)",
+        border: "1px solid var(--color-border)",
         borderRadius: "6px",
         padding: "24px",
         marginBottom: "36px",
@@ -82,7 +83,7 @@ export default function SuccessPage() {
           fontFamily: "var(--font-montserrat)",
           fontSize: "11px", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.1em",
-          color: "#c9a84c", margin: "0 0 16px 0",
+          color: "var(--color-accent-text)", margin: "0 0 16px 0",
         }}>
           {tc.transferDetails}
         </p>
@@ -100,18 +101,18 @@ export default function SuccessPage() {
             alignItems: "center",
             gap: "12px",
             padding: "8px 0",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            borderBottom: "1px solid var(--color-border)",
           }}>
             <span style={{
               fontFamily: "var(--font-opensans)",
-              fontSize: "13px", color: "rgba(255,255,255,0.4)",
+              fontSize: "13px", color: "var(--color-text-muted)",
             }}>
               {label}
             </span>
             <span style={{
               fontFamily: "var(--font-montserrat)",
               fontSize: "13px", fontWeight: 700,
-              color: label === tc.reference ? "#c9a84c" : "#fff",
+              color: label === tc.reference ? "var(--color-accent-text)" : "var(--color-text)",
               textAlign: "right",
             }}>
               {value}
@@ -122,7 +123,7 @@ export default function SuccessPage() {
 
       <p style={{
         fontFamily: "var(--font-opensans)",
-        fontSize: "13px", color: "rgba(255,255,255,0.35)",
+        fontSize: "13px", color: "var(--color-text-faint)",
         lineHeight: 1.6, marginBottom: "36px",
       }}>
         {tc.confirmationEmailNote}
@@ -131,8 +132,8 @@ export default function SuccessPage() {
       <Link href="/shop" style={{
         display: "inline-block",
         padding: "14px 36px",
-        backgroundColor: "#c9a84c",
-        color: "#fff",
+        backgroundColor: "var(--color-accent)",
+        color: "var(--color-on-accent)",
         fontFamily: "var(--font-montserrat)",
         fontWeight: 700, fontSize: "13px",
         textTransform: "uppercase", letterSpacing: "0.1em",

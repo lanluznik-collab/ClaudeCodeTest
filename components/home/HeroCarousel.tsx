@@ -7,7 +7,7 @@ import { useLanguageStore } from "@/lib/language-store";
 import { translations } from "@/lib/i18n";
 import { HeroSlide } from "@/types";
 
-const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(201%2C168%2C76%2C0.06)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(201%2C168%2C76%2C0.06)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(201%2C168%2C76%2C0.06)' stroke-width='1'/%3E%3C/svg%3E")`;
+const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3C/svg%3E")`;
 
 type SlideDisplay = {
   image: string | null;
@@ -107,7 +107,7 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
 
   return (
     <section
-      style={{ position: "relative", height: "clamp(380px, 55vw, 600px)", overflow: "hidden", backgroundColor: "#0a0a0a", touchAction: "pan-y" }}
+      style={{ position: "relative", height: "clamp(380px, 55vw, 600px)", overflow: "hidden", backgroundColor: "var(--color-brand-deep)", touchAction: "pan-y" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={onTouchStart}
@@ -169,7 +169,7 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
                   fontFamily: "var(--font-montserrat)",
                   fontSize: "11px", fontWeight: 700,
                   textTransform: "uppercase", letterSpacing: "0.25em",
-                  color: "#c9a84c", marginBottom: "16px",
+                  color: "var(--color-accent)", marginBottom: "16px",
                   opacity: i === current ? 1 : 0,
                   transform: i === current ? "translateY(0)" : "translateY(8px)",
                   transition: "opacity 0.6s 0.2s ease, transform 0.6s 0.2s ease",
@@ -211,8 +211,8 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
                 style={{
                   display: "inline-block",
                   padding: "14px 36px",
-                  backgroundColor: "#c9a84c",
-                  color: "#000",
+                  backgroundColor: "var(--color-accent)",
+                  color: "var(--color-on-accent)",
                   fontFamily: "var(--font-montserrat)",
                   fontWeight: 800, fontSize: "13px",
                   textTransform: "uppercase", letterSpacing: "0.12em",
@@ -245,7 +245,7 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
               display: "flex", alignItems: "center", justifyContent: "center",
               color: "#fff", transition: "background 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.8)")}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(45,212,191,0.85)")}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.45)")}
           >
             <ChevronLeft size={20} />
@@ -263,7 +263,7 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
               display: "flex", alignItems: "center", justifyContent: "center",
               color: "#fff", transition: "background 0.2s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(201,168,76,0.8)")}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(45,212,191,0.85)")}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.45)")}
           >
             <ChevronRight size={20} />
@@ -283,7 +283,7 @@ export function HeroCarousel({ slides: dbSlides }: { slides?: HeroSlide[] }) {
                   width: i === current ? "28px" : "8px",
                   height: "8px",
                   borderRadius: "4px",
-                  backgroundColor: i === current ? "#c9a84c" : "rgba(255,255,255,0.4)",
+                  backgroundColor: i === current ? "var(--color-accent)" : "rgba(255,255,255,0.4)",
                   border: "none", cursor: "pointer", padding: 0,
                   transition: "width 0.3s ease, background 0.3s ease",
                 }}

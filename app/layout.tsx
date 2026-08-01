@@ -39,8 +39,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${montserrat.variable} ${openSans.variable} antialiased`}
         style={{
           fontFamily: "var(--font-opensans), Helvetica Neue, Arial, sans-serif",
-          background: "#0a0a0a",
-          color: "#fff",
+          background: "var(--color-bg)",
+          color: "var(--color-text)",
         }}
       >
         <Providers>

@@ -1,11 +1,11 @@
-const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(201%2C168%2C76%2C0.07)' stroke-width='1'/%3E%3C/svg%3E")`;
+const HEX_PATTERN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104'%3E%3Cpath d='M30 2L58 18V50L30 66L2 50V18Z' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3Cpath d='M30 68L58 84V104' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3Cpath d='M2 84L30 68' fill='none' stroke='rgba(45%2C212%2C191%2C0.08)' stroke-width='1'/%3E%3C/svg%3E")`;
 
 export default function ZasebnostPage() {
   return (
     <>
-      {/* Dark hero */}
+      {/* Petrol hero */}
       <section style={{
-        backgroundColor: "#0a0a0a",
+        backgroundColor: "var(--color-brand-deep)",
         position: "relative",
         overflow: "hidden",
         minHeight: "220px",
@@ -28,7 +28,7 @@ export default function ZasebnostPage() {
             fontFamily: "var(--font-montserrat)",
             fontSize: "11px", fontWeight: 700,
             textTransform: "uppercase", letterSpacing: "0.25em",
-            color: "#c9a84c", marginBottom: "12px",
+            color: "var(--color-accent)", marginBottom: "12px",
           }}>
             Pravne informacije
           </p>
@@ -38,7 +38,7 @@ export default function ZasebnostPage() {
             fontWeight: 900,
             textTransform: "uppercase",
             letterSpacing: "0.06em",
-            color: "#c9a84c",
+            color: "#fff",
             margin: 0,
           }}>
             Politika zasebnosti
@@ -46,17 +46,17 @@ export default function ZasebnostPage() {
         </div>
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: "80px",
-          backgroundColor: "#111111",
+          backgroundColor: "var(--color-bg)",
           clipPath: "polygon(0 100%, 100% 0%, 100% 100%)",
         }} />
       </section>
 
       {/* Content */}
-      <section style={{ backgroundColor: "#111111", color: "#eeeeee", padding: "64px 0 80px" }}>
+      <section style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)", padding: "64px 0 80px" }}>
         <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
 
           <Section title="1. Upravljavec podatkov">
-            <p>Upravljavec osebnih podatkov je podjetje SloPeps (v nadaljevanju &quot;mi&quot; ali &quot;SloPeps&quot;). Za vsa vprašanja v zvezi z zasebnostjo nas kontaktirajte na: <a href="mailto:info@slopeps.com" style={{ color: "#c9a84c" }}>info@slopeps.com</a>.</p>
+            <p>Upravljavec osebnih podatkov je podjetje SloPeps (v nadaljevanju &quot;mi&quot; ali &quot;SloPeps&quot;). Za vsa vprašanja v zvezi z zasebnostjo nas kontaktirajte na: <a href="mailto:info@slopeps.com" style={{ color: "var(--color-accent-text)" }}>info@slopeps.com</a>.</p>
           </Section>
 
           <Section title="2. Katere podatke zbiramo">
@@ -115,7 +115,7 @@ export default function ZasebnostPage() {
               <li>Pravica do prenosljivosti podatkov</li>
               <li>Pravica do ugovora obdelavi</li>
             </ul>
-            <p>Za uveljavljanje svojih pravic nas kontaktirajte na <a href="mailto:info@slopeps.com" style={{ color: "#c9a84c" }}>info@slopeps.com</a>.</p>
+            <p>Za uveljavljanje svojih pravic nas kontaktirajte na <a href="mailto:info@slopeps.com" style={{ color: "var(--color-accent-text)" }}>info@slopeps.com</a>.</p>
           </Section>
 
           <Section title="8. Piškotki">
@@ -142,16 +142,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 style={{
         fontFamily: "var(--font-montserrat)",
         fontSize: "17px", fontWeight: 800,
-        color: "#fff", marginBottom: "14px",
+        color: "var(--color-text)", marginBottom: "14px",
         paddingBottom: "10px",
-        borderBottom: "1px solid rgba(255,255,255,0.12)",
+        borderBottom: "1px solid var(--color-border)",
       }}>
         {title}
       </h2>
       <div style={{
         fontFamily: "var(--font-opensans)",
         fontSize: "15px", lineHeight: 1.8,
-        color: "rgba(255,255,255,0.75)",
+        color: "var(--color-text-muted)",
       }}>
         {children}
       </div>

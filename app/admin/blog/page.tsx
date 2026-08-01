@@ -239,7 +239,7 @@ export default function AdminBlogPage() {
         </div>
 
         {showForm && (
-          <div style={{ ...card, marginBottom: "24px", borderLeft: "3px solid #c9a84c" }}>
+          <div style={{ ...card, marginBottom: "24px", borderLeft: "3px solid var(--color-accent-text)" }}>
             <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#111", margin: "0 0 20px 0" }}>
               {editingId ? "Uredi objavo" : "Nova blog objava"}
             </h3>

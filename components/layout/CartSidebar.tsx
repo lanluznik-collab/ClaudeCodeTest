@@ -71,8 +71,8 @@ export function CartSidebar() {
           right: 0,
           bottom: 0,
           width: "min(420px, 100vw)",
-          backgroundColor: "#111111",
-          borderLeft: "1px solid rgba(201,168,76,0.18)",
+          backgroundColor: "var(--color-bg)",
+          borderLeft: "1px solid var(--color-border)",
           zIndex: 201,
           display: "flex",
           flexDirection: "column",
@@ -90,16 +90,16 @@ export function CartSidebar() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "20px 24px",
-          borderBottom: "1px solid rgba(255,255,255,0.07)",
+          borderBottom: "1px solid var(--color-border)",
           flexShrink: 0,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <ShoppingBag size={18} color="#c9a84c" />
+            <ShoppingBag size={18} color="var(--color-brand)" />
             <span style={{
               fontFamily: "var(--font-montserrat)",
               fontSize: "14px", fontWeight: 800,
               textTransform: "uppercase", letterSpacing: "0.12em",
-              color: "#fff",
+              color: "var(--color-text)",
             }}>
               {t.title}
             </span>
@@ -107,7 +107,7 @@ export function CartSidebar() {
               <span style={{
                 fontFamily: "var(--font-montserrat)",
                 fontSize: "11px", fontWeight: 700,
-                backgroundColor: "#c9a84c", color: "#000",
+                backgroundColor: "var(--color-accent)", color: "var(--color-on-accent)",
                 borderRadius: "100px", padding: "1px 8px",
               }}>
                 {items.reduce((s, i) => s + i.quantity, 0)}
@@ -119,12 +119,12 @@ export function CartSidebar() {
             aria-label="Zapri košarico"
             style={{
               background: "none", border: "none", cursor: "pointer",
-              color: "rgba(255,255,255,0.4)", padding: "4px",
+              color: "var(--color-text-faint)", padding: "4px",
               display: "flex", alignItems: "center",
               transition: "color 0.15s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-faint)")}
           >
             <X size={20} />
           </button>
@@ -138,10 +138,10 @@ export function CartSidebar() {
               alignItems: "center", justifyContent: "center",
               height: "100%", gap: "20px", padding: "48px 0",
             }}>
-              <ShoppingBag size={40} color="rgba(255,255,255,0.12)" />
+              <ShoppingBag size={40} color="var(--color-border)" />
               <p style={{
                 fontFamily: "var(--font-opensans)",
-                fontSize: "15px", color: "rgba(255,255,255,0.4)",
+                fontSize: "15px", color: "var(--color-text-muted)",
                 textAlign: "center", margin: 0,
               }}>
                 {t.empty}
@@ -152,7 +152,7 @@ export function CartSidebar() {
                   fontFamily: "var(--font-montserrat)",
                   fontSize: "12px", fontWeight: 700,
                   textTransform: "uppercase", letterSpacing: "0.1em",
-                  color: "#c9a84c", background: "none", border: "none",
+                  color: "var(--color-accent-text)", background: "none", border: "none",
                   cursor: "pointer", padding: 0,
                 }}
               >
@@ -166,16 +166,16 @@ export function CartSidebar() {
                   display: "flex",
                   gap: "14px",
                   padding: "16px 0",
-                  borderBottom: "1px solid rgba(255,255,255,0.06)",
+                  borderBottom: "1px solid var(--color-border)",
                 }}>
                   {/* Thumbnail */}
                   <div style={{
                     width: "70px", height: "70px",
-                    backgroundColor: "#1c1c1c",
+                    backgroundColor: "var(--color-surface)",
                     borderRadius: "4px",
                     overflow: "hidden",
                     flexShrink: 0,
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    border: "1px solid var(--color-border)",
                   }}>
                     {item.image && (
                       <Image
@@ -193,7 +193,7 @@ export function CartSidebar() {
                       <p style={{
                         fontFamily: "var(--font-montserrat)",
                         fontSize: "13px", fontWeight: 700,
-                        color: "#fff", margin: 0,
+                        color: "var(--color-text)", margin: 0,
                         overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
                         flex: 1,
                       }}>
@@ -204,12 +204,12 @@ export function CartSidebar() {
                         aria-label={`Odstrani ${item.name}`}
                         style={{
                           background: "none", border: "none", cursor: "pointer",
-                          color: "rgba(255,255,255,0.25)", flexShrink: 0,
+                          color: "var(--color-text-faint)", flexShrink: 0,
                           padding: "2px", display: "flex", alignItems: "center",
                           transition: "color 0.15s",
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = "#e53935")}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.25)")}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-danger)")}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-faint)")}
                       >
                         <X size={14} />
                       </button>
@@ -217,7 +217,7 @@ export function CartSidebar() {
 
                     <p style={{
                       fontFamily: "var(--font-opensans)",
-                      fontSize: "12px", color: "rgba(255,255,255,0.35)",
+                      fontSize: "12px", color: "var(--color-text-muted)",
                       margin: 0,
                     }}>
                       {formatPrice(item.price)} {t.perUnit}
@@ -227,7 +227,7 @@ export function CartSidebar() {
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <div style={{
                         display: "inline-flex", alignItems: "center",
-                        border: "1px solid rgba(255,255,255,0.12)",
+                        border: "1px solid var(--color-border)",
                         borderRadius: "4px", overflow: "hidden",
                       }}>
                         <button
@@ -235,7 +235,7 @@ export function CartSidebar() {
                           style={{
                             width: "28px", height: "28px",
                             background: "none", border: "none",
-                            color: "rgba(255,255,255,0.5)", fontSize: "15px",
+                            color: "var(--color-text-muted)", fontSize: "15px",
                             cursor: "pointer", display: "flex",
                             alignItems: "center", justifyContent: "center",
                           }}
@@ -246,7 +246,7 @@ export function CartSidebar() {
                           padding: "0 10px",
                           fontFamily: "var(--font-montserrat)",
                           fontSize: "13px", fontWeight: 700,
-                          color: "#fff", minWidth: "24px", textAlign: "center",
+                          color: "var(--color-text)", minWidth: "24px", textAlign: "center",
                         }}>
                           {item.quantity}
                         </span>
@@ -255,7 +255,7 @@ export function CartSidebar() {
                           style={{
                             width: "28px", height: "28px",
                             background: "none", border: "none",
-                            color: "rgba(255,255,255,0.5)", fontSize: "15px",
+                            color: "var(--color-text-muted)", fontSize: "15px",
                             cursor: "pointer", display: "flex",
                             alignItems: "center", justifyContent: "center",
                           }}
@@ -267,7 +267,7 @@ export function CartSidebar() {
                       <span style={{
                         fontFamily: "var(--font-montserrat)",
                         fontSize: "14px", fontWeight: 800,
-                        color: "#c9a84c",
+                        color: "var(--color-accent-text)",
                       }}>
                         {formatPrice(item.price * item.quantity)}
                       </span>
@@ -283,7 +283,7 @@ export function CartSidebar() {
         {items.length > 0 && (
           <div style={{
             flexShrink: 0,
-            borderTop: "1px solid rgba(255,255,255,0.07)",
+            borderTop: "1px solid var(--color-border)",
             padding: "20px 24px",
             display: "flex",
             flexDirection: "column",
@@ -293,7 +293,7 @@ export function CartSidebar() {
             {!freeShipping && (
               <p style={{
                 fontFamily: "var(--font-opensans)",
-                fontSize: "12px", color: "rgba(255,255,255,0.4)",
+                fontSize: "12px", color: "var(--color-text-muted)",
                 textAlign: "center", margin: 0,
               }}>
                 {t.freeShippingNote}
@@ -302,20 +302,20 @@ export function CartSidebar() {
 
             {/* Subtotal row */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>
+              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)" }}>
                 {t.subtotal}
               </span>
-              <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "#fff" }}>
+              <span style={{ fontFamily: "var(--font-montserrat)", fontSize: "13px", fontWeight: 700, color: "var(--color-text)" }}>
                 {formatPrice(sub)}
               </span>
             </div>
 
             {/* Shipping row */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>
+              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)" }}>
                 {t.shipping}
               </span>
-              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: freeShipping ? "#4ade80" : "#fff" }}>
+              <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: freeShipping ? "var(--color-success)" : "var(--color-text)" }}>
                 {freeShipping ? t.freeShipping : formatPrice(SHIPPING.price)}
               </span>
             </div>
@@ -323,18 +323,18 @@ export function CartSidebar() {
             {/* Total */}
             <div style={{
               display: "flex", justifyContent: "space-between", alignItems: "center",
-              borderTop: "1px solid rgba(255,255,255,0.1)",
+              borderTop: "1px solid var(--color-border)",
               paddingTop: "12px", marginTop: "2px",
             }}>
               <span style={{
                 fontFamily: "var(--font-montserrat)", fontSize: "13px",
-                fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#fff",
+                fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-text)",
               }}>
                 {t.total}
               </span>
               <span style={{
                 fontFamily: "var(--font-montserrat)", fontSize: "20px",
-                fontWeight: 900, color: "#c9a84c",
+                fontWeight: 900, color: "var(--color-accent-text)",
               }}>
                 {formatPrice(total)}
               </span>
@@ -347,8 +347,8 @@ export function CartSidebar() {
               style={{
                 display: "block", textAlign: "center",
                 padding: "14px",
-                backgroundColor: "#c9a84c",
-                color: "#000",
+                backgroundColor: "var(--color-accent)",
+                color: "var(--color-on-accent)",
                 fontFamily: "var(--font-montserrat)",
                 fontWeight: 800, fontSize: "13px",
                 textTransform: "uppercase", letterSpacing: "0.1em",
@@ -369,8 +369,8 @@ export function CartSidebar() {
                 display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
                 padding: "13px",
                 backgroundColor: "transparent",
-                color: "#fff",
-                border: "1px solid rgba(255,255,255,0.15)",
+                color: "var(--color-brand)",
+                border: "1px solid var(--color-brand)",
                 fontFamily: "var(--font-montserrat)",
                 fontWeight: 700, fontSize: "12px",
                 textTransform: "uppercase", letterSpacing: "0.08em",

@@ -5,9 +5,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 const dropdownStyle: React.CSSProperties = {
   fontFamily: "var(--font-opensans)",
   fontSize: "13px",
-  color: "#333",
-  backgroundColor: "#fff",
-  border: "1px solid #ddd",
+  color: "var(--color-text)",
+  backgroundColor: "var(--color-bg)",
+  border: "1px solid var(--color-border)",
   borderRadius: "4px",
   padding: "8px 12px",
   cursor: "pointer",
@@ -21,7 +21,7 @@ const checkboxLabelStyle: React.CSSProperties = {
   gap: "6px",
   fontFamily: "var(--font-opensans)",
   fontSize: "13px",
-  color: "rgba(255,255,255,0.8)",
+  color: "var(--color-text)",
   cursor: "pointer",
   userSelect: "none",
 };
@@ -75,14 +75,14 @@ export function ShopFilters({ categories }: { categories: string[] }) {
             type="checkbox"
             checked={inStock}
             onChange={(e) => update("in_stock", e.target.checked ? "true" : "")}
-            style={{ accentColor: "#c9a84c", width: "14px", height: "14px" }}
+            style={{ accentColor: "var(--color-accent-text)", width: "14px", height: "14px" }}
           />
           Na zalogi
         </label>
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>
+        <span style={{ fontFamily: "var(--font-opensans)", fontSize: "13px", color: "var(--color-text-muted)" }}>
           Razvrsti:
         </span>
         <select value={currentSort} onChange={(e) => update("sort", e.target.value)} style={dropdownStyle}>

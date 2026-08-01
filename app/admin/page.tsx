@@ -409,7 +409,7 @@ export default function AdminDashboard() {
 
         {/* Add / Edit form */}
         {showForm && (
-          <div style={{ ...card, marginBottom: "24px", borderLeft: "3px solid #c9a84c" }}>
+          <div style={{ ...card, marginBottom: "24px", borderLeft: "3px solid var(--color-accent-text)" }}>
             <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#111", margin: "0 0 20px 0" }}>
               {editingId ? "Edit Product" : "Add New Product"}
             </h3>
@@ -437,7 +437,7 @@ export default function AdminDashboard() {
                     type="checkbox"
                     checked={form.featured}
                     onChange={(e) => setField("featured", e.target.checked)}
-                    style={{ width: "16px", height: "16px", accentColor: "#c9a84c" }}
+                    style={{ width: "16px", height: "16px", accentColor: "var(--color-accent-text)" }}
                   />
                   <label htmlFor="pf-featured" style={{ fontSize: "13px", color: "#333", cursor: "pointer" }}>
                     Featured on homepage
@@ -499,7 +499,7 @@ export default function AdminDashboard() {
                         <span style={{ fontWeight: 600 }}>{p.name}</span>
                       </td>
                       <td style={{ ...tdStyle, color: "#666" }}>{p.category ?? "—"}</td>
-                      <td style={{ ...tdStyle, color: "#c9a84c", fontWeight: 700 }}>{formatPrice(p.price)}</td>
+                      <td style={{ ...tdStyle, color: "var(--color-accent-text)", fontWeight: 700 }}>{formatPrice(p.price)}</td>
                       <td style={{ ...tdStyle, color: p.stock === 0 ? "#e53935" : "#333" }}>
                         {p.stock === 0 ? "Out of stock" : p.stock}
                       </td>
@@ -553,7 +553,7 @@ export default function AdminDashboard() {
         {coaProductId && (
           <>
             {/* Add new COA form */}
-            <div style={{ ...card, marginBottom: "20px", borderLeft: "3px solid #c9a84c" }}>
+            <div style={{ ...card, marginBottom: "20px", borderLeft: "3px solid var(--color-accent-text)" }}>
               <h3 style={{ fontSize: "14px", fontWeight: 700, color: "#111", margin: "0 0 16px 0" }}>Dodaj certifikat</h3>
               <form onSubmit={handleAddCoaDoc}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "14px", marginBottom: "14px" }}>
@@ -590,7 +590,7 @@ export default function AdminDashboard() {
                     {coaForm.file_url ? (
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                         <a href={coaForm.file_url} target="_blank" rel="noopener noreferrer"
-                          style={{ fontSize: "13px", color: "#c9a84c" }}>
+                          style={{ fontSize: "13px", color: "var(--color-accent-text)" }}>
                           {coaForm.file_size ? `Datoteka (${coaForm.file_size})` : "Naložena datoteka"}
                         </a>
                         <button type="button" onClick={() => setCoaForm((f) => ({ ...f, file_url: "", file_size: "" }))}
@@ -659,7 +659,7 @@ export default function AdminDashboard() {
                           <td style={tdStyle}>
                             {doc.file_url ? (
                               <a href={doc.file_url} target="_blank" rel="noopener noreferrer"
-                                style={{ fontSize: "12px", color: "#c9a84c", textDecoration: "none" }}>
+                                style={{ fontSize: "12px", color: "var(--color-accent-text)", textDecoration: "none" }}>
                                 Prenesi
                               </a>
                             ) : "—"}
@@ -716,7 +716,7 @@ export default function AdminDashboard() {
                             ))
                           : "—"}
                       </td>
-                      <td style={{ ...tdStyle, color: "#c9a84c", fontWeight: 700 }}>
+                      <td style={{ ...tdStyle, color: "var(--color-accent-text)", fontWeight: 700 }}>
                         {formatPrice(o.total)}
                       </td>
                       <td style={{ ...tdStyle, textTransform: "capitalize", color: "#666" }}>

@@ -15,7 +15,7 @@ export function StatsSection() {
 
   // Also show partner logo in this section
   return (
-    <section style={{ backgroundColor: "#111111" }}>
+    <section style={{ backgroundColor: "var(--color-bg)" }}>
       <div
         style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 24px" }}
         className="grid grid-cols-2 md:grid-cols-4 gap-0"
@@ -26,7 +26,7 @@ export function StatsSection() {
             style={{
               textAlign: "center",
               padding: "32px 16px",
-              borderRight: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
+              borderRight: i < stats.length - 1 ? "1px solid var(--color-border)" : "none",
             }}
             className={[
               i % 2 === 1 ? "!border-r-0 md:!border-r" : "",
@@ -36,14 +36,14 @@ export function StatsSection() {
             <p style={{
               fontFamily: "var(--font-montserrat)",
               fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 900, color: "#c9a84c",
+              fontWeight: 900, color: "var(--color-accent-text)",
               margin: "0 0 8px 0", lineHeight: 1,
             }}>
               {value}
             </p>
             <p style={{
               fontFamily: "var(--font-opensans)",
-              fontSize: "13px", color: "rgba(255,255,255,0.6)",
+              fontSize: "13px", color: "var(--color-text-muted)",
               margin: 0, lineHeight: 1.4,
             }}>
               {label}

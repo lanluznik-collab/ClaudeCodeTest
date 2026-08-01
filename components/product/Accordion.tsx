@@ -17,7 +17,7 @@ export function Accordion({
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+    <div style={{ borderBottom: "1px solid var(--color-border)" }}>
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
@@ -38,7 +38,7 @@ export function Accordion({
             fontFamily: "var(--font-montserrat)",
             fontSize: "12px",
             fontWeight: 800,
-            color: "#c9a84c",
+            color: "var(--color-accent-text)",
             flexShrink: 0,
             width: "20px",
           }}
@@ -53,7 +53,7 @@ export function Accordion({
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.05em",
-            color: "#fff",
+            color: "var(--color-text)",
           }}
         >
           {title}
@@ -62,7 +62,7 @@ export function Accordion({
           size={18}
           style={{
             flexShrink: 0,
-            color: "rgba(255,255,255,0.5)",
+            color: "var(--color-text-muted)",
             transform: open ? "rotate(180deg)" : "rotate(0deg)",
             transition: "transform 0.2s",
           }}
@@ -75,7 +75,7 @@ export function Accordion({
               fontFamily: "var(--font-opensans)",
               fontSize: "14px",
               lineHeight: 1.8,
-              color: "rgba(255,255,255,0.7)",
+              color: "var(--color-text-muted)",
               maxWidth: "760px",
               margin: 0,
             }}

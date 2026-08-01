@@ -24,7 +24,7 @@ export default function PageHero({
   return (
     <section
       style={{
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%)',
+        background: 'linear-gradient(135deg, var(--color-brand-deep) 0%, var(--color-brand) 50%, var(--color-brand-deep) 100%)',
         padding: paddingY,
         position: 'relative',
         overflow: 'hidden',
@@ -42,7 +42,7 @@ export default function PageHero({
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '2px',
-              color: 'var(--primary)',
+              color: 'var(--color-accent)',
               marginBottom: '12px',
             }}
           >
@@ -59,7 +59,7 @@ export default function PageHero({
             flexWrap: 'wrap',
             gap: '2px',
             fontSize: '13px',
-            color: 'var(--gray-400)',
+            color: 'rgba(255,255,255,0.55)',
             marginBottom: '14px',
           }}
         >
@@ -70,7 +70,7 @@ export default function PageHero({
                 {index > 0 && (
                   <i
                     className="ri-arrow-right-s-line"
-                    style={{ fontSize: '12px', color: 'var(--gray-600)' }}
+                    style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)' }}
                   />
                 )}
                 {isLast || !item.href ? (

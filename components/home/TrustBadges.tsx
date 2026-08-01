@@ -10,7 +10,7 @@ const badges = [
 
 export function TrustBadges() {
   return (
-    <section style={{ backgroundColor: "#161616" }}>
+    <section style={{ backgroundColor: "var(--color-surface)" }}>
       {/* 1 column on mobile, 3 columns on md+ */}
       <div
         className="grid grid-cols-1 md:grid-cols-3 mx-auto px-4 md:px-6"
@@ -22,26 +22,26 @@ export function TrustBadges() {
             className={[
               "flex items-start gap-5 py-8 px-4 md:px-8",
               // horizontal divider between rows on mobile
-              i < badges.length - 1 ? "border-b border-white/[0.07] md:border-b-0" : "",
+              i < badges.length - 1 ? "border-b border-[var(--color-border)] md:border-b-0" : "",
               // vertical divider between columns on desktop
-              i < badges.length - 1 ? "md:border-r md:border-white/[0.07]" : "",
+              i < badges.length - 1 ? "md:border-r md:border-[var(--color-border)]" : "",
             ].join(" ")}
           >
             <div style={{ flexShrink: 0 }}>
-              <Icon style={{ width: "40px", height: "40px", color: "#c9a84c" }} strokeWidth={1.25} />
+              <Icon style={{ width: "40px", height: "40px", color: "var(--color-accent-text)" }} strokeWidth={1.25} />
             </div>
             <div>
               <h2 style={{
                 fontFamily: "var(--font-montserrat)",
                 fontSize: "14px", fontWeight: 700,
                 textTransform: "uppercase", letterSpacing: "0.08em",
-                color: "#ffffff", margin: "0 0 8px 0",
+                color: "var(--color-text)", margin: "0 0 8px 0",
               }}>
                 {label}
               </h2>
               <p style={{
                 fontFamily: "var(--font-opensans)",
-                fontSize: "13px", color: "rgba(255,255,255,0.5)",
+                fontSize: "13px", color: "var(--color-text-muted)",
                 lineHeight: 1.65, margin: 0,
               }}>
                 {sub}
